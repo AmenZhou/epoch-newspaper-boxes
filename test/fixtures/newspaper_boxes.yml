@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  'no': 1
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: 1
+  borough_detail: MyString
+  address_remark: MyText
+  date_t: 2014-03-21 18:39:30
+  deliver_type: MyString
+  box_type: MyString
+  remark: MyText
+
+two:
+  'no': 1
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: 1
+  borough_detail: MyString
+  address_remark: MyText
+  date_t: 2014-03-21 18:39:30
+  deliver_type: MyString
+  box_type: MyString
+  remark: MyText

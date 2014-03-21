@@ -1,0 +1,59 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>No:</strong>
+  <%= @newspaper_box.no %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @newspaper_box.address %>
+</p>
+
+<p>
+  <strong>City:</strong>
+  <%= @newspaper_box.city %>
+</p>
+
+<p>
+  <strong>State:</strong>
+  <%= @newspaper_box.state %>
+</p>
+
+<p>
+  <strong>Zip:</strong>
+  <%= @newspaper_box.zip %>
+</p>
+
+<p>
+  <strong>Borough detail:</strong>
+  <%= @newspaper_box.borough_detail %>
+</p>
+
+<p>
+  <strong>Address remark:</strong>
+  <%= @newspaper_box.address_remark %>
+</p>
+
+<p>
+  <strong>Date t:</strong>
+  <%= @newspaper_box.date_t %>
+</p>
+
+<p>
+  <strong>Deliver type:</strong>
+  <%= @newspaper_box.deliver_type %>
+</p>
+
+<p>
+  <strong>Box type:</strong>
+  <%= @newspaper_box.box_type %>
+</p>
+
+<p>
+  <strong>Remark:</strong>
+  <%= @newspaper_box.remark %>
+</p>
+
+<%= link_to 'Edit', edit_newspaper_box_path(@newspaper_box) %> |
+<%= link_to 'Back', newspaper_boxes_path %>

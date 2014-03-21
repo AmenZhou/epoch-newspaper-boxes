@@ -1,0 +1,2 @@
+module NewspaperBoxesHelper
+end

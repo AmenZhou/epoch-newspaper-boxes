@@ -1,0 +1,47 @@
+<h1>Listing newspaper_boxes</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Borough detail</th>
+      <th>Address remark</th>
+      <th>Date t</th>
+      <th>Deliver type</th>
+      <th>Box type</th>
+      <th>Remark</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @newspaper_boxes.each do |newspaper_box| %>
+      <tr>
+        <td><%= newspaper_box.no %></td>
+        <td><%= newspaper_box.address %></td>
+        <td><%= newspaper_box.city %></td>
+        <td><%= newspaper_box.state %></td>
+        <td><%= newspaper_box.zip %></td>
+        <td><%= newspaper_box.borough_detail %></td>
+        <td><%= newspaper_box.address_remark %></td>
+        <td><%= newspaper_box.date_t %></td>
+        <td><%= newspaper_box.deliver_type %></td>
+        <td><%= newspaper_box.box_type %></td>
+        <td><%= newspaper_box.remark %></td>
+        <td><%= link_to 'Show', newspaper_box %></td>
+        <td><%= link_to 'Edit', edit_newspaper_box_path(newspaper_box) %></td>
+        <td><%= link_to 'Destroy', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Newspaper box', new_newspaper_box_path %>
