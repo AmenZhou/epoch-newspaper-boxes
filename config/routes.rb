@@ -1,4 +1,6 @@
 EpochNewspaperBoxes::Application.routes.draw do
+	resources :box_records
+  devise_for :users
   resources :newspaper_boxes
 	root "pages#home"
   # The priority is based upon order of creation: first created -> highest priority.

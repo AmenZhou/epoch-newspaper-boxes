@@ -3,7 +3,6 @@
 <table>
   <thead>
     <tr>
-      <th>No</th>
       <th>Address</th>
       <th>City</th>
       <th>State</th>
@@ -23,7 +22,6 @@
   <tbody>
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr>
-        <td><%= newspaper_box.no %></td>
         <td><%= newspaper_box.address %></td>
         <td><%= newspaper_box.city %></td>
         <td><%= newspaper_box.state %></td>
@@ -34,6 +32,7 @@
         <td><%= newspaper_box.deliver_type %></td>
         <td><%= newspaper_box.box_type %></td>
         <td><%= newspaper_box.remark %></td>
+				<td><%= link_to '查看记录', box_records %></td>
         <td><%= link_to 'Show', newspaper_box %></td>
         <td><%= link_to 'Edit', edit_newspaper_box_path(newspaper_box) %></td>
         <td><%= link_to 'Destroy', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' } %></td>

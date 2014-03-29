@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  'no': 1
+  date_t: 2014-03-24 13:21:48
+  quantity: 
+  remark: MyText
+
+two:
+  'no': 1
+  date_t: 2014-03-24 13:21:48
+  quantity: 
+  remark: MyText
