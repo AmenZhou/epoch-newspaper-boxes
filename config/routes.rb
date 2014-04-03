@@ -1,5 +1,7 @@
 EpochNewspaperBoxes::Application.routes.draw do
-	resources :box_records
+	resources :box_records do
+    get 'record_view' => 'box_records#record_view', on: :member, as: :view
+  end
   devise_for :users
   resources :newspaper_boxes
 	root "pages#home"

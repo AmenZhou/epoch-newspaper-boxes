@@ -33,7 +33,7 @@
         <td><%= newspaper_box.deliver_type %></td>
         <td><%= newspaper_box.box_type %></td>
         <td><%= newspaper_box.remark %></td>
-				<td><%= link_to 'Record', newspaper_box.box_records.first %></td>
+				<td><%= link_to 'Record', view_box_record_path(newspaper_box) %></td>
         <td><%= link_to 'Show', newspaper_box %></td>
         <td><%= link_to 'Edit', edit_newspaper_box_path(newspaper_box) %></td>
         <td><%= link_to 'Destroy', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' } %></td>

@@ -7,6 +7,12 @@ class BoxRecordsController < ApplicationController
     @box_records = BoxRecord.all
   end
 
+  def record_view
+    newspaper_boxes = NewspaperBox.find params[:id]
+    @box_records = newspaper_boxes.box_records
+    render partial: 'records_table'
+  end
+
   # GET /box_records/1
   # GET /box_records/1.json
   def show
@@ -21,9 +27,6 @@ class BoxRecordsController < ApplicationController
   def edit
   end
 
-	def view_records
-		@box_records = BoxRecord.all
-	end
   # POST /box_records
   # POST /box_records.json
   def create

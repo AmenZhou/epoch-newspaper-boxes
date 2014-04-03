@@ -1,0 +1,28 @@
+<table>
+  <thead>
+    <tr>
+      <th>Box Id</th>
+      <th>Box Id</th>
+      <th>Date t</th>
+      <th>Quantity</th>
+      <th>Remark</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @box_records.each do |box_record| %>
+      <tr>
+        <td><%= box_record.newspaper_box_id %></td>
+        <td><%= box_record.date_t %></td>
+        <td><%= box_record.quantity %></td>
+        <td><%= box_record.remark %></td>
+        <td><%= link_to 'Show', box_record %></td>
+        <td><%= link_to 'Edit', edit_box_record_path(box_record) %></td>
+        <td><%= link_to 'Destroy', box_record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
