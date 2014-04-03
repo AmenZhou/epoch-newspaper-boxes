@@ -10,7 +10,6 @@ class BoxRecordsController < ApplicationController
   def record_view
     newspaper_boxes = NewspaperBox.find params[:id]
     @box_records = newspaper_boxes.box_records
-    render partial: 'records_table'
   end
 
   # GET /box_records/1
