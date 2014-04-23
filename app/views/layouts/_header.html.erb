@@ -17,7 +17,6 @@
 		<ul class="nav navbar-nav navbar-right">
 			<li><%= link_to "主页", root_path %></li>
 			<% if user_signed_in? %>
-				<li><%= link_to "账户设置", edit_user_registration_path %></li>
 				<li><%= link_to "注销", destroy_user_session_path, method: :delete %></li>
 			<% else %>
 				<li><%= link_to "登陆", new_user_session_path %></li>
