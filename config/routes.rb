@@ -1,10 +1,16 @@
 EpochNewspaperBoxes::Application.routes.draw do
+	root "newspaper_boxes#index"
 	resources :box_records do
     get 'record_view' => 'box_records#record_view', on: :member, as: :view
   end
   devise_for :users
-  resources :newspaper_boxes
-	root "newspaper_boxes#index"
+  resources :newspaper_boxes do
+    collection do
+      post 'upload_file'
+    end
+  end
+  get 'import' => 'import#index'
+  post 'import/upload_file'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

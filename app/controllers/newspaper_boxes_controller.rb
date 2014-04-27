@@ -7,6 +7,10 @@ class NewspaperBoxesController < ApplicationController
     @newspaper_boxes = NewspaperBox.all
   end
 
+  def upload_file
+    NewspaperBox.upload(params[:file])
+    redirect_to action: :index
+  end
   # GET /newspaper_boxes/1
   # GET /newspaper_boxes/1.json
   def show
@@ -69,6 +73,6 @@ class NewspaperBoxesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def newspaper_box_params
-      params.require(:newspaper_box).permit(:no, :address, :city, :state, :zip, :borough_detail, :address_remark, :date_t, :deliver_type, :box_type, :remark)
+      params.require(:newspaper_box).permit(:address, :city, :state, :zip, :borough_detail, :address_remark, :date_t, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :remark)
     end
 end

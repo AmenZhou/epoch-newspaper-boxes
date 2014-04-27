@@ -42,10 +42,14 @@ end
 # gem 'capistrano', group: :development
 
 # Use debugger
-# gem 'debugger', group: [:development, :test]
+gem 'debugger', group: [:development, :test]
 
 gem 'bootstrap-sass', github: 'thomas-mcdonald/bootstrap-sass', branch: 'master'
 
 gem 'devise', '~> 3.2.3'
 
 gem 'thread_safe', '0.2.0'
+
+gem 'roo'
+
+gem 'iconv', '~> 1.0.4'

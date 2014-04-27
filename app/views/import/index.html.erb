@@ -1,0 +1,7 @@
+<h2>Import CSV File</h2>
+
+<%= form_tag import_upload_file_path, multipart: true do %>
+  <%= label_tag :file, "Select File"%>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>

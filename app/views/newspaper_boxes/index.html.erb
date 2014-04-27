@@ -1,6 +1,6 @@
 <h1>Listing newspaper_boxes</h1>
 
-<table>
+<table class="table">
   <thead>
     <tr>
       <th>Address</th>
@@ -11,7 +11,10 @@
       <th>Address remark</th>
       <th>Date t</th>
       <th>Deliver type</th>
-      <th>Box type</th>
+      <th>Iron Box</th>
+      <th>Plastic Box</th>
+      <th>Selling Box</th>
+      <th>Paper_shelf</th>
       <th>Remark</th>
       <th></th>
       <th></th>
@@ -31,7 +34,10 @@
         <td><%= newspaper_box.address_remark %></td>
         <td><%= newspaper_box.date_t %></td>
         <td><%= newspaper_box.deliver_type %></td>
-        <td><%= newspaper_box.box_type %></td>
+        <td><%= newspaper_box.iron_box %></td>
+        <td><%= newspaper_box.plastic_box %></td>
+        <td><%= newspaper_box.selling_box %></td>
+        <td><%= newspaper_box.paper_shelf %></td>
         <td><%= newspaper_box.remark %></td>
 				<td><%= link_to 'Record', view_box_record_path(newspaper_box) %></td>
         <td><%= link_to 'Show', newspaper_box %></td>
@@ -45,3 +51,11 @@
 <br>
 
 <%= link_to 'New Newspaper box', new_newspaper_box_path %>
+
+<h2>Import CSV File</h2>
+
+<%= form_tag upload_file_newspaper_boxes_path, multipart: true do %>
+  <%= label_tag :file, "Select File"%>
+  <%= file_field_tag :file %>
+  <%= submit_tag "Import" %>
+<% end %>
