@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140427195514) do
+ActiveRecord::Schema.define(version: 20140721000837) do
 
   create_table "box_records", force: true do |t|
     t.integer  "newspaper_box_id"
@@ -43,6 +43,13 @@ ActiveRecord::Schema.define(version: 20140427195514) do
     t.integer  "plastic_box"
     t.integer  "selling_box"
     t.integer  "paper_shelf"
+    t.integer  "mon"
+    t.integer  "tue"
+    t.integer  "wed"
+    t.integer  "thu"
+    t.integer  "fri"
+    t.integer  "sat"
+    t.integer  "sun"
   end
 
   create_table "users", force: true do |t|
