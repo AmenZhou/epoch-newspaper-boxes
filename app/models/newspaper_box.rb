@@ -20,4 +20,25 @@ class NewspaperBox < ActiveRecord::Base
     else raise "Unknown file type: #{file.original_filename}"
     end
   end
+
+  def self.fix_nil
+    %w(mon tue wed thu fri sat sun).each do |day|
+      NewspaperBox.where("#{day} is null").update_all("#{day}= 0")
+    end
+  end
+
+
+  def self.report
+    #will return [{city:, amount: ,}, 
+    #{}]
+    rs = NewspaperBox.group(:city).select("city, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+    report = []
+    rs.each do |row|
+      hash = {}
+      hash[:city] = row.city
+      hash[:amount] = row.mon + row.tue + row.wed + row.thu + row.fri + row.sat + row.sun
+      report << hash
+    end
+    report
+  end
 end

@@ -6,6 +6,7 @@ EpochNewspaperBoxes::Application.routes.draw do
   devise_for :users
   resources :newspaper_boxes do
     collection do
+      get 'report'
       post 'upload_file'
     end
   end

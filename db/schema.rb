@@ -43,13 +43,13 @@ ActiveRecord::Schema.define(version: 20140721000837) do
     t.integer  "plastic_box"
     t.integer  "selling_box"
     t.integer  "paper_shelf"
-    t.integer  "mon"
-    t.integer  "tue"
-    t.integer  "wed"
-    t.integer  "thu"
-    t.integer  "fri"
-    t.integer  "sat"
-    t.integer  "sun"
+    t.integer  "mon",            default: 0
+    t.integer  "tue",            default: 0
+    t.integer  "wed",            default: 0
+    t.integer  "thu",            default: 0
+    t.integer  "fri",            default: 0
+    t.integer  "sat",            default: 0
+    t.integer  "sun",            default: 0
   end
 
   create_table "users", force: true do |t|
