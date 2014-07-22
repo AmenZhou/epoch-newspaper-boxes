@@ -70,7 +70,12 @@ class NewspaperBoxesController < ApplicationController
   end
 
   def map
-    
+    @locations = NewspaperBox.first(2).map do |np|
+      location = {}
+      location['latitude'] = np.latitude 
+      location['longitude'] = np.longitude
+      location
+    end
   end
 
   private
