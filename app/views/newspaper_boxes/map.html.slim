@@ -30,3 +30,18 @@ content_for :head
 
     google.maps.event.addDomListener(window, 'load', initialize); 
 
+    $(document).ready(function(){
+       $('#region').change(function(){
+         var city = $(this).val();
+         $.ajax({
+           type: 'get',
+           url: '/newspaper_boxes/map',
+           data: {city: city},
+           success: function(data){
+             alert(data);
+           }
+         });
+       }
+       );
+    })
+
