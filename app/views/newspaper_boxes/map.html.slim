@@ -1,0 +1,27 @@
+h1 Newspaper Map
+div#map-show style='height: 600px'
+
+
+content_for :head
+  script src="https://maps.googleapis.com/maps/api/js?v=3.exp"
+  javascript:
+    var map;
+    function initialize() {
+      var myLat = new google.maps.LatLng(-34.397, 150.644)
+      var mapOptions = {
+        zoom: 8,
+        center: myLat
+      };
+      map = new google.maps.Map(document.getElementById('map-show'),
+          mapOptions);
+
+      var marker = new google.maps.Marker({
+            position: myLat,
+            map: map,
+            title: 'Hello World!'
+        });
+
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize); 
+

@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <%= yield :head%>
 	<%= render 'layouts/header' %>
 	<div class="container">
 		<% flash.each do |name, msg| %>
@@ -14,5 +15,7 @@
 		<% end %>
 		<%= yield %>
 	</div>
+
+  <%= yield :bottom%>
 </body>
 </html>
