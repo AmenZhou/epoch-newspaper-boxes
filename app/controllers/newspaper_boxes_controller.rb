@@ -70,6 +70,7 @@ class NewspaperBoxesController < ApplicationController
   end
 
   def map
+    @citys = NewspaperBox.pluck(:city).compact.uniq
     @locations = NewspaperBox.first(2).map do |np|
       location = {}
       location['latitude'] = np.latitude 
