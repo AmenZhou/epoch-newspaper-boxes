@@ -71,7 +71,9 @@ class NewspaperBoxesController < ApplicationController
 
   def map
     @citys = NewspaperBox.pluck(:city).compact.uniq
-    @locations = NewspaperBox.first(2).map do |np|
+    @selected_city = params[:city]
+    boxes = params[:city].present? ? NewspaperBox.by_city(params[:city]) : NewspaperBox.all
+    @locations = boxes.map do |np|
       location = {}
       location['latitude'] = np.latitude 
       location['longitude'] = np.longitude

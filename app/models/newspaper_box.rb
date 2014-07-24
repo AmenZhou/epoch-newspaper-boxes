@@ -2,6 +2,7 @@ class NewspaperBox < ActiveRecord::Base
   include Geokit::Geocoders
   has_many :box_records
   # attr_accessible :address, :city, :state
+  scope :by_city, -> (city) { where(city: city) }
   def self.upload(file) 
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
