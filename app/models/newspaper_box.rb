@@ -1,4 +1,5 @@
 class NewspaperBox < ActiveRecord::Base
+  include Geokit::Geocoders
   has_many :box_records
   # attr_accessible :address, :city, :state
   def self.upload(file) 
@@ -26,7 +27,17 @@ class NewspaperBox < ActiveRecord::Base
       NewspaperBox.where("#{day} is null").update_all("#{day}= 0")
     end
   end
+ 
+  def display_address
+    "#{address}, #{city}, #{state}, #{zip}"
+  end
 
+  def update_lat_lng
+    #FIXME add google api key will work, otherwise will be limitation of query
+    #geo = Geokit::Geocoders::GoogleGeocoder.geocode(display_address)
+    geo  = MultiGeocoder.geocode(display_address)
+    update_attributes(latitude: geo.lat, longitude: geo.lng)
+  end
 
   def self.report
     #will return [{city:, amount: ,}, 

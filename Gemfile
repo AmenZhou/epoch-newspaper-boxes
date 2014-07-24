@@ -57,3 +57,5 @@ gem 'roo'
 gem 'iconv', '~> 1.0.4'
 
 gem 'table_for_collection'
+
+gem 'geokit-rails'
