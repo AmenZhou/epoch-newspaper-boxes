@@ -79,6 +79,10 @@ class NewspaperBoxesController < ApplicationController
       location['longitude'] = np.longitude
       location
     end
+    respond_to do |format|
+        format.html {  }
+        format.json { render json: @locations.to_json  }
+      end
   end
 
   private
