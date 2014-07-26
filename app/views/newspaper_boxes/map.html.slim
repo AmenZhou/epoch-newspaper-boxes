@@ -1,7 +1,10 @@
 h1 Newspaper Map
 = select_tag :region, options_for_select(@citys), prompt: 'All City'
-#ken
-#amen
+span class="location_info" 
+  | location
+  span#location_count #{@locations.count}
+  | paper
+  span#paper_count #{@locations.inject(0){|sum, i| sum+= i['paper_count']}}
 div#map-show style='height: 600px'
 content_for :head
   script src="https://maps.googleapis.com/maps/api/js?v=3.exp"
@@ -48,8 +51,8 @@ content_for :head
            data: {city: city},
            success: function(data){
              google.maps.event.addDomListener(window, 'load', initialize(data)); 
-             $('#ken').text(data.length);
-             $('#amen').text(paper_count(data));
+             $('#location_count').text(data.length);
+             $('#paper_count').text(paper_count(data));
            }
          });
        }
