@@ -48,9 +48,13 @@ class NewspaperBox < ActiveRecord::Base
     rs.each do |row|
       hash = {}
       hash[:city] = row.city
-      hash[:amount] = row.mon + row.tue + row.wed + row.thu + row.fri + row.sat + row.sun
+      hash[:amount] = row.week_count
       report << hash
     end
     report
+  end
+
+  def week_count
+    mon + tue + wed + thu + fri + sat + sun rescue 0
   end
 end
