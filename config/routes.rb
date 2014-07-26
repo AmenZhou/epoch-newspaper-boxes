@@ -1,5 +1,5 @@
 EpochNewspaperBoxes::Application.routes.draw do
-	root "newspaper_boxes#index"
+	root "newspaper_boxes#map"
 	resources :box_records do
     get 'record_view' => 'box_records#record_view', on: :member, as: :view
   end
