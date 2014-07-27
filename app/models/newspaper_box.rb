@@ -21,6 +21,11 @@ class NewspaperBox < ActiveRecord::Base
     end
   end
 
+  def self.avg_week_count
+    total = NewspaperBox.all.inject(0){|sum, np| sum += np.week_count}
+    (total.to_f / NewspaperBox.count).round(2)
+  end
+
   def self.open_spreadsheet(file)
     case File.extname(file.original_filename)
     when ".csv" then Csv.new(file.path, nil, :ignore)
