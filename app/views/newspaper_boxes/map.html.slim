@@ -22,11 +22,11 @@ content_for :head
       for (var i=0; i < locations.length; i++){
         var myLat = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
         console.log(locations[0].longitude);
-        console.log(locations[1].longitude);
+        console.log(locations[i].address);
         var marker = new google.maps.Marker({
               position: myLat,
               map: map,
-              title: 'Hello World!'
+              title: locations[i].address + "\n" + 'Weekly Distrubition Count:' + locations[i].paper_count
         });
       }
 

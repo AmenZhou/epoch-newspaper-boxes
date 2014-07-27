@@ -78,6 +78,7 @@ class NewspaperBoxesController < ApplicationController
       location['latitude'] = np.latitude 
       location['longitude'] = np.longitude
       location['paper_count'] = np.week_count
+      location['address'] = np.display_address
       location
     end
     respond_to do |format|
