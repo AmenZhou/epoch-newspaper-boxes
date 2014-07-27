@@ -1,0 +1,27 @@
+= table_for @zipcode_report do
+  - columns :zipcode, :mon, :tue, :wed, :thu, :fri, :sat, :sun
+
+#piechart_3d style="width: 900px; height: 6500px;"
+
+script type="text/javascript" src="https://www.google.com/jsapi"
+
+- zipcode_chart_data(@zipcode_report)
+
+content_for :bottom
+javascript:
+  var chart_zipcode = #{raw zipcode_chart_data(@zipcode_report)}
+
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(chart_zipcode);
+
+    var options = {
+      title: 'ZipCode Report',
+      vAxis: {title: 'zipcode', titleTextStyle: {color: 'red'}},
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById('piechart_3d'));
+    chart.draw(data, options);
+   }

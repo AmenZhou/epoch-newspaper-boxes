@@ -69,4 +69,19 @@ class NewspaperBox < ActiveRecord::Base
   def week_count
     mon + tue + wed + thu + fri + sat + sun rescue 0
   end
+
+  def self.zipcode_report
+    rs = NewspaperBox.group(:zip).select("zip, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+    report = []
+    rs.each do |row|
+      hash = {}
+      hash[:zipcode] = row.zip
+      %w(mon tue wed thu fri sat sun).each do |week_day|
+        eval("hash[:#{week_day}] = row.#{week_day}")
+      end
+      report << hash
+    end
+    report
+  end
+
 end
