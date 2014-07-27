@@ -77,7 +77,8 @@ class NewspaperBox < ActiveRecord::Base
       hash = {}
       hash[:zipcode] = row.zip
       %w(mon tue wed thu fri sat sun).each do |week_day|
-        eval("hash[:#{week_day}] = row.#{week_day}")
+        #eval("hash[:#{week_day}] = row.#{week_day}")
+        hash.send(:[]=, week_day.to_sym, row.send(week_day))
       end
       report << hash
     end
