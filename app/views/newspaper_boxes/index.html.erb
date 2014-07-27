@@ -45,7 +45,7 @@
         <td><%= newspaper_box.plastic_box %></td>
         <td><%= newspaper_box.selling_box %></td>
         <td><%= newspaper_box.paper_shelf %></td>
-        <td><%= newspaper_box.mon %></td>
+        <td><%= best_in_place newspaper_box, :mon, type: :input %></td>
         <td><%= newspaper_box.tue %></td>
         <td><%= newspaper_box.wed %></td>
         <td><%= newspaper_box.thu %></td>
@@ -73,3 +73,8 @@
   <%= file_field_tag :file %>
   <%= submit_tag "Import" %>
 <% end %>
+<script>
+  $(document).ready(function(){
+    $('.best_in_place').best_in_place();
+  })
+</script>

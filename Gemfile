@@ -59,3 +59,7 @@ gem 'iconv', '~> 1.0.4'
 gem 'table_for_collection'
 
 gem 'geokit-rails'
+
+gem 'best_in_place', :git => 'https://github.com/aaronchi/best_in_place.git'
+
+gem "jquery-ui-rails"
