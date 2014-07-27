@@ -3,6 +3,13 @@ class NewspaperBox < ActiveRecord::Base
   has_many :box_records
   # attr_accessible :address, :city, :state
   scope :by_city, -> (city) { where(city: city) }
+
+  before_save do
+    geo  = MultiGeocoder.geocode(display_address)
+    self.latitude = geo.lat
+    self.longitude = geo.lng
+  end
+
   def self.upload(file) 
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)
