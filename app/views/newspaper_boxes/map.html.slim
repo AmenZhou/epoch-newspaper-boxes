@@ -1,10 +1,12 @@
 h1 Newspaper Map
-= select_tag :region, options_for_select(@citys), prompt: 'All City'
-span class="location_info" 
-  | location
-  span#location_count #{@locations.count}
-  | paper
-  span#paper_count #{@locations.inject(0){|sum, i| sum+= i['paper_count']}}
+
+div.select-bar
+  = select_tag :region, options_for_select(@citys), prompt: 'All City'
+  span class="location_info" 
+    | location
+    span#location_count #{@locations.count}
+    | paper
+    span#paper_count #{@locations.inject(0){|sum, i| sum+= i['paper_count']}}
 div#map-show style='height: 600px'
 content_for :head
   script src="https://maps.googleapis.com/maps/api/js?v=3.exp"
