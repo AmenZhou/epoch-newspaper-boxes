@@ -1,8 +1,9 @@
 <h1>Listing newspaper_boxes</h1>
 
-<table class="table">
+<table class="table table-border table-hover">
   <thead>
     <tr>
+      <th> DEL </th>
       <th>Address</th>
       <th>City</th>
       <th>State</th>
@@ -15,48 +16,41 @@
       <th>Plastic Box</th>
       <th>Selling Box</th>
       <th>Paper_shelf</th>
-      <th>Monday</th>
-      <th>Tuesday</th>
-      <th>Wednesday</th>
-      <th>Thursday</th>
-      <th>Friday</th>
-      <th>Saturday</th>
-      <th>Sunday</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
       <th>Remark</th>
-      <th></th>
-      <th></th>
-      <th></th>
-      <th></th>
     </tr>
   </thead>
 
   <tbody>
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr>
-        <td><%= newspaper_box.address %></td>
-        <td><%= newspaper_box.city %></td>
-        <td><%= newspaper_box.state %></td>
-        <td><%= newspaper_box.zip %></td>
-        <td><%= newspaper_box.borough_detail %></td>
-        <td><%= newspaper_box.address_remark %></td>
-        <td><%= newspaper_box.date_t %></td>
-        <td><%= newspaper_box.deliver_type %></td>
-        <td><%= newspaper_box.iron_box %></td>
-        <td><%= newspaper_box.plastic_box %></td>
-        <td><%= newspaper_box.selling_box %></td>
-        <td><%= newspaper_box.paper_shelf %></td>
+        <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= best_in_place newspaper_box, :address, type: :input%></td>
+        <td><%= best_in_place newspaper_box, :city, type: :input%></td>
+        <td><%= best_in_place newspaper_box, :state, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :zip, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :borough_detail, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :address_remark, type: :input%></td>
+        <td><%= best_in_place newspaper_box, :date_t, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :deliver_type, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :iron_box, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :plastic_box, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :selling_box, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :paper_shelf, type: :input %></td>
         <td><%= best_in_place newspaper_box, :mon, type: :input %></td>
-        <td><%= newspaper_box.tue %></td>
-        <td><%= newspaper_box.wed %></td>
-        <td><%= newspaper_box.thu %></td>
-        <td><%= newspaper_box.fri %></td>
-        <td><%= newspaper_box.sat %></td>
-        <td><%= newspaper_box.sun %></td>
-        <td><%= newspaper_box.remark %></td>
-				<td><%= link_to 'Record', view_box_record_path(newspaper_box) %></td>
-        <td><%= link_to 'Show', newspaper_box %></td>
-        <td><%= link_to 'Edit', edit_newspaper_box_path(newspaper_box) %></td>
-        <td><%= link_to 'Destroy', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= best_in_place newspaper_box, :tue, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :wed, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :thu, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :fri, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :sat, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :sun, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :remark, type: :textarea %></td>
       </tr>
     <% end %>
   </tbody>
