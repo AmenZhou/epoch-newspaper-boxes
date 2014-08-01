@@ -1,6 +1,6 @@
 class NewspaperBoxesController < ApplicationController
   before_action :set_newspaper_box, only: [:show, :edit, :update, :destroy]
-
+  before_action :is_admin?, only: [:index, :new, :edit, :create, :update]
   # GET /newspaper_boxes
   # GET /newspaper_boxes.json
   def index
@@ -105,5 +105,9 @@ class NewspaperBoxesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def newspaper_box_params
       params.require(:newspaper_box).permit(:address, :city, :state, :zip, :borough_detail, :address_remark, :date_t, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :remark, :mon, :tue, :wed, :thu, :fri, :sat, :sun)
+    end
+ 
+    def is_admin?
+      redirect_to root_path  unless current_user.is_admin?
     end
 end
