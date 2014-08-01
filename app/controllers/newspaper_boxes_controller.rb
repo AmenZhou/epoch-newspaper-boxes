@@ -5,6 +5,10 @@ class NewspaperBoxesController < ApplicationController
   # GET /newspaper_boxes.json
   def index
     @newspaper_boxes = NewspaperBox.all
+    @newspaper_sum = {}
+    %w(mon tue wed thu fri sat sun).each do |week_day|
+      @newspaper_sum.send( :[]=, week_day.to_sym, NewspaperBox.sum(week_day.to_sym))
+    end
   end
 
   def upload_file
