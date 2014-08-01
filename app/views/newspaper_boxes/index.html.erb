@@ -12,7 +12,7 @@
       <th>Zip</th>
       <th>Borough detail</th>
       <th>Address remark</th>
-      <th>Date t</th>
+      <th>Create Date</th>
       <th>Deliver type</th>
       <th>Iron Box</th>
       <th>Plastic Box</th>
@@ -39,7 +39,7 @@
         <td><%= best_in_place newspaper_box, :zip, type: :input %></td>
         <td><%= best_in_place newspaper_box, :borough_detail, type: :input %></td>
         <td><%= best_in_place newspaper_box, :address_remark, type: :input%></td>
-        <td><%= best_in_place newspaper_box, :date_t, type: :input %></td>
+        <td><%= newspaper_box.created_at.strftime("%F") %></td>
         <td><%= best_in_place newspaper_box, :deliver_type, type: :input %></td>
         <td><%= best_in_place newspaper_box, :iron_box, type: :input %></td>
         <td><%= best_in_place newspaper_box, :plastic_box, type: :input %></td>
