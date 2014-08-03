@@ -85,4 +85,7 @@ class NewspaperBox < ActiveRecord::Base
     report
   end
 
+  def is_newspaper_box?
+    true if self.deliver_type == 'newspaper box'
+  end
 end
