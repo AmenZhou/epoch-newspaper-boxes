@@ -10,6 +10,14 @@ class NewspaperBox < ActiveRecord::Base
     self.longitude = geo.lng
   end
 
+
+  class << self
+    def zipcode_list
+      @zipcode_list ||= self.pluck(:zip).uniq.compact.sort
+    end
+
+  end
+
   def self.upload(file) 
     spreadsheet = open_spreadsheet(file)
     header = spreadsheet.row(1)

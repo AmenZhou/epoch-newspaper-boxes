@@ -2,10 +2,18 @@
 
 <%= button_to 'New Newspaper box', new_newspaper_box_path, method: :get%>
 
+</br>
+<%= form_tag(search_zipcode_newspaper_boxes_path) do %>
+Search by: 
+<%= select_tag 'zip_code', options_for_select(NewspaperBox.zipcode_list, @selected_zip_code), prompt: 'All'%>
+</br>
+<%= button_tag 'submit'%>
+<% end %>
+
 <table class="table table-border table-hover">
   <thead>
     <tr>
-      <th> DEL </th>
+      <th>DEL</th>
       <th>Address</th>
       <th>City</th>
       <th>State</th>
