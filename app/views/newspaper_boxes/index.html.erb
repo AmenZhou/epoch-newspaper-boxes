@@ -48,7 +48,7 @@ Search by:
         <td><%= best_in_place newspaper_box, :borough_detail, type: :input %></td>
         <td><%= best_in_place newspaper_box, :address_remark, type: :input%></td>
         <td><%= newspaper_box.created_at.strftime("%F") %></td>
-        <td><%= best_in_place newspaper_box, :deliver_type, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :deliver_type, type: :select, collection: deliver_type(@newspaper_boxes) %></td>
         <td><%= best_in_place newspaper_box, :iron_box, type: :input %></td>
         <td><%= best_in_place newspaper_box, :plastic_box, type: :input %></td>
         <td><%= best_in_place newspaper_box, :selling_box, type: :input %></td>
