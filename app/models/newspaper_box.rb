@@ -15,7 +15,10 @@ class NewspaperBox < ActiveRecord::Base
     def zipcode_list
       @zipcode_list ||= self.pluck(:zip).uniq.compact.sort
     end
-
+    
+    def city_list
+      @city_list ||= self.pluck(:city).uniq.compact.sort
+    end
   end
 
   def self.upload(file) 

@@ -5,7 +5,8 @@
 </br>
 <%= form_tag(search_zipcode_newspaper_boxes_path) do %>
 Search by: 
-<%= select_tag 'zip_code', options_for_select(NewspaperBox.zipcode_list, @selected_zip_code), prompt: 'All'%>
+Zip Code: <%= select_tag 'zip_code', options_for_select(NewspaperBox.zipcode_list, @selected_zip_code), prompt: 'All'%>
+City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selected_city), prompt: 'All' %>
 </br>
 <%= button_tag 'submit'%>
 <% end %>

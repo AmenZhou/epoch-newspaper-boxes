@@ -9,6 +9,11 @@ class NewspaperBoxesController < ApplicationController
       @selected_zip_code = params['zip_code']
       @newspaper_boxes = @newspaper_boxes.where(zip: @selected_zip_code)
     end
+    if params['city'].present?
+      @selected_city = params['city']
+      @newspaper_boxes = @newspaper_boxes.where(city: @selected_city)
+    end
+
     @newspaper_sum = {}
     %w(mon tue wed thu fri sat sun).each do |week_day|
       @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_boxes.sum(week_day.to_sym))
