@@ -16,10 +16,10 @@
       
 		<ul class="nav navbar-nav navbar-right">
 			<li><%= link_to "主页", root_path, data: { no_turbolink: true } %></li>
-      <li><%= link_to "Report", report_newspaper_boxes_path, data: { no_turbolink: true } %>
       <% if current_user && current_user.is_admin?%>
         <li><%= link_to "Zipcode Report", zipcode_report_newspaper_boxes_path, data: { no_turbolink: true } %>
         <li><%= link_to "List", newspaper_boxes_path %>
+        <li><%= link_to "Report", report_newspaper_boxes_path, data: { no_turbolink: true } %>
       <% end %>
 			<% if user_signed_in? %>
 				<li><%= link_to "注销", destroy_user_session_path, method: :delete %></li>
