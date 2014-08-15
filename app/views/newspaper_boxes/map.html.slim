@@ -5,7 +5,7 @@ div.select-bar
   span class="location_info" 
     | location
     span#location_count #{@locations.count}
-    - if current_user.is_admin?
+    - if current_user.try(:is_admin?)
       | paper
       span#paper_count #{@locations.inject(0){|sum, i| sum+= i['paper_count']}}
 div#map-show style='height: 600px'
@@ -14,7 +14,7 @@ content_for :head
   javascript:
     var locations = #{raw @locations.to_json}
     var iconBase = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/24/';
-    var flag = #{current_user.is_admin?}
+    var flag = "#{current_user.try(:is_admin?)}"
 
     var icons = {
       yellow: {
@@ -39,7 +39,7 @@ content_for :head
         var myLat = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
         console.log(locations[0].longitude);
         console.log(locations[i].address);
-        if (flag)
+        if (flag == 'true')
           str = 'Weekly Distrubition Count:' + locations[i].paper_count;
         else
           str = '';

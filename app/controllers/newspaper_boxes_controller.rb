@@ -1,6 +1,8 @@
 class NewspaperBoxesController < ApplicationController
+  before_action :authenticate_user!, except: [:map]
   before_action :set_newspaper_box, only: [:show, :edit, :update, :destroy]
   before_action :is_admin?, except: [:map]
+
   # GET /newspaper_boxes
   # GET /newspaper_boxes.json
   def index
