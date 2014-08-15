@@ -14,6 +14,7 @@ content_for :head
   javascript:
     var locations = #{raw @locations.to_json}
     var iconBase = 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/24/';
+    var flag = #{current_user.is_admin?}
 
     var icons = {
       yellow: {
@@ -38,10 +39,14 @@ content_for :head
         var myLat = new google.maps.LatLng(locations[i].latitude, locations[i].longitude);
         console.log(locations[0].longitude);
         console.log(locations[i].address);
+        if (flag)
+          str = 'Weekly Distrubition Count:' + locations[i].paper_count;
+        else
+          str = '';
         var marker = new google.maps.Marker({
               position: myLat,
               map: map,
-              title: locations[i].address + "\n" + 'Weekly Distrubition Count:' + locations[i].paper_count,
+              title: locations[i].address + "\n" + str,
               icon: icons[locations[i].icon].icon, 
         });
       }

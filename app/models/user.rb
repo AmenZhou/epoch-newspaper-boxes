@@ -5,6 +5,6 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   def is_admin?
-    true if self.role == 'Admin'
+    self.role == 'Admin' ? true : false
   end
 end
