@@ -19,7 +19,7 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
       <th>City</th>
       <th>State</th>
       <th>Zip</th>
-      <th>Borough detail</th>
+      <th>Borough</th>
       <th>Address remark</th>
       <th>Create Date</th>
       <th>Deliver type</th>
@@ -27,6 +27,7 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
       <th>Plastic Box</th>
       <th>Selling Box</th>
       <th>Paper_shelf</th>
+      <th>Expire Date Subscribe</th>
       <th>Mon</th>
       <th>Tue</th>
       <th>Wed</th>
@@ -54,6 +55,7 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
         <td><%= best_in_place newspaper_box, :plastic_box, type: :input %></td>
         <td><%= best_in_place newspaper_box, :selling_box, type: :input %></td>
         <td><%= best_in_place newspaper_box, :paper_shelf, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :date_t, type: :date %></td>
         <td><%= best_in_place newspaper_box, :mon, type: :input %></td>
         <td><%= best_in_place newspaper_box, :tue, type: :input %></td>
         <td><%= best_in_place newspaper_box, :wed, type: :input %></td>
@@ -77,14 +79,6 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
 
 <br>
 
-
-<h2>Import CSV File</h2>
-
-<%= form_tag upload_file_newspaper_boxes_path, multipart: true do %>
-  <%= label_tag :file, "Select File"%>
-  <%= file_field_tag :file %>
-  <%= submit_tag "Import" %>
-<% end %>
 <script>
   $(document).ready(function(){
     $('.best_in_place').best_in_place();

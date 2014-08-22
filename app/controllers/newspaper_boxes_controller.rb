@@ -1,5 +1,5 @@
 class NewspaperBoxesController < ApplicationController
-  before_action :authenticate_user!, except: [:map]
+  before_action :authenticate_user!
   before_action :set_newspaper_box, only: [:show, :edit, :update, :destroy]
   before_action :is_admin?, except: [:map]
 
@@ -89,9 +89,9 @@ class NewspaperBoxesController < ApplicationController
   end
 
   def map
-    @citys = NewspaperBox.pluck(:city).compact.uniq
+    @citys = NewspaperBox.pluck(:borough_detail).compact.uniq.delete_if{|x| x.blank?}
     @selected_city = params[:city]
-    boxes = params[:city].present? ? NewspaperBox.by_city(params[:city]) : NewspaperBox.all
+    boxes = params[:city].present? ? NewspaperBox.by_borough(params[:city]) : NewspaperBox.all
     @locations = boxes.map do |np|
       location = {}
       location['latitude'] = np.latitude 

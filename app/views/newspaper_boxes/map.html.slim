@@ -1,7 +1,7 @@
 h1 Newspaper Map
 
 div.select-bar
-  = select_tag :region, options_for_select(@citys), prompt: 'All City'
+  = select_tag :region, options_for_select(@citys), prompt: 'All Boroughs'
   span class="location_info" 
     | location
     span#location_count #{@locations.count}
