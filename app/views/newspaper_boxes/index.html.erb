@@ -41,8 +41,8 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
 
   <tbody>
     <% @newspaper_boxes.each do |newspaper_box| %>
-      <tr>
-        <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      <tr id="<%= newspaper_box.id%>">
+        <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
         <td><%= best_in_place newspaper_box, :address, type: :input%></td>
         <td><%= best_in_place newspaper_box, :city, type: :input%></td>
         <td><%= best_in_place newspaper_box, :state, type: :input %></td>

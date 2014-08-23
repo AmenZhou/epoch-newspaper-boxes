@@ -73,9 +73,10 @@ class NewspaperBoxesController < ApplicationController
   # DELETE /newspaper_boxes/1
   # DELETE /newspaper_boxes/1.json
   def destroy
+    @nb_id = @newspaper_box.id
     @newspaper_box.destroy
     respond_to do |format|
-      format.html { redirect_to newspaper_boxes_url }
+      format.js
       format.json { head :no_content }
     end
   end
