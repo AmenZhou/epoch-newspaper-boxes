@@ -11,6 +11,11 @@ class NewspaperBox < ActiveRecord::Base
     self.longitude = geo.lng
   end
 
+  QueensArea = {"Queens1" => ["Woodside", "Elmhurst", "Rego Park", "Forest Hills"],
+                "Queens2" => ["Flushing"],
+                "Queens3" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
+
+
   class << self
     def zipcode_list
       @zipcode_list ||= self.pluck(:zip).uniq.compact.sort
@@ -76,6 +81,19 @@ class NewspaperBox < ActiveRecord::Base
       hash = {}
       hash[:borough] = row.borough_detail
       hash[:amount] = row.week_count
+      report << hash
+    end
+    report
+  end
+
+  def self.report_queens
+    newspaper_boxes = NewspaperBox.where(borough_detail: 'Queens')
+    report = []
+    NewspaperBox::QueensArea.each do |k, v|
+      hash = {}
+      rs = newspaper_boxes.where(city: v).select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+      hash[:area] = k
+      hash[:amount] = rs.first.week_count
       report << hash
     end
     report

@@ -1,25 +1,46 @@
+h2 Boroughs
 = table_for @report, html: {class:'table table-bordered table-hover'} do
   - columns :borough, :amount
 
+h2 Queens Areas
+= table_for @report_queens, html: {class:'table table-bordered table-hover'} do
+  - columns :area, :amount
+
+
 #piechart_3d style="width: 900px; height: 500px;"
+#piechart2_3d style="width: 900px; height: 500px;"
 
 script type="text/javascript" src="https://www.google.com/jsapi"
 
 - chart_data(@report)
+- chart_queens_data(@report_queens)
 
 content_for :bottom
 javascript:
   var chart_dd = #{raw chart_data(@report)}
+  var chart_queens = #{raw chart_queens_data(@report_queens)}
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
+
   function drawChart() {
     var data = google.visualization.arrayToDataTable(chart_dd);
 
     var options = {
-      title: ' Borough Report',
+      title: ' Borough Chart',
       is3D: true,
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
     chart.draw(data, options);
-  } 
+
+    var data1 = google.visualization.arrayToDataTable(chart_queens);
+
+    var options1 = {
+      title: ' Queens Chart',
+      is3D: true,
+    };
+
+    var chart1 = new google.visualization.PieChart(document.getElementById('piechart2_3d'));
+    chart1.draw(data1, options1);
+  }
+
