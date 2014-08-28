@@ -70,11 +70,11 @@ class NewspaperBox < ActiveRecord::Base
   def self.report
     #will return [{city:, amount: ,}, 
     #{}]
-    rs = NewspaperBox.group(:city).select("city, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+    rs = NewspaperBox.group(:borough_detail).select("borough_detail, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
     report = []
     rs.each do |row|
       hash = {}
-      hash[:city] = row.city
+      hash[:borough] = row.borough_detail
       hash[:amount] = row.week_count
       report << hash
     end
@@ -98,6 +98,7 @@ class NewspaperBox < ActiveRecord::Base
       hash[:sum] = row[:mon] + row[:tue] + row[:wed] + row[:thu] + row[:fri] + row[:sat] + row[:sun]
       report << hash
     end
+    ###Add last row as a sum
     hash = {}
     %w(mon tue wed thu fri sat sun sum).each do |week_day|
       hash[week_day.to_sym] = report.inject(0){|sum, h| sum += h[week_day.to_sym]}

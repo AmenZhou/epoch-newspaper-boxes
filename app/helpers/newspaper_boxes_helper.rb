@@ -1,7 +1,7 @@
 module NewspaperBoxesHelper
   def chart_data report
-    output = report.drop(1).map{|rs| [rs[:city], rs[:amount]]}
-    output.unshift(['city', 'amount'])
+    output = report.drop(1).map{|rs| [rs[:borough], rs[:amount]]}
+    output.unshift(['borough', 'amount'])
   end
 
   def zipcode_chart_data zipcode_report
