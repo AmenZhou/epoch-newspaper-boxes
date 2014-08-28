@@ -92,7 +92,7 @@ class NewspaperBox < ActiveRecord::Base
     NewspaperBox::QueensArea.each do |k, v|
       hash = {}
       rs = newspaper_boxes.where(city: v).select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
-      hash[:area] = k
+      hash[:area] = k + " (" + v.join(" ") + ")"
       hash[:amount] = rs.first.week_count
       report << hash
     end
