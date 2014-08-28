@@ -6,7 +6,7 @@ class NewspaperBoxesController < ApplicationController
   # GET /newspaper_boxes
   # GET /newspaper_boxes.json
   def index
-    @newspaper_boxes = NewspaperBox.all
+    @newspaper_boxes = NewspaperBox.all.order("sort_num")
     if params['zip_code'].present?
       @selected_zip_code = params['zip_code']
       @newspaper_boxes = @newspaper_boxes.where(zip: @selected_zip_code)
@@ -16,6 +16,10 @@ class NewspaperBoxesController < ApplicationController
       @newspaper_boxes = @newspaper_boxes.where(city: @selected_city)
     end
 
+    if params['borough'].present?
+      @selected_borough = params['borough']
+      @newspaper_boxes = @newspaper_boxes.where(borough_detail: @selected_borough)
+    end
     @newspaper_sum = {}
     %w(mon tue wed thu fri sat sun).each do |week_day|
       @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_boxes.sum(week_day.to_sym))

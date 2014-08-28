@@ -11,14 +11,17 @@ class NewspaperBox < ActiveRecord::Base
     self.longitude = geo.lng
   end
 
-
   class << self
     def zipcode_list
       @zipcode_list ||= self.pluck(:zip).uniq.compact.sort
     end
-    
+
     def city_list
       @city_list ||= self.pluck(:city).uniq.compact.sort
+    end
+
+    def borough_list
+      @borough_list ||= self.pluck(:borough_detail).uniq.compact.sort
     end
   end
 
@@ -92,9 +95,14 @@ class NewspaperBox < ActiveRecord::Base
         #eval("hash[:#{week_day}] = row.#{week_day}")
         hash.send(:[]=, week_day.to_sym, row.send(week_day))
       end
+      hash[:sum] = row[:mon] + row[:tue] + row[:wed] + row[:thu] + row[:fri] + row[:sat] + row[:sun]
       report << hash
     end
-    report
+    hash = {}
+    %w(mon tue wed thu fri sat sun sum).each do |week_day|
+      hash[week_day.to_sym] = report.inject(0){|sum, h| sum += h[week_day.to_sym]}
+    end
+    report << hash
   end
 
   def is_newspaper_box?

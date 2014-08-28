@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140801224928) do
+ActiveRecord::Schema.define(version: 20140828143200) do
 
   create_table "box_records", force: true do |t|
     t.integer  "newspaper_box_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(version: 20140801224928) do
     t.integer  "sun",            default: 0
     t.float    "latitude"
     t.float    "longitude"
+    t.float    "sort_num"
   end
 
   create_table "users", force: true do |t|
