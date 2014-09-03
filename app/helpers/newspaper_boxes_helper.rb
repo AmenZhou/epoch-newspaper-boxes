@@ -1,6 +1,6 @@
 module NewspaperBoxesHelper
   def chart_data report
-    output = report.drop(1).map{|rs| [rs[:borough], rs[:amount]]}
+    output = report.map{|rs| [rs[:borough], rs[:amount]]}
     output.unshift(['borough', 'amount'])
   end
 
