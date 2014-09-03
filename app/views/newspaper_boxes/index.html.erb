@@ -1,6 +1,7 @@
 <h1>Listing newspaper_boxes</h1>
 
 <%= button_to 'New Newspaper box', new_newspaper_box_path, method: :get%>
+<strong class="amount-text">Newspaper Boxes Amount: <%= @newspaper_boxes.count%></strong>
 
 </br>
 <%= form_tag(search_zipcode_newspaper_boxes_path) do %>
@@ -74,8 +75,8 @@ borough: <%= select_tag 'borough', options_for_select(NewspaperBox.borough_list,
         <td>
       <% end %>
       <% %w(mon tue wed thu fri sat sun).each do |week_day|%>
-      <td><%= @newspaper_sum[week_day.to_sym] %></td>
-    <% end %>
+        <td><%= @newspaper_sum[week_day.to_sym] %></td>
+      <% end %>
     </tr>
   </tbody>
 </table>
