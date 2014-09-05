@@ -2,7 +2,8 @@ class NewspaperBoxesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_newspaper_box, only: [:show, :edit, :update, :destroy]
   before_action :is_admin?, except: [:map]
-
+  
+  helper_method :sum_array
   # GET /newspaper_boxes
   # GET /newspaper_boxes.json
   def index
@@ -21,7 +22,7 @@ class NewspaperBoxesController < ApplicationController
       @newspaper_boxes = @newspaper_boxes.where(borough_detail: @selected_borough)
     end
     @newspaper_sum = {}
-    %w(mon tue wed thu fri sat sun).each do |week_day|
+    sum_array.each do |week_day|
       @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_boxes.sum(week_day.to_sym))
     end
   end
@@ -116,6 +117,10 @@ class NewspaperBoxesController < ApplicationController
 
   def export_data
     send_file(NewspaperBox::ExportFilePath)
+  end
+  
+  def sum_array
+    %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun)
   end
   
   private

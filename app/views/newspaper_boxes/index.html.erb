@@ -13,12 +13,13 @@
 </div>
 </br>
 <%= form_tag(search_zipcode_newspaper_boxes_path) do %>
-  Search by:
-  Zip Code: <%= select_tag 'zip_code', options_for_select(NewspaperBox.zipcode_list, @selected_zip_code), prompt: 'All'%>
-City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selected_city), prompt: 'All' %>
+    Search by:
+    Zip Code: <%= select_tag 'zip_code', options_for_select(NewspaperBox.zipcode_list, @selected_zip_code), prompt: 'All'%>
+    City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selected_city), prompt: 'All' %>
     borough: <%= select_tag 'borough', options_for_select(NewspaperBox.borough_list, @selected_borough), prompt: 'All' %>
-  </br>
-  <%= button_tag 'submit'%>
+</br>
+<%= button_tag 'submit'%>
+</div>
 <% end %>
 
 <table class="table table-border table-hover table-striped">
@@ -38,7 +39,6 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
       <th>Plastic Box</th>
       <th>Selling Box</th>
       <th>Paper_shelf</th>
-      <th>Expire Date Subscribe</th>
       <th>Mon</th>
       <th>Tue</th>
       <th>Wed</th>
@@ -46,11 +46,19 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
       <th>Fri</th>
       <th>Sat</th>
       <th>Sun</th>
+      <th>Expire Date Subscribe</th>
       <th>Remark</th>
     </tr>
   </thead>
 
   <tbody>
+    <tr>
+      <td><strong>Summary</strong></td>
+      <%= raw td_indentation(9) %>
+      <% sum_array.each do |week_day|%>
+      <td><strong><%= @newspaper_sum[week_day.to_sym] %></strong></td>
+      <% end %>
+    </tr>
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr id="<%= newspaper_box.id%>">
         <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
@@ -67,7 +75,6 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
         <td><%= best_in_place newspaper_box, :plastic_box, type: :input %></td>
         <td><%= best_in_place newspaper_box, :selling_box, type: :input %></td>
         <td><%= best_in_place newspaper_box, :paper_shelf, type: :input %></td>
-        <td><%= best_in_place newspaper_box, :date_t, type: :date %></td>
         <td><%= best_in_place newspaper_box, :mon, type: :input %></td>
         <td><%= best_in_place newspaper_box, :tue, type: :input %></td>
         <td><%= best_in_place newspaper_box, :wed, type: :input %></td>
@@ -75,17 +82,10 @@ City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selecte
         <td><%= best_in_place newspaper_box, :fri, type: :input %></td>
         <td><%= best_in_place newspaper_box, :sat, type: :input %></td>
         <td><%= best_in_place newspaper_box, :sun, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :date_t, type: :date %></td>
         <td><%= best_in_place newspaper_box, :remark, type: :textarea %></td>
       </tr>
     <% end %>
-    <tr>
-      <% 15.times.each do |i| %>
-        <td>
-      <% end %>
-      <% %w(mon tue wed thu fri sat sun).each do |week_day|%>
-        <td><%= @newspaper_sum[week_day.to_sym] %></td>
-      <% end %>
-    </tr>
   </tbody>
 </table>
 

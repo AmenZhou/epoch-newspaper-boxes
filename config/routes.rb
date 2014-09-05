@@ -11,6 +11,7 @@ EpochNewspaperBoxes::Application.routes.draw do
       get 'report'
       post 'upload_file'
       get 'zipcode_report'
+      get 'export_data'
     end
   end
   get 'import' => 'import#index'

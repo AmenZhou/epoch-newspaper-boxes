@@ -19,5 +19,8 @@ module NewspaperBoxesHelper
     #NewspaperBoxes.pluck(:deliver_type)
     @delivery_types ||= newspaper_boxes.pluck(:deliver_type).compact.uniq.map{|np| [np, np]}
   end
- 
+  
+  def td_indentation(number=1)
+    number.times.map{|i| "<td>"}.join(" ")
+  end
 end
