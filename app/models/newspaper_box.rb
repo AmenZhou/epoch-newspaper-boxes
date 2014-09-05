@@ -127,4 +127,28 @@ class NewspaperBox < ActiveRecord::Base
   def is_newspaper_box?
     true if self.deliver_type == 'Newspaper box'
   end
+      
+      def self.generate_a_line(type="title", newspaper_box=nil)
+        line = ""
+        %w(sort_num address city state zip borough_detail address_remark date_t deliver_type remark iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun latitude longitude created_at).each do |attr|
+          if type == "title"
+            line += attr + '|'
+          else
+            line += newspaper_box.send(attr).to_s + '|'
+          end
+        end
+        line
+      end
+      
+  def self.export_data
+    #DateTime.now.strftime('%D')
+    file = File.open("public/newspaper_export.csv", 'w')
+    
+    file.puts(generate_a_line("title") + "\n")
+    
+    NewspaperBox.all.each do |nb|
+      file.puts(generate_a_line("data", nb) + "\n")
+    end
+    file.close()
+  end
 end
