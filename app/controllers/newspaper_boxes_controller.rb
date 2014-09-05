@@ -126,6 +126,7 @@ class NewspaperBoxesController < ApplicationController
   end
 
   def export_data
+    NewspaperBox.export_data
     send_file(NewspaperBox::ExportFilePath)
   end
   

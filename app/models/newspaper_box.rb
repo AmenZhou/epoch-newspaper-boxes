@@ -17,7 +17,7 @@ class NewspaperBox < ActiveRecord::Base
                 "Queens3" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
 
 
-  ExportFilePath = "public/newspaper_export.csv"
+  ExportFilePath = "db/newspaper_export.csv"
   
   class << self
     def zipcode_list
@@ -145,7 +145,7 @@ class NewspaperBox < ActiveRecord::Base
 
   def self.export_data
     #DateTime.now.strftime('%D')
-    file = File.open(NewspaperBox::ExportFilePath, 'w')
+    file = File.new(NewspaperBox::ExportFilePath, 'w')
     
     file.puts(generate_a_line("title") + "\n")
     
