@@ -114,6 +114,10 @@ class NewspaperBoxesController < ApplicationController
       end
   end
 
+  def export_data
+    send_file(NewspaperBox::ExportFilePath)
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_newspaper_box
