@@ -21,6 +21,12 @@ class NewspaperBoxesController < ApplicationController
       @selected_borough = params['borough']
       @newspaper_boxes = @newspaper_boxes.where(borough_detail: @selected_borough)
     end
+    
+    if params['trash'].present?
+      @selected_trash = params['trash']
+      @newspaper_boxes = @newspaper_boxes.unscoped.where(trash: true)
+    end
+    
     @newspaper_sum = {}
     sum_array.each do |week_day|
       @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_boxes.sum(week_day.to_sym))
@@ -79,7 +85,11 @@ class NewspaperBoxesController < ApplicationController
   # DELETE /newspaper_boxes/1.json
   def destroy
     @nb_id = @newspaper_box.id
-    @newspaper_box.destroy
+    if @newspaper_box.trash
+      @newspaper_box.destroy
+    else
+      @newspaper_box.update(trash: true)
+    end
     respond_to do |format|
       format.js
       format.json { head :no_content }

@@ -6,7 +6,7 @@ EpochNewspaperBoxes::Application.routes.draw do
   devise_for :users
   resources :newspaper_boxes do
     collection do
-      post 'search_zipcode' => 'newspaper_boxes#index', as: 'search_zipcode'
+      #post 'search_zipcode' => 'newspaper_boxes#index', as: 'search_zipcode'
       get 'map'
       get 'report'
       post 'upload_file'

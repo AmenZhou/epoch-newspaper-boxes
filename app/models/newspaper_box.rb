@@ -4,7 +4,8 @@ class NewspaperBox < ActiveRecord::Base
   # attr_accessible :address, :city, :state
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
-
+  default_scope -> {where(trash: false)}
+  
   before_save do
     geo  = MultiGeocoder.geocode(display_address)
     self.latitude = geo.lat

@@ -12,11 +12,12 @@
   </div>
 </div>
 </br>
-<%= form_tag(search_zipcode_newspaper_boxes_path) do %>
+<%= form_tag(newspaper_boxes_path, method: :get) do %>
     Search by:
     Zip Code: <%= select_tag 'zip_code', options_for_select(NewspaperBox.zipcode_list, @selected_zip_code), prompt: 'All'%>
     City: <%= select_tag 'city', options_for_select(NewspaperBox.city_list, @selected_city), prompt: 'All' %>
     borough: <%= select_tag 'borough', options_for_select(NewspaperBox.borough_list, @selected_borough), prompt: 'All' %>
+Trash Bin: <%= check_box_tag 'trash', true, @selected_trash %>
 </br>
 <%= button_tag 'submit'%>
 </div>
@@ -26,7 +27,11 @@
   <thead>
     <tr>
       <th>DEL</th>
-      <th>Sort</th>
+      <% if @selected_trash%>
+        <th>Recovery</th>
+      <% else %>
+        <th>Sort</th>
+      <% end %>
       <th>Address</th>
       <th>City</th>
       <th>State</th>
@@ -62,7 +67,15 @@
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr id="<%= newspaper_box.id%>">
         <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
-        <td><%= best_in_place newspaper_box, :sort_num, type: :input%></td>
+        <% if @selected_trash%>
+          <td>
+            <span>
+              <%= link_to "Recovery", "#", class:"glyphicon glyphicon-refresh" %>
+            </span>  
+          </td>
+        <% else %>
+          <td><%= best_in_place newspaper_box, :sort_num, type: :input%></td>
+        <% end %>
         <td><%= best_in_place newspaper_box, :address, type: :input%></td>
         <td><%= best_in_place newspaper_box, :city, type: :input%></td>
         <td><%= best_in_place newspaper_box, :state, type: :input %></td>
