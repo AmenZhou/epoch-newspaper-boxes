@@ -11,6 +11,8 @@ class NewspaperBox < ActiveRecord::Base
     self.latitude = geo.lat
     self.longitude = geo.lng
   end
+  
+  after_save :process_history
 
   QueensArea = {"Queens1" => ["Woodside", "Elmhurst", "Rego Park", "Forest Hills"],
                 "Queens2" => ["Flushing"],
@@ -18,7 +20,7 @@ class NewspaperBox < ActiveRecord::Base
 
 
   ExportFilePath = "db/newspaper_export.csv"
-  
+    
   class << self
     def zipcode_list
       @zipcode_list ||= self.pluck(:zip).uniq.compact.sort
@@ -64,6 +66,19 @@ class NewspaperBox < ActiveRecord::Base
     end
   end
  
+      def weekday_changed?
+        %w(mon tue wed thu fri sat sun).each do |weekday|
+          return true if self.send("#{weekday}_changed?")
+        end
+        false
+      end
+
+      def process_history
+        if new_record? or weekday_changed?
+          History.generate_a_record(self)
+        end
+      end
+      
   def display_address
     "#{address}, #{city}, #{state}, #{zip}"
   end
@@ -76,17 +91,7 @@ class NewspaperBox < ActiveRecord::Base
   end
 
   def self.report
-    #will return [{city:, amount: ,}, 
-    #{}]
-    rs = NewspaperBox.group(:borough_detail).select("borough_detail, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
-    report = []
-    rs.each do |row|
-      hash = {}
-      hash[:borough] = row.borough_detail
-      hash[:amount] = row.week_count
-      report << hash
-    end
-    report
+    calc_paper_amount(:borough_detail)
   end
 
   def self.report_queens
@@ -107,26 +112,39 @@ class NewspaperBox < ActiveRecord::Base
   end
 
   def self.zipcode_report
-    rs = NewspaperBox.group(:zip).select("zip, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
-    report = []
-    rs.each do |row|
-      hash = {}
-      hash[:zipcode] = row.zip
-      %w(mon tue wed thu fri sat sun).each do |week_day|
-        #eval("hash[:#{week_day}] = row.#{week_day}")
-        hash.send(:[]=, week_day.to_sym, row.send(week_day))
-      end
-      hash[:sum] = row[:mon] + row[:tue] + row[:wed] + row[:thu] + row[:fri] + row[:sat] + row[:sun]
-      report << hash
-    end
+    report = calc_paper_amount(:zip)
     ###Add last row as a sum
     hash = {}
     %w(mon tue wed thu fri sat sun sum).each do |week_day|
       hash[week_day.to_sym] = report.inject(0){|sum, h| sum += h[week_day.to_sym]}
     end
     report << hash
+    report
   end
+      
+      def self.calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group)
+        report = []
+        newspaper_boxes.each do |row|
+          hash = {}
+          hash[group] = row.send(group) if group
+          %w(mon tue wed thu fri sat sun).each do |week_day|
+            hash.send(:[]=, week_day.to_sym, row.send(week_day))
+          end
+          hash[:sum] = row.week_count
+          report << hash
+        end
+        report
+      end
 
+      def self.calc_paper_amount(group=nil)
+        if group.nil?
+          rs = NewspaperBox.select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+        else
+          rs = NewspaperBox.group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+        end
+        calc_paper_amount_by_newspaper_boxes(rs, group)
+      end
+      
   def is_newspaper_box?
     true if self.deliver_type == 'Newspaper box'
   end

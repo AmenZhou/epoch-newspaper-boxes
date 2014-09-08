@@ -1,7 +1,7 @@
 h2 Boroughs
 = table_for @report, html: {class:'table table-bordered table-hover table-striped'} do
-  - column :borough, html:{td: {class: "first-column"}}
-  - column :amount
+  - column :borough_detail, html:{td: {class: "first-column"}}
+  - column :sum
 
 h2 Queens Areas
 = table_for @report_queens, html: {class:'table table-bordered table-hover table-striped'} do

@@ -11,13 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140905182638) do
+ActiveRecord::Schema.define(version: 20140908172826) do
 
   create_table "box_records", force: true do |t|
     t.integer  "newspaper_box_id"
     t.datetime "date_t"
     t.integer  "quantity"
     t.text     "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "histories", force: true do |t|
+    t.integer  "newspaper"
+    t.integer  "box"
+    t.string   "borough"
+    t.integer  "zipcode"
+    t.string   "city"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
