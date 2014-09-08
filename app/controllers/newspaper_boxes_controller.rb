@@ -1,6 +1,7 @@
 class NewspaperBoxesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_newspaper_box, only: [:show, :edit, :update, :destroy]
+  before_action :set_newspaper_box_for_recovery, only: :recovery
   before_action :is_admin?, except: [:map]
   
   helper_method :sum_array
@@ -134,7 +135,22 @@ class NewspaperBoxesController < ApplicationController
     %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun)
   end
   
+  def recovery
+    @newspaper_box.trash = false
+    if @newspaper_box.save
+      flash[:success] = "Recovery Successfully"
+      redirect_to action: :index
+    else
+      flash[:error] = "Recovery Failed"
+      render action: :index
+    end
+  end
+  
   private
+    def set_newspaper_box_for_recovery
+      @newspaper_box = NewspaperBox.unscoped.find(params[:id])
+    end
+  
     # Use callbacks to share common setup or constraints between actions.
     def set_newspaper_box
       @newspaper_box = NewspaperBox.find(params[:id])

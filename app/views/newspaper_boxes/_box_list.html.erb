@@ -1,0 +1,78 @@
+<table class="table table-border table-hover table-striped">
+  <thead>
+    <tr>
+      <th>DEL</th>
+      <% if @selected_trash%>
+        <th>Recovery</th>
+      <% else %>
+        <th>Sort</th>
+      <% end %>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Borough</th>
+      <th>Address remark</th>
+      <th>Create Date</th>
+      <th>Deliver type</th>
+      <th>Iron Box</th>
+      <th>Plastic Box</th>
+      <th>Selling Box</th>
+      <th>Paper_shelf</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
+      <th>Expire Date Subscribe</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr>
+      <td><strong>Summary</strong></td>
+      <%= raw td_indentation(9) %>
+      <% sum_array.each do |week_day|%>
+      <td><strong><%= @newspaper_sum[week_day.to_sym] %></strong></td>
+      <% end %>
+    </tr>
+    <% @newspaper_boxes.each do |newspaper_box| %>
+      <tr id="<%= newspaper_box.id%>">
+        <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        <% if @selected_trash%>
+          <td>
+            <span>
+              <%= link_to "Recovery", "#", class:"glyphicon glyphicon-refresh" %>
+            </span>  
+          </td>
+        <% else %>
+          <td><%= best_in_place newspaper_box, :sort_num, type: :input%></td>
+        <% end %>
+        <td><%= best_in_place newspaper_box, :address, type: :input%></td>
+        <td><%= best_in_place newspaper_box, :city, type: :input%></td>
+        <td><%= best_in_place newspaper_box, :state, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :zip, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :borough_detail, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :address_remark, type: :input%></td>
+        <td><%= newspaper_box.created_at.strftime("%F") %></td>
+        <td><%= best_in_place newspaper_box, :deliver_type, type: :select, collection: deliver_type(@newspaper_boxes) %></td>
+        <td><%= best_in_place newspaper_box, :iron_box, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :plastic_box, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :selling_box, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :paper_shelf, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :mon, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :tue, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :wed, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :thu, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :fri, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :sat, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :sun, type: :input %></td>
+        <td><%= best_in_place newspaper_box, :date_t, type: :date %></td>
+        <td><%= best_in_place newspaper_box, :remark, type: :textarea %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
