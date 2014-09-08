@@ -34,10 +34,6 @@ class NewspaperBoxesController < ApplicationController
     end
   end
 
-  def upload_file
-    NewspaperBox.upload(params[:file])
-    redirect_to action: :index
-  end
   # GET /newspaper_boxes/1
   # GET /newspaper_boxes/1.json
   def show

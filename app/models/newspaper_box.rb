@@ -35,29 +35,9 @@ class NewspaperBox < ActiveRecord::Base
     end
   end
 
-  def self.upload(file) 
-    spreadsheet = open_spreadsheet(file)
-    header = spreadsheet.row(1)
-    (2..spreadsheet.last_row).each do |i|
-      row = Hash[[header, spreadsheet.row(i)].transpose]
-      newspaper_box = find_by_id(row["id"]) || new
-      newspaper_box.attributes = row.to_hash
-      newspaper_box.save!
-    end
-  end
-
   def self.avg_week_count
     total = NewspaperBox.all.inject(0){|sum, np| sum += np.week_count}
     (total.to_f / NewspaperBox.count).round(2)
-  end
-
-  def self.open_spreadsheet(file)
-    case File.extname(file.original_filename)
-    when ".csv" then Csv.new(file.path, nil, :ignore)
-    when ".xls" then Roo::Excel.new(file.path, nil, :ignore)
-    when ".xlsx" then Roo::Excelx.new(file.path, nil, :ignore)
-    else raise "Unknown file type: #{file.original_filename}"
-    end
   end
 
   def self.fix_nil
@@ -90,6 +70,10 @@ class NewspaperBox < ActiveRecord::Base
     update_attributes(latitude: geo.lat, longitude: geo.lng)
   end
 
+  def week_count
+    mon + tue + wed + thu + fri + sat + sun rescue 0
+  end
+  #REPORT GENERATE RELATED METHODS
   def self.report
     calc_paper_amount(:borough_detail)
   end
@@ -105,10 +89,6 @@ class NewspaperBox < ActiveRecord::Base
       report << hash
     end
     report
-  end
-
-  def week_count
-    mon + tue + wed + thu + fri + sat + sun rescue 0
   end
 
   def self.zipcode_report
@@ -145,6 +125,12 @@ class NewspaperBox < ActiveRecord::Base
         calc_paper_amount_by_newspaper_boxes(rs, group)
       end
       
+  def self.get_amount_by(group, condition)
+    report = calc_paper_amount(group)
+    report.select! { |r| r[group] == condition}
+  end
+  
+  
   def is_newspaper_box?
     true if self.deliver_type == 'Newspaper box'
   end
