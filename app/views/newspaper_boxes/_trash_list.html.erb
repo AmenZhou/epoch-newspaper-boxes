@@ -39,7 +39,7 @@
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr id="<%= newspaper_box.id%>">
         <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
-        <td><%= link_to "Recovery", recovery_newspaper_box_path(newspaper_box), class:"glyphicon glyphicon-refresh" %></td>
+        <td><%= link_to "Recovery", recovery_newspaper_box_path(newspaper_box), class:"glyphicon glyphicon-refresh", remote: true %></td>
         <td><%= newspaper_box.sort_num %></td>
         <td><%= newspaper_box.address %></td>
         <td><%= newspaper_box.city %></td>

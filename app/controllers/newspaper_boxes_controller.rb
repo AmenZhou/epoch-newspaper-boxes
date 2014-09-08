@@ -137,12 +137,16 @@ class NewspaperBoxesController < ApplicationController
   
   def recovery
     @newspaper_box.trash = false
+    @nb_id = @newspaper_box.id
     if @newspaper_box.save
-      flash[:success] = "Recovery Successfully"
-      redirect_to action: :index
+     # flash[:success] = "Recovery Successfully"
+      @result = true
     else
-      flash[:error] = "Recovery Failed"
-      render action: :index
+     # flash[:error] = "Recovery Failed"
+      @result = false
+    end
+    respond_to do |format|
+      format.js
     end
   end
   
