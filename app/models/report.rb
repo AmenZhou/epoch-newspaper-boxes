@@ -23,9 +23,7 @@ class Report
   
   def self.generate_weekday_columns_sum(reports)
     report = Report.new()
-    arr = Report::Weekday2NewspaperBox
-    arr << :sum
-    arr.each do |weekday|
+    (Report::Weekday2NewspaperBox + [:sum]).each do |weekday|
       report.send("#{weekday}=", reports.inject(0){|sum, report| sum += report.send(weekday)})
     end
     report
