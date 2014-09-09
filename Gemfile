@@ -63,3 +63,5 @@ gem 'geokit-rails'
 gem 'best_in_place', :git => 'https://github.com/aaronchi/best_in_place.git'
 
 gem "jquery-ui-rails"
+
+gem 'jquery-datatables-rails', '~> 2.2.3'

@@ -15,4 +15,6 @@
 //= require bootstrap
 //= require jquery-ui
 //= require best_in_place
+//= require dataTables/jquery.dataTables
+//= require dataTables/bootstrap/2/jquery.dataTables.bootstrap
 //= require_tree .

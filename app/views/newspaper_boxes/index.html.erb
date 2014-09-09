@@ -12,6 +12,7 @@
   </div>
 </div>
 </br>
+
 <%= render "query_form" %>
 <% if @selected_trash %>
   <%= render "trash_list"%>
@@ -25,4 +26,6 @@
   $(document).ready(function(){
     $('.best_in_place').best_in_place();
   })
+  $('.dataTable').dataTable({
+  });
 </script>
