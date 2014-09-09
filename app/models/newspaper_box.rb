@@ -92,28 +92,20 @@ class NewspaperBox < ActiveRecord::Base
   end
 
   def self.zipcode_report
-    report = calc_paper_amount(:zip)
+    reports = calc_paper_amount(:zip)
     ###Add last row as a sum
-    hash = {}
-    %w(mon tue wed thu fri sat sun sum).each do |week_day|
-      hash[week_day.to_sym] = report.inject(0){|sum, h| sum += h[week_day.to_sym]}
-    end
-    report << hash
-    report
+    reports << Report.generate_weekday_columns_sum(reports)
+    reports
   end
       
       def self.calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group)
-        report = []
+        reports = []
         newspaper_boxes.each do |row|
-          hash = {}
-          hash[group] = row.send(group) if group
-          %w(mon tue wed thu fri sat sun).each do |week_day|
-            hash.send(:[]=, week_day.to_sym, row.send(week_day))
-          end
-          hash[:sum] = row.week_count
-          report << hash
+          report = Report.new(group, row.send(group))
+          report.set_seven_weekday_and_sum(row)
+          reports << report
         end
-        report
+        reports
       end
 
       def self.calc_paper_amount(group=nil)
@@ -126,8 +118,8 @@ class NewspaperBox < ActiveRecord::Base
       end
       
   def self.get_amount_by(group, condition)
-    report = calc_paper_amount(group)
-    report.select! { |r| r[group] == condition}
+    reports = calc_paper_amount(group)
+    reports.select! { |r| r.group[group] == condition}
   end
   
   
