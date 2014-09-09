@@ -80,15 +80,14 @@ class NewspaperBox < ActiveRecord::Base
 
   def self.report_queens
     newspaper_boxes = NewspaperBox.where(borough_detail: 'Queens')
-    report = []
+    reports = []
     NewspaperBox::QueensArea.each do |k, v|
-      hash = {}
       rs = newspaper_boxes.where(city: v).select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
-      hash[:area] = k + " (" + v.join(" ") + ")"
-      hash[:amount] = rs.first.week_count
-      report << hash
+      report = Report.new(:area,  k + " (" + v.join(" ") + ")")
+      report.set_seven_weekday_and_sum(rs.first)
+      reports << report
     end
-    report
+    reports
   end
 
   def self.zipcode_report

@@ -93,15 +93,6 @@ class NewspaperBoxesController < ApplicationController
     end
   end
 
-  def report
-    @report = NewspaperBox.report
-    @report_queens = NewspaperBox.report_queens
-  end
-
-  def zipcode_report
-    @zipcode_report = NewspaperBox.zipcode_report
-  end
-
   def map
     @citys = NewspaperBox.pluck(:borough_detail).compact.uniq.delete_if{|x| x.blank?}
     @selected_city = params[:city]

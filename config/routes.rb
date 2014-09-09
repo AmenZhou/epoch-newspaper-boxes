@@ -8,9 +8,9 @@ EpochNewspaperBoxes::Application.routes.draw do
     collection do
       #post 'search_zipcode' => 'newspaper_boxes#index', as: 'search_zipcode'
       get 'map'
-      get 'report'
+      #get 'report'
       post 'upload_file'
-      get 'zipcode_report'
+      #get 'zipcode_report'
       get 'export_data'
     end
     member do
@@ -18,6 +18,12 @@ EpochNewspaperBoxes::Application.routes.draw do
     end
   end
   resources :histories
+  resources :reports do
+    collection do
+      get 'report'
+      get 'zipcode_report'
+    end
+  end
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
