@@ -135,7 +135,7 @@ class NewspaperBox < ActiveRecord::Base
         line += newspaper_box.send(attr).to_s + '|'
       end
     end
-    line
+    line.gsub("\n", "")
   end
 
   def self.export_data

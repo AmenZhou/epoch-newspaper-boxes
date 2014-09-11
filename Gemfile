@@ -67,3 +67,5 @@ gem "jquery-ui-rails"
 gem 'jquery-datatables-rails', '~> 2.2.3'
 
 gem 'mysql2'
+
+gem 'thin'
