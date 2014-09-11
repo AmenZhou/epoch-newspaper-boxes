@@ -118,7 +118,7 @@ class NewspaperBox < ActiveRecord::Base
       
   def self.get_amount_by(group, condition)
     reports = calc_paper_amount(group)
-    reports.select! { |r| r.group[group] == condition}
+    reports.select! { |r| r.send(group) == condition}
   end
   
   
