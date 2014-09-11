@@ -1,5 +1,5 @@
 desc "import csv file"
-task import_csv: :environment do
+task import_csv2: :environment do
   start_time = Time.now
   NewspaperBox.destroy_all
   lines = File.readlines("lib/newspaper_export.csv")
