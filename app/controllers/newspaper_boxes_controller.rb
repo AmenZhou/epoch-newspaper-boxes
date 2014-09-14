@@ -1,7 +1,7 @@
 class NewspaperBoxesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_newspaper_box, only: [:show, :edit, :update, :destroy]
-  before_action :set_newspaper_box_for_recovery, only: :recovery
+  before_action :set_newspaper_box, only: [:show, :edit, :update]
+  before_action :set_newspaper_box_for_trash_bin, only: [:recovery, :destroy]
   before_action :is_admin?, except: [:map]
   
   helper_method :sum_array
@@ -138,7 +138,7 @@ class NewspaperBoxesController < ApplicationController
   end
   
   private
-    def set_newspaper_box_for_recovery
+    def set_newspaper_box_for_trash_bin
       @newspaper_box = NewspaperBox.unscoped.find(params[:id])
     end
   
