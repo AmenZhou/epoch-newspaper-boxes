@@ -3,7 +3,6 @@
     <tr>
       <th>DEL</th>
       <th>Recovery</th>
-      <th>Sort</th>
       <th>Address</th>
       <th>City</th>
       <th>State</th>
@@ -29,18 +28,13 @@
   </thead>
 
   <tbody>
-    <tr>
-      <td><strong>Summary</strong></td>
-      <%= raw td_indentation(10) %>
-      <% sum_array.each do |week_day|%>
-      <td><strong><%= @newspaper_sum[week_day.to_sym] %></strong></td>
-      <% end %>
+    <tr id="table_sum">
+      <%= render "summary_row" %>
     </tr>
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr id="<%= newspaper_box.id%>">
         <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
         <td><%= link_to "Recovery", recovery_newspaper_box_path(newspaper_box), class:"glyphicon glyphicon-refresh", remote: true %></td>
-        <td><%= newspaper_box.sort_num %></td>
         <td><%= newspaper_box.address %></td>
         <td><%= newspaper_box.city %></td>
         <td><%= newspaper_box.state  %></td>

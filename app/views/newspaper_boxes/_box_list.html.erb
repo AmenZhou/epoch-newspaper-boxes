@@ -2,11 +2,7 @@
   <thead>
     <tr>
       <th>DEL</th>
-      <% if @selected_trash%>
-        <th>Recovery</th>
-      <% else %>
-        <th>Sort</th>
-      <% end %>
+      <th>Sort</th>
       <th>Address</th>
       <th>City</th>
       <th>State</th>
@@ -32,25 +28,13 @@
   </thead>
 
   <tbody>
-    <tr>
-      <td><strong>Summary</strong></td>
-      <%= raw td_indentation(9) %>
-      <% sum_array.each do |week_day|%>
-      <td><strong><%= @newspaper_sum[week_day.to_sym] %></strong></td>
-      <% end %>
-    </tr>
+    <tr id="table_sum">
+      <%= render "summary_row" %>
+    </td>
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr id="<%= newspaper_box.id%>">
         <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
-        <% if @selected_trash%>
-          <td>
-            <span>
-              <%= link_to "Recovery", "#", class:"glyphicon glyphicon-refresh" %>
-            </span>  
-          </td>
-        <% else %>
-          <td><%= best_in_place newspaper_box, :sort_num, type: :input%></td>
-        <% end %>
+        <td><%= best_in_place newspaper_box, :sort_num, type: :input%></td>
         <td><%= best_in_place newspaper_box, :address, type: :input%></td>
         <td><%= best_in_place newspaper_box, :city, type: :input%></td>
         <td><%= best_in_place newspaper_box, :state, type: :input %></td>

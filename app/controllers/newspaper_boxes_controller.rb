@@ -28,10 +28,7 @@ class NewspaperBoxesController < ApplicationController
       @newspaper_boxes = @newspaper_boxes.unscoped.where(trash: true)
     end
     
-    @newspaper_sum = {}
-    sum_array.each do |week_day|
-      @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_boxes.sum(week_day.to_sym))
-    end
+    newspaper_sum
   end
 
   # GET /newspaper_boxes/1
@@ -84,8 +81,10 @@ class NewspaperBoxesController < ApplicationController
     @nb_id = @newspaper_box.id
     if @newspaper_box.trash
       @newspaper_box.destroy
+      get_newspaper_boxes_n_sum(true)
     else
       @newspaper_box.update(trash: true)
+      get_newspaper_boxes_n_sum(false)
     end
     respond_to do |format|
       format.js
@@ -132,12 +131,25 @@ class NewspaperBoxesController < ApplicationController
      # flash[:error] = "Recovery Failed"
       @result = false
     end
+    get_newspaper_boxes_n_sum(true)
     respond_to do |format|
       format.js
     end
   end
   
   private
+  def get_newspaper_boxes_n_sum(trash=false)
+    @newspaper_boxes = NewspaperBox.unscoped.where(trash: trash)
+    newspaper_sum
+  end
+  
+  def newspaper_sum
+    @newspaper_sum = {}
+    sum_array.each do |week_day|
+      @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_boxes.sum(week_day.to_sym))
+    end
+  end
+  
     def set_newspaper_box_for_trash_bin
       @newspaper_box = NewspaperBox.unscoped.find(params[:id])
     end
