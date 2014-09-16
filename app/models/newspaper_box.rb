@@ -1,6 +1,5 @@
 class NewspaperBox < ActiveRecord::Base
   include Geokit::Geocoders
-  has_many :box_records
   # attr_accessible :address, :city, :state
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
@@ -46,18 +45,18 @@ class NewspaperBox < ActiveRecord::Base
     end
   end
  
-      def weekday_changed?
-        %w(mon tue wed thu fri sat sun).each do |weekday|
-          return true if self.send("#{weekday}_changed?")
-        end
-        false
-      end
+  def weekday_changed?
+    %w(mon tue wed thu fri sat sun).each do |weekday|
+      return true if self.send("#{weekday}_changed?")
+    end
+    false
+  end
 
-      def process_history
-        if new_record? or weekday_changed?
-          History.generate_a_record(self)
-        end
-      end
+  def process_history
+    if (NewspaperBox.last.id == self.id) or weekday_changed?
+      History.generate_a_record(self)
+    end
+  end
       
   def display_address
     "#{address}, #{city}, #{state}, #{zip}"
@@ -96,25 +95,25 @@ class NewspaperBox < ActiveRecord::Base
     reports << Report.generate_weekday_columns_sum(reports)
     reports
   end
-      
-      def self.calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group)
-        reports = []
-        newspaper_boxes.each do |row|
-          report = Report.new(group, row.send(group))
-          report.set_seven_weekday_and_sum(row)
-          reports << report
-        end
-        reports
-      end
 
-      def self.calc_paper_amount(group=nil)
-        if group.nil?
-          rs = NewspaperBox.select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
-        else
-          rs = NewspaperBox.group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
-        end
-        calc_paper_amount_by_newspaper_boxes(rs, group)
-      end
+  def self.calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group)
+    reports = []
+    newspaper_boxes.each do |row|
+      report = Report.new(group, row.send(group))
+      report.set_seven_weekday_and_sum(row)
+      reports << report
+    end
+    reports
+  end
+
+  def self.calc_paper_amount(group=nil)
+    if group.nil?
+      rs = NewspaperBox.select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+    else
+      rs = NewspaperBox.group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+    end
+    calc_paper_amount_by_newspaper_boxes(rs, group)
+  end
       
   def self.get_amount_by(group, condition)
     reports = calc_paper_amount(group)

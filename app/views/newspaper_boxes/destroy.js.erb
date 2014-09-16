@@ -1,3 +1,3 @@
 $("#<%= @nb_id %>").fadeOut();
 $(".amount-text").text("Boxes Amount:" + "<%= @newspaper_boxes.count%>");
-$("#table_sum").text("").append("<%= j raw render(partial:'summary_row')%>");
+$("#table_sum").text("").append("<%= j render(partial:'summary_row')%>");
