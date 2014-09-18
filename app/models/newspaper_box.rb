@@ -96,7 +96,12 @@ class NewspaperBox < ActiveRecord::Base
   def self.calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group)
     reports = []
     newspaper_boxes.each do |row|
-      report = Report.new(group, row.send(group))
+      next if group && (row.send(group).nil? || row.send(group).blank?)
+      if group
+        report = Report.new(group, row.send(group))
+      else
+        report = Report.new
+      end
       report.set_seven_weekday_and_sum(row)
       reports << report
     end
