@@ -15,7 +15,7 @@ class Report
   end
   
   def set_seven_weekday_and_sum(newspaper_box)
-    Report::Weekday2NewspaperBox.each do |weekday|
+    Weekday2NewspaperBox.each do |weekday|
       set_weekday(weekday, newspaper_box.send(weekday))
       self.sum += self.send(weekday)
     end
@@ -23,7 +23,7 @@ class Report
   
   def self.generate_weekday_columns_sum(reports)
     report = Report.new()
-    (Report::Weekday2NewspaperBox + [:sum]).each do |weekday|
+    (Weekday2NewspaperBox + [:sum]).each do |weekday|
       report.send("#{weekday}=", reports.inject(0){|sum, report| sum += report.send(weekday)})
     end
     report

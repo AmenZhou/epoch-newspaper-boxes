@@ -69,3 +69,13 @@ gem 'jquery-datatables-rails', '~> 2.2.3'
 gem 'mysql2'
 
 gem 'thin'
+
+group :test do
+  gem 'rspec-rails'
+
+  gem 'factory_girl_rails'
+
+  gem 'rspec-its'
+  
+  gem 'database_cleaner'
+end
