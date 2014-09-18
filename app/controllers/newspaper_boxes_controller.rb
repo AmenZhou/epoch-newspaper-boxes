@@ -113,8 +113,8 @@ class NewspaperBoxesController < ApplicationController
   end
 
   def export_data
-    NewspaperBox.export_data
-    send_file(NewspaperBox::ExportFilePath)
+    file_path = NewspaperBox.export_data
+    send_file(file_path)
   end
   
   def sum_array

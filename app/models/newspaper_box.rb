@@ -17,9 +17,6 @@ class NewspaperBox < ActiveRecord::Base
                 "Queens2" => ["Flushing"],
                 "Queens3" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
 
-
-  ExportFilePath = "db/newspaper_export.csv"
-    
   class << self
     def zipcode_list
       @zipcode_list ||= self.pluck(:zip).uniq.compact.sort
@@ -134,18 +131,21 @@ class NewspaperBox < ActiveRecord::Base
         line += newspaper_box.send(attr).to_s + '|'
       end
     end
-    line.gsub("\n", "")
+    line.gsub("\n", "").encode("UTF-8")
   end
 
   def self.export_data
     #DateTime.now.strftime('%D')
-    file = File.new(NewspaperBox::ExportFilePath, 'w')
+    file_path = ""
+    lines = []
+    File.open('db/newspaper_box_export_'+ Time.now.strftime("%d%m%Y-%H:%M") + '.csv', 'w') do |file|
+      file.puts(generate_a_line("title") + "\n")
     
-    file.puts(generate_a_line("title") + "\n")
-    
-    NewspaperBox.all.each do |nb|
-      file.puts(generate_a_line("data", nb) + "\n")
+      NewspaperBox.all.each do |nb|
+        file.puts(generate_a_line("data", nb) + "\n")
+      end
+      file_path = file.path
     end
-    file.close()
+    file_path
   end
 end
