@@ -1,15 +1,9 @@
-class NewspaperBox < ActiveRecord::Base
-  include Geokit::Geocoders
+class NewspaperBox < NewspaperBase
   # attr_accessible :address, :city, :state
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
   default_scope -> {where(trash: false)}
-  
-  before_save do
-    geo  = MultiGeocoder.geocode(display_address)
-    self.latitude = geo.lat
-    self.longitude = geo.lng
-  end
+
   
   after_save :process_history
 
@@ -53,17 +47,6 @@ class NewspaperBox < ActiveRecord::Base
     if (NewspaperBox.last.id == self.id) or weekday_changed?
       History.generate_a_record(self)
     end
-  end
-      
-  def display_address
-    "#{address}, #{city}, #{state}, #{zip}"
-  end
-
-  def update_lat_lng
-    #FIXME add google api key will work, otherwise will be limitation of query
-    #geo = Geokit::Geocoders::GoogleGeocoder.geocode(display_address)
-    geo  = MultiGeocoder.geocode(display_address)
-    update_attributes(latitude: geo.lat, longitude: geo.lng)
   end
 
   def week_count

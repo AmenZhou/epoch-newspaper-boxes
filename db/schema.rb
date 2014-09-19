@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140908185918) do
+ActiveRecord::Schema.define(version: 20140919161818) do
 
   create_table "box_records", force: true do |t|
     t.integer  "newspaper_box_id"
@@ -40,18 +40,16 @@ ActiveRecord::Schema.define(version: 20140908185918) do
     t.datetime "updated_at"
   end
 
-  create_table "newspaper_boxes", force: true do |t|
+  create_table "newspaper_bases", force: true do |t|
     t.string   "address"
     t.string   "city"
     t.string   "state"
     t.integer  "zip"
     t.string   "borough_detail"
-    t.text     "address_remark"
+    t.string   "address_remark"
     t.datetime "date_t"
     t.string   "deliver_type"
     t.text     "remark"
-    t.datetime "created_at"
-    t.datetime "updated_at"
     t.integer  "iron_box"
     t.integer  "plastic_box"
     t.integer  "selling_box"
@@ -67,6 +65,11 @@ ActiveRecord::Schema.define(version: 20140908185918) do
     t.float    "longitude"
     t.float    "sort_num"
     t.boolean  "trash",          default: false
+    t.string   "building"
+    t.string   "type"
+    t.string   "place_type"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "users", force: true do |t|
