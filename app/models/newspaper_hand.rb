@@ -1,0 +1,2 @@
+class NewspaperHand < NewspaperBase
+end

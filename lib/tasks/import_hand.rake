@@ -1,13 +1,13 @@
 desc "import csv file"
-task import_csv2: :environment do
+task import_hand_csv: :environment do
   start_time = Time.now
-  NewspaperBox.destroy_all
-  lines = File.readlines("lib/newspaper_export.csv")
-  titles = lines.first.split("|")
+  NewspaperHand.destroy_all
+  lines = File.readlines("lib/newspaper_hands_export.csv")
+  titles = lines.first.downcase.split("|")
   titles.pop
   lines.drop(1).each do |row|
     data = row.gsub("\n", "").split("|")
-    newspaper_box = NewspaperBox.new
+    newspaper_box = NewspaperHand.new
     %w(longitude langtitude created_at).each do |title|
       titles.delete_if{|t| t == title}
     end
