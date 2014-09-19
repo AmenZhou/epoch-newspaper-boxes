@@ -8,7 +8,16 @@ class NewspaperBoxesController < ApplicationController
   # GET /newspaper_boxes
   # GET /newspaper_boxes.json
   def index
-    @newspaper_boxes = NewspaperBox.all.order("sort_num")
+    if params['table_type'] == 'box' || params['table_type'] == nil
+      param_box
+      @newspaper_boxes = @newspaper_boxes.page(params[:page]).per(25)
+    else
+      
+    end
+  end
+
+  def param_box
+     @newspaper_boxes = NewspaperBox.all.order("sort_num")
     if params['zip_code'].present?
       @selected_zip_code = params['zip_code']
       @newspaper_boxes = @newspaper_boxes.where(zip: @selected_zip_code)
@@ -30,7 +39,6 @@ class NewspaperBoxesController < ApplicationController
     
     newspaper_sum
   end
-
   # GET /newspaper_boxes/1
   # GET /newspaper_boxes/1.json
   def show

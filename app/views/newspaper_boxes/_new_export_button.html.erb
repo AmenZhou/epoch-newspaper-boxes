@@ -1,0 +1,12 @@
+<div class="row">
+  <div class="col-md-4">
+    <%= button_to 'New Newspaper box', new_newspaper_box_path, method: :get, class:"btn btn-default"%>
+  </div>
+  <div class="col-md-4">
+    <%= button_to 'Export Data', export_data_newspaper_boxes_path, method: :get, class:"btn btn-default"%>
+  </div>
+  <div class="col-md-4">
+    <strong class="amount-text">Boxes Amount: <%= NewspaperBox.count%></strong>
+  </div>
+</div>
+</br>
