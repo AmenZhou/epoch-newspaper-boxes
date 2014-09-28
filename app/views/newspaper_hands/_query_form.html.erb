@@ -8,6 +8,6 @@
   <%= select_tag 'borough', options_for_select(NewspaperBox.borough_list, @selected_borough), prompt: 'All', class: 'form-control' %>
   <label>Trash Bin:</label>
   <%= check_box_tag 'trash', true, @selected_trash, class:'form-control' %>
-  <%= hidden_field_tag 'table_type', 'boxes' %>
+  <%= hidden_field_tag 'table_type', 'hands' %>
   <%= button_tag 'submit', class:'btn btn-default'%>
 <% end %>

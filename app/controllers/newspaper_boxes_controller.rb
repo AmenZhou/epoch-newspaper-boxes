@@ -8,14 +8,14 @@ class NewspaperBoxesController < ApplicationController
   # GET /newspaper_boxes
   # GET /newspaper_boxes.json
   def index
-    if params['table_type'] == 'box' || params['table_type'] == nil
-      param_box
-      @newspaper_boxes = @newspaper_boxes.page(params[:page]).per(25)
-    else
-      
-    end
+    redirect_to newspaper_boxes_path({table_type: "boxes"})
   end
 
+  def param_hand
+    @newspaper_boxes = NewspaperHand.all.order("sort_num").page(params[:page]).per(25)
+    newspaper_sum
+  end
+  
   def param_box
      @newspaper_boxes = NewspaperBox.all.order("sort_num")
     if params['zip_code'].present?

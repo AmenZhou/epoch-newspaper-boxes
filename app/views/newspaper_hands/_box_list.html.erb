@@ -1,0 +1,64 @@
+<% @newspaper_hands = @newspaper_bases %>
+<%= paginate @newspaper_hands%>
+<table class="table table-border table-hover table-striped dataTable">
+  <thead>
+    <tr>
+      <th>DEL</th>
+      <th>Sort</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Borough</th>
+      <th>Address remark</th>
+      <th>Create Date</th>
+      <th>Deliver type</th>
+      <th>Iron Box</th>
+      <th>Plastic Box</th>
+      <th>Selling Box</th>
+      <th>Paper_shelf</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
+      <th>Expire Date Subscribe</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr id="table_sum">
+      <%= render "newspaper_hands/summary_row" %>
+    </td>
+    <% @newspaper_hands.each do |newspaper_hand| %>
+      <tr id="<%= newspaper_hand.id%>">
+        <td><%= link_to 'x', newspaper_hand, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        <td><%= best_in_place newspaper_hand, :sort_num, type: :input%></td>
+        <td><%= best_in_place newspaper_hand, :address, type: :input%></td>
+        <td><%= best_in_place newspaper_hand, :city, type: :input%></td>
+        <td><%= best_in_place newspaper_hand, :state, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :zip, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :borough_detail, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :address_remark, type: :input%></td>
+        <td><%= newspaper_hand.created_at.strftime("%F") %></td>
+        <td><%= best_in_place newspaper_hand, :deliver_type, type: :select, collection: deliver_type(@newspaper_hands) %></td>
+        <td><%= best_in_place newspaper_hand, :iron_box, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :plastic_box, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :selling_box, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :paper_shelf, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :mon, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :tue, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :wed, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :thu, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :fri, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :sat, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :sun, type: :input %></td>
+        <td><%= best_in_place newspaper_hand, :date_t, type: :date %></td>
+        <td><%= best_in_place newspaper_hand, :remark, type: :textarea %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

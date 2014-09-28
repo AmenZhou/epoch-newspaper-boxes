@@ -1,3 +1,4 @@
+<% @newspaper_boxes = @newspaper_bases%>
 <%= paginate @newspaper_boxes%>
 <table class="table table-border table-hover table-striped dataTable">
   <thead>
@@ -30,7 +31,7 @@
 
   <tbody>
     <tr id="table_sum">
-      <%= render "summary_row" %>
+      <%= render "newspaper_boxes/summary_row" %>
     </td>
     <% @newspaper_boxes.each do |newspaper_box| %>
       <tr id="<%= newspaper_box.id%>">

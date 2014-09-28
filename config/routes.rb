@@ -17,6 +17,9 @@ EpochNewspaperBoxes::Application.routes.draw do
       get 'recovery'
     end
   end
+  
+  resources :newspaper_hands
+  resources :newspaper_bases
   resources :histories
   resources :reports do
     collection do

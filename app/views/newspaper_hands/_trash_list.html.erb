@@ -1,0 +1,62 @@
+<table class="table table-border table-hover table-striped">
+  <thead>
+    <tr>
+      <th>DEL</th>
+      <th>Recovery</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Borough</th>
+      <th>Address remark</th>
+      <th>Create Date</th>
+      <th>Deliver type</th>
+      <th>Iron Box</th>
+      <th>Plastic Box</th>
+      <th>Selling Box</th>
+      <th>Paper_shelf</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
+      <th>Expire Date Subscribe</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr id="table_sum">
+      <%= render "summary_row" %>
+    </tr>
+    <% @newspaper_boxes.each do |newspaper_box| %>
+      <tr id="<%= newspaper_box.id%>">
+        <td><%= link_to 'x', newspaper_box, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        <td><%= link_to "Recovery", recovery_newspaper_box_path(newspaper_box), class:"glyphicon glyphicon-refresh", remote: true %></td>
+        <td><%= newspaper_box.address %></td>
+        <td><%= newspaper_box.city %></td>
+        <td><%= newspaper_box.state  %></td>
+        <td><%= newspaper_box.zip  %></td>
+        <td><%= newspaper_box.borough_detail  %></td>
+        <td><%= newspaper_box.address_remark %></td>
+        <td><%= newspaper_box.created_at.strftime("%F") %></td>
+        <td><%= newspaper_box.deliver_type %></td>
+        <td><%= newspaper_box.iron_box  %></td>
+        <td><%= newspaper_box.plastic_box  %></td>
+        <td><%= newspaper_box.selling_box  %></td>
+        <td><%= newspaper_box.paper_shelf  %></td>
+        <td><%= newspaper_box.mon  %></td>
+        <td><%= newspaper_box.tue  %></td>
+        <td><%= newspaper_box.wed  %></td>
+        <td><%= newspaper_box.thu  %></td>
+        <td><%= newspaper_box.fri  %></td>
+        <td><%= newspaper_box.sat  %></td>
+        <td><%= newspaper_box.sun  %></td>
+        <td><%= newspaper_box.date_t %></td>
+        <td><%= newspaper_box.remark %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
