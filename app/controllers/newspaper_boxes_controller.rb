@@ -125,10 +125,6 @@ class NewspaperBoxesController < ApplicationController
     send_file(file_path)
   end
   
-  def sum_array
-    %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun)
-  end
-  
   def recovery
     @newspaper_box.trash = false
     @nb_id = @newspaper_box.id

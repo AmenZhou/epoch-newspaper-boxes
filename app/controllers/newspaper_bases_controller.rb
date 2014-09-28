@@ -15,8 +15,8 @@ class NewspaperBasesController < ApplicationController
   
   private
 
-  def sum_array
-    %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun)
+  def sum_array(type='box')
+    type == 'box' ? %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun) : %w(mon tue wed thu fri sat sun)
   end
 
   def filter_newspaper_base
@@ -38,10 +38,6 @@ class NewspaperBasesController < ApplicationController
       @selected_trash = params['trash']
       @newspaper_bases = @newspaper_bases.unscoped.where(trash: true)
     end
-  end
-  
-  def sum_array
-    %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun)
   end
   
   def get_newspaper_bases_n_sum(trash=false)
