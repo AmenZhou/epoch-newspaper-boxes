@@ -8,65 +8,7 @@ class NewspaperBoxesController < ApplicationController
   # GET /newspaper_boxes
   # GET /newspaper_boxes.json
   def index
-    redirect_to newspaper_boxes_path({table_type: "boxes"})
-  end
-
-  def param_hand
-    @newspaper_boxes = NewspaperHand.all.order("sort_num").page(params[:page]).per(25)
-    newspaper_sum
-  end
-  
-  def param_box
-     @newspaper_boxes = NewspaperBox.all.order("sort_num")
-    if params['zip_code'].present?
-      @selected_zip_code = params['zip_code']
-      @newspaper_boxes = @newspaper_boxes.where(zip: @selected_zip_code)
-    end
-    if params['city'].present?
-      @selected_city = params['city']
-      @newspaper_boxes = @newspaper_boxes.where(city: @selected_city)
-    end
-
-    if params['borough'].present?
-      @selected_borough = params['borough']
-      @newspaper_boxes = @newspaper_boxes.where(borough_detail: @selected_borough)
-    end
-    
-    if params['trash'].present?
-      @selected_trash = params['trash']
-      @newspaper_boxes = @newspaper_boxes.unscoped.where(trash: true)
-    end
-    
-    newspaper_sum
-  end
-  # GET /newspaper_boxes/1
-  # GET /newspaper_boxes/1.json
-  def show
-  end
-
-  # GET /newspaper_boxes/new
-  def new
-    @newspaper_box = NewspaperBox.new
-  end
-
-  # GET /newspaper_boxes/1/edit
-  def edit
-  end
-
-  # POST /newspaper_boxes
-  # POST /newspaper_boxes.json
-  def create
-    @newspaper_box = NewspaperBox.new(newspaper_box_params)
-
-    respond_to do |format|
-      if @newspaper_box.save
-        format.html { redirect_to @newspaper_box, notice: 'Newspaper box was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @newspaper_box }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @newspaper_box.errors, status: :unprocessable_entity }
-      end
-    end
+    redirect_to newspaper_bases_path({table_type: "boxes"})
   end
 
   # PATCH/PUT /newspaper_boxes/1

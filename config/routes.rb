@@ -19,7 +19,9 @@ EpochNewspaperBoxes::Application.routes.draw do
   end
   
   resources :newspaper_hands
-  resources :newspaper_bases
+  resources :newspaper_bases do
+    post 'new', on: :collection, as: :build
+  end
   resources :histories
   resources :reports do
     collection do
