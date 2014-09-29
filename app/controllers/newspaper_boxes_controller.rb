@@ -10,7 +10,18 @@ class NewspaperBoxesController < ApplicationController
   def index
     redirect_to newspaper_bases_path({table_type: "boxes"})
   end
-
+  # POST /newspaper_boxes
+  # POST /newspaper_boxes.json
+  def create
+    @newspaper_box = NewspaperBox.new(newspaper_box_params)
+    respond_to do |format|
+      if @newspaper_box.save
+        format.html { redirect_to newspaper_bases_path(table_type: 'boxes'), notice: 'Newspaper box was successfully created.' }
+      else
+        format.html { render 'newspaper_bases/new' }
+      end
+    end
+  end
   # PATCH/PUT /newspaper_boxes/1
   # PATCH/PUT /newspaper_boxes/1.json
   def update

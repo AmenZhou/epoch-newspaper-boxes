@@ -30,10 +30,6 @@ class NewspaperBasesController < ApplicationController
       @table_type = 'newspaper_hands'
     end
     @newspaper_base = NewspaperBase.new(type: params[:table_type])
-    #if @table_type == 'boxes'
-      #render action:  and return
-    #elsif @table_type == 'hands'
-    #end
   end
 
   # GET /newspaper_boxes/1/edit
@@ -43,11 +39,11 @@ class NewspaperBasesController < ApplicationController
   # POST /newspaper_boxes
   # POST /newspaper_boxes.json
   def create
-    @newspaper_box = NewspaperBox.new(newspaper_box_params)
-
+    @newspaper_base = NewspaperBase.new(newspaper_base_params)
+    byebug
     respond_to do |format|
-      if @newspaper_box.save
-        format.html { redirect_to @newspaper_box, notice: 'Newspaper box was successfully created.' }
+      if @newspaper_base.save
+        format.html { redirect_to @newspaper_base, notice: 'Newspaper box was successfully created.' }
         format.json { render action: 'show', status: :created, location: @newspaper_box }
       else
         format.html { render action: 'new' }
@@ -106,7 +102,7 @@ class NewspaperBasesController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def newspaper_base_params
-    params.require(:newspaper_base).permit(:address, :city, :state, :zip, :borough_detail, :address_remark, :date_t, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :remark, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :sort_num)
+    params.require(:newspaper_base).permit(:address, :city, :state, :zip, :borough_detail, :address_remark, :date_t, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :remark, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :sort_num, :building, :place_type)
   end
 
   def is_admin?
