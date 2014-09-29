@@ -1,16 +1,10 @@
 EpochNewspaperBoxes::Application.routes.draw do
 	root "newspaper_boxes#map"
-	#resources :box_records do
-   # get 'record_view' => 'box_records#record_view', on: :member, as: :view
-  #end
   devise_for :users
-  resources :newspaper_boxes do
+  resources :newspaper_boxes, except: [:show, :eidt, :index] do
     collection do
-      #post 'search_zipcode' => 'newspaper_boxes#index', as: 'search_zipcode'
       get 'map'
-      #get 'report'
       post 'upload_file'
-      #get 'zipcode_report'
       get 'export_data'
     end
     member do
@@ -18,8 +12,8 @@ EpochNewspaperBoxes::Application.routes.draw do
     end
   end
   
-  resources :newspaper_hands
-  resources :newspaper_bases do
+  resources :newspaper_hands, except: [:show, :edit, :index]
+  resources :newspaper_bases, except: [:show, :edit] do
     post 'new', on: :collection, as: :build
   end
   resources :histories

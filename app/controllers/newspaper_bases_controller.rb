@@ -1,7 +1,7 @@
 class NewspaperBasesController < ApplicationController
   helper_method :sum_array
   before_action :authenticate_user!
-  before_action :set_newspaper_base, only: [:show, :edit, :update]
+  #before_action :set_newspaper_base, only: [:show, :edit, :update]
   before_action :set_newspaper_base_for_trash_bin, only: [:recovery, :destroy]
   before_action :is_admin?, except: [:map]
   def index
@@ -12,17 +12,10 @@ class NewspaperBasesController < ApplicationController
       @newspaper_bases = NewspaperHand.all.order("sort_num")
     end
     filter_newspaper_base
-    #byebug
     @newspaper_bases = @newspaper_bases.page(params[:page]).per(25)
     newspaper_sum
   end
 
-  # GET /newspaper_boxes/1
-  # GET /newspaper_boxes/1.json
-  def show
-  end
-
-  # GET /newspaper_boxes/new
   def new
     if params[:table_type].downcase.match('box')
       @table_type = 'newspaper_boxes'
@@ -32,26 +25,6 @@ class NewspaperBasesController < ApplicationController
     @newspaper_base = NewspaperBase.new(type: params[:table_type])
   end
 
-  # GET /newspaper_boxes/1/edit
-  def edit
-  end
-
-  # POST /newspaper_boxes
-  # POST /newspaper_boxes.json
-  def create
-    @newspaper_base = NewspaperBase.new(newspaper_base_params)
-    byebug
-    respond_to do |format|
-      if @newspaper_base.save
-        format.html { redirect_to @newspaper_base, notice: 'Newspaper box was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @newspaper_box }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @newspaper_box.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-  
   private
 
   def sum_array(type='box')
@@ -80,7 +53,7 @@ class NewspaperBasesController < ApplicationController
   end
   
   def get_newspaper_bases_n_sum(trash=false)
-    @newspaper_bases = NewspaperBox.unscoped.where(trash: trash)
+    @newspaper_bases = NewspaperBase.unscoped.where(trash: trash)
     newspaper_sum
   end
   
@@ -97,7 +70,7 @@ class NewspaperBasesController < ApplicationController
 
   # Use callbacks to share common setup or constraints between actions.
   def set_newspaper_base
-    @newspaper_base = NewspaperBox.find(params[:id])
+    @newspaper_base = NewspaperBase.find(params[:id])
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

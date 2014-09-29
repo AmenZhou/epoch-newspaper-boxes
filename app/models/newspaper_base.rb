@@ -32,15 +32,15 @@ class NewspaperBase < ActiveRecord::Base
 
   class << self
     def zipcode_list
-      @zipcode_list ||= self.pluck(:zip).uniq.compact.sort
+      @zipcode_list ||= self.pluck(:zip).uniq.compact.sort.delete_if(&:blank?)
     end
 
     def city_list
-      @city_list ||= self.pluck(:city).uniq.compact.sort
+      @city_list ||= self.pluck(:city).uniq.compact.sort.delete_if(&:blank?)
     end
 
     def borough_list
-      @borough_list ||= self.pluck(:borough_detail).uniq.compact.sort
+      @borough_list ||= self.pluck(:borough_detail).uniq.compact.sort.delete_if(&:blank?)
     end
   end
 
