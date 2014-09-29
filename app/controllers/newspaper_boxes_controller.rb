@@ -1,9 +1,9 @@
 class NewspaperBoxesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_newspaper_box, only: [:update]
+  before_action :set_newspaper_box, only: [:update, :destroy]
   before_action :set_newspaper_box_for_trash_bin, only: [:recovery, :destroy]
   before_action :is_admin?, except: [:map]
-  
+
   def create
     @newspaper_box = NewspaperBox.new(newspaper_box_params)
     respond_to do |format|
@@ -26,14 +26,16 @@ class NewspaperBoxesController < ApplicationController
   end
 
   def destroy
+    @newspaper_box = NewspaperBox.find(params[:id])
     @nb_id = @newspaper_box.id
     if @newspaper_box.trash
       @newspaper_box.destroy
-      get_newspaper_boxes_n_sum(true)
+      get_newspaper_bases_n_sum(true)
     else
       @newspaper_box.update(trash: true)
-      get_newspaper_boxes_n_sum(false)
+      get_newspaper_bases_n_sum(false)
     end
+    @newspaper_boxes = NewspaperBox.all
     respond_to do |format|
       format.js
       format.json { head :no_content }

@@ -1,6 +1,6 @@
 class NewspaperHandsController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_newspaper_hand, only: :update
+  before_action :set_newspaper_hand, only: [:update, :destroy]
 
   def create
     @newspaper_hand = NewspaperHand.new(newspaper_hand_params)
@@ -20,6 +20,23 @@ class NewspaperHandsController < ApplicationController
       else
         format.json { render json: @newspaper_hand.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  def destroy
+    @newspaper_hand = NewspaperHand.find(params[:id])
+    @nb_id = @newspaper_hand.id
+    if @newspaper_hand.trash
+      @newspaper_hand.destroy
+      get_newspaper_bases_n_sum(true)
+    else
+      @newspaper_hand.update(trash: true)
+      get_newspaper_bases_n_sum(false)
+    end
+    @newspaper_hands = NewspaperHand.all
+    respond_to do |format|
+      format.js
+      format.json { head :no_content }
     end
   end
 

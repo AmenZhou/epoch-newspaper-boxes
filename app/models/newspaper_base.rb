@@ -42,6 +42,22 @@ class NewspaperBase < ActiveRecord::Base
     def borough_list
       @borough_list ||= self.pluck(:borough_detail).uniq.compact.sort.delete_if(&:blank?)
     end
+
+    def get_newspaper_bases_n_sum(trash=false)
+      @newspaper_bases = NewspaperBase.unscoped.where(trash: trash, type: @class_type)
+      newspaper_sum
+    end
+
+    def newspaper_sum
+      @newspaper_sum = {}
+      sum_array.each do |week_day|
+        @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_bases.sum(week_day.to_sym))
+      end
+    end
+
+    def sum_array(type='box')
+      type == 'box' ? %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun) : %w(mon tue wed thu fri sat sun)
+    end
   end
 
   def self.avg_week_count
