@@ -2,6 +2,7 @@ h1 Newspaper Map
 
 div.select-bar
   = select_tag :region, options_for_select(@citys), prompt: 'All Boroughs'
+  = select_tag :table_type, options_for_select(['boxes', 'hands', ['all', 'bases']])
   - if current_user.try(:is_admin?)
     span class="location_info" 
       | location
@@ -63,11 +64,12 @@ content_for :head
     google.maps.event.addDomListener(window, 'load', initialize(locations)); 
 
     $(document).ready(function(){
-       $('#region').change(function(){
-         var city = $(this).val();
+       $('#region, #table_type').change(function(){
+         var city = $('#region').val();
+         var table_type = $('#table_type').val();
          $.ajax({
            type: 'get',
-           url: '/newspaper_boxes/map.json',
+           url: '/newspaper_' + table_type + '/map.json',
            data: {city: city},
            success: function(data){
              google.maps.event.addDomListener(window, 'load', initialize(data)); 

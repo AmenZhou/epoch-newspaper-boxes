@@ -73,9 +73,9 @@ class NewspaperBasesController < ApplicationController
 
 
   def map
-    @citys = NewspaperBox.pluck(:borough_detail).compact.uniq.delete_if{|x| x.blank?}
+    @citys = model_name.pluck(:borough_detail).compact.uniq.delete_if{|x| x.blank?}
     @selected_city = params[:city]
-    boxes = params[:city].present? ? NewspaperBox.by_borough(params[:city]) : NewspaperBox.all
+    boxes = params[:city].present? ? model_name.by_borough(params[:city]) : model_name.all
     @locations = boxes.map do |np|
       location = {}
       location['latitude'] = np.latitude 
@@ -83,7 +83,7 @@ class NewspaperBasesController < ApplicationController
       location['paper_count'] = np.week_count
       location['address'] = np.display_address
       #location['icon'] = np.week_count < NewspaperBox.avg_week_count ? 'yellow' : 'red'
-      location['icon'] = np.is_newspaper_box? ? 'yellow' : 'red'
+      location['icon'] = np.type == 'NewspaperBox' ? 'yellow' : 'red'
       location
     end
     respond_to do |format|
