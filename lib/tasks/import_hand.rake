@@ -1,7 +1,7 @@
 desc "import csv file"
 task import_hand_csv: :environment do
   start_time = Time.now
-  NewspaperHand.destroy_all
+  NewspaperHand.where(type: 'NewspaperHand').destroy_all
   lines = File.readlines("lib/newspaper_hands_export.csv")
   titles = lines.first.downcase.split("|")
   titles.pop
