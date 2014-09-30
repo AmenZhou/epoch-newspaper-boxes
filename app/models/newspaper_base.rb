@@ -1,10 +1,10 @@
 class NewspaperBase < ActiveRecord::Base
   include Geokit::Geocoders 
-    # attr_accessible :address, :city, :state
+  validates :type, presence: true
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
   default_scope -> {where(trash: false)}
-  paginates_per 5
+  paginates_per 25
 
   
   after_save :process_history
@@ -13,6 +13,8 @@ class NewspaperBase < ActiveRecord::Base
                 "Queens2" => ["Flushing"],
                 "Queens3" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
   
+  ColumnName = [:delete, :sort_num, :address, :city, :state, :zip, :borough_detail, :address_remark, :created_at, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :date_t, :remark, :building, :place_type]
+
   before_save do
     geo  = MultiGeocoder.geocode(display_address)
     self.latitude = geo.lat

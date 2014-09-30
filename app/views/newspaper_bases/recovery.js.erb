@@ -1,5 +1,5 @@
 if(<%= @result %>){
   $("#<%= @nb_id %>").fadeOut();
-  $(".amount-text").text("Boxes Amount:" + "<%= @newspaper_boxes.count%>");
+  $(".amount-text").text("Boxes Amount:" + "<%= @newspaper_amount %>");
   $("#table_sum").text("").append("<%= j raw render(partial:'summary_row')%>");
 }

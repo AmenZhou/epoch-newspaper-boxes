@@ -1,0 +1,63 @@
+<%= paginate @newspaper_bases%>
+<table class="table table-border table-hover table-striped">
+  <thead>
+    <tr>
+      <th>DEL</th>
+      <th>Recovery</th>
+      <th>Address</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Zip</th>
+      <th>Borough</th>
+      <th>Address remark</th>
+      <th>Create Date</th>
+      <th>Deliver type</th>
+      <th>Iron Box</th>
+      <th>Plastic Box</th>
+      <th>Selling Box</th>
+      <th>Paper_shelf</th>
+      <th>Mon</th>
+      <th>Tue</th>
+      <th>Wed</th>
+      <th>Thu</th>
+      <th>Fri</th>
+      <th>Sat</th>
+      <th>Sun</th>
+      <th>Expire Date Subscribe</th>
+      <th>Remark</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr id="table_sum">
+      <%= render "summary_row" %>
+    </tr>
+    <% @newspaper_bases.each do |newspaper_base| %>
+      <tr id="<%= newspaper_base.id%>">
+        <td><%= link_to 'x', newspaper_base, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
+        <td><%= link_to "Recovery", recovery_newspaper_basis_path(newspaper_base), class:"glyphicon glyphicon-refresh", remote: true %></td>
+        <td><%= newspaper_base.address %></td>
+        <td><%= newspaper_base.city %></td>
+        <td><%= newspaper_base.state  %></td>
+        <td><%= newspaper_base.zip  %></td>
+        <td><%= newspaper_base.borough_detail  %></td>
+        <td><%= newspaper_base.address_remark %></td>
+        <td><%= newspaper_base.created_at.strftime("%F") %></td>
+        <td><%= newspaper_base.deliver_type %></td>
+        <td><%= newspaper_base.iron_box  %></td>
+        <td><%= newspaper_base.plastic_box  %></td>
+        <td><%= newspaper_base.selling_box  %></td>
+        <td><%= newspaper_base.paper_shelf  %></td>
+        <td><%= newspaper_base.mon  %></td>
+        <td><%= newspaper_base.tue  %></td>
+        <td><%= newspaper_base.wed  %></td>
+        <td><%= newspaper_base.thu  %></td>
+        <td><%= newspaper_base.fri  %></td>
+        <td><%= newspaper_base.sat  %></td>
+        <td><%= newspaper_base.sun  %></td>
+        <td><%= newspaper_base.date_t %></td>
+        <td><%= newspaper_base.remark %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
