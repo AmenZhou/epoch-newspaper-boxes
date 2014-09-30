@@ -1,5 +1,3 @@
-<td><strong>Summary</strong></td>
-<%= raw td_indentation(9) %>
-<% sum_array.each do |week_day|%>
-<td><strong><%= @newspaper_sum[week_day.to_sym] %></strong></td>
+<% model_name::ColumnName.each do |column|%>
+  <td><strong><%= @newspaper_sum[column] %></strong></td>
 <% end %>

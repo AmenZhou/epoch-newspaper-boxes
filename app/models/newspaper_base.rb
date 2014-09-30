@@ -14,6 +14,7 @@ class NewspaperBase < ActiveRecord::Base
                 "Queens3" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
   
   ColumnName = [:delete, :sort_num, :address, :city, :state, :zip, :borough_detail, :address_remark, :created_at, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :date_t, :remark, :building, :place_type]
+  SumArray = [:iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun]
 
   before_save do
     geo  = MultiGeocoder.geocode(display_address)
@@ -52,13 +53,9 @@ class NewspaperBase < ActiveRecord::Base
 
     def newspaper_sum
       @newspaper_sum = {}
-      sum_array.each do |week_day|
+      model_name::SumArray.each do |week_day|
         @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_bases.sum(week_day.to_sym))
       end
-    end
-
-    def sum_array(type='box')
-      type == 'box' ? %w(iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun) : %w(mon tue wed thu fri sat sun)
     end
   end
 

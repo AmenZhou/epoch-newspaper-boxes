@@ -4,7 +4,7 @@ class NewspaperBasesController < ApplicationController
   before_action :set_newspaper_base_for_trash_bin, only: [:recovery, :destroy]
   #before_action :set_table_type, only: [:index, :new]
   before_action :is_admin?, except: [:map]
-  helper_method :sum_array, :model_name
+  helper_method :model_name
 
   def index
     @newspaper_bases = model_name.all.order("sort_num")
@@ -105,13 +105,9 @@ class NewspaperBasesController < ApplicationController
   
   def newspaper_sum
     @newspaper_sum = {}
-    sum_array.each do |week_day|
+    model_name::SumArray.each do |week_day|
       @newspaper_sum.send( :[]=, week_day.to_sym, @newspaper_bases.sum(week_day.to_sym))
     end
-  end
-
-  def sum_array
-    model_name::ColumnName
   end
 
   def filter_newspaper_base
