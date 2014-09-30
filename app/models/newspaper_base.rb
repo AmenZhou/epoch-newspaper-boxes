@@ -92,7 +92,7 @@ class NewspaperBase < ActiveRecord::Base
   end
 
   def self.report_queens
-    newspaper_boxes = NewspaperBox.where(borough_detail: 'Queens')
+    newspaper_boxes = self.where(borough_detail: 'Queens')
     reports = []
     NewspaperBox::QueensArea.each do |k, v|
       rs = newspaper_boxes.where(city: v).select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
@@ -127,9 +127,9 @@ class NewspaperBase < ActiveRecord::Base
 
   def self.calc_paper_amount(group=nil)
     if group.nil?
-      rs = NewspaperBox.select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+      rs = self.select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
     else
-      rs = NewspaperBox.group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
+      rs = self.group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
     end
     calc_paper_amount_by_newspaper_boxes(rs, group)
   end

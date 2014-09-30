@@ -17,7 +17,7 @@ class Report
   def set_seven_weekday_and_sum(newspaper_box)
     Weekday2NewspaperBox.each do |weekday|
       set_weekday(weekday, newspaper_box.send(weekday))
-      self.sum += self.send(weekday)
+      self.sum += self.send(weekday) unless self.send(weekday).nil?
     end
   end
   

@@ -1,7 +1,8 @@
 class ReportsController < ApplicationController
   def report
-    @report = NewspaperBox.report
-    @report_queens = NewspaperBox.report_queens
+    model = params[:table_type] || 'NewspaperBox'
+    @report = model.constantize.report
+    @report_queens = model.constantize.report_queens
   end
   
   def zipcode_report
