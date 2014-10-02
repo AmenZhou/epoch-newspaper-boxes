@@ -69,4 +69,8 @@ module NewspaperBoxesHelper
   def newspaper_export_path
     "#{controller.controller_name}/export_data"
   end
+
+  def newspaper_recovery_path(newspaper_base)
+    "#{controller.controller_name}/" + newspaper_base.id.to_s + "/recovery"
+  end
 end

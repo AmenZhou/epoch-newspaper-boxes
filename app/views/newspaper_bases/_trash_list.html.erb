@@ -35,7 +35,7 @@
     <% @newspaper_bases.each do |newspaper_base| %>
       <tr id="<%= newspaper_base.id%>">
         <td><%= link_to 'x', newspaper_base, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %></td>
-        <td><%= link_to "Recovery", recovery_newspaper_basis_path(newspaper_base), class:"glyphicon glyphicon-refresh", remote: true %></td>
+        <td><%= link_to "Recovery", newspaper_recovery_path(newspaper_base), class:"glyphicon glyphicon-refresh", remote: true %></td>
         <td><%= newspaper_base.address %></td>
         <td><%= newspaper_base.city %></td>
         <td><%= newspaper_base.state  %></td>
