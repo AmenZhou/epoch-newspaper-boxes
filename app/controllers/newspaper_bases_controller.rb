@@ -92,6 +92,11 @@ class NewspaperBasesController < ApplicationController
       end
   end
 
+  def export_data
+    file_path = model_name.export_data
+    send_file(file_path)
+  end
+
   private
 
   def model_name

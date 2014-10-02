@@ -57,4 +57,16 @@ module NewspaperBoxesHelper
        place_type: -> { best_in_place newspaper_base, :place_type, type: :input },
       }
   end
+
+  def newspaper_new_path
+    "#{controller.controller_name}/new"
+  end
+
+  def newspaper_index_path
+    "#{controller.controller_name}"
+  end
+
+  def newspaper_export_path
+    "#{controller.controller_name}/export_data"
+  end
 end

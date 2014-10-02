@@ -146,9 +146,10 @@ class NewspaperBase < ActiveRecord::Base
 
   def self.generate_a_line(type="title", newspaper_box=nil)
     line = ""
-    %w(sort_num address city state zip borough_detail address_remark date_t deliver_type remark iron_box plastic_box selling_box paper_shelf mon tue wed thu fri sat sun latitude longitude created_at).each do |attr|
+    self::ColumnName.each do |attr|
+      next if [:delete].include?(attr)
       if type == "title"
-        line += attr + '|'
+        line += attr.to_s + '|'
       else
         line += newspaper_box.send(attr).to_s + '|'
       end
@@ -157,13 +158,14 @@ class NewspaperBase < ActiveRecord::Base
   end
 
   def self.export_data
-    #DateTime.now.strftime('%D')
     file_path = ""
-    lines = []
-    File.open('db/newspaper_box_export_'+ Time.now.strftime("%d%m%Y-%H:%M") + '.csv', 'w') do |file|
+    unless File.directory?('lib/export')
+      Dir.mkdir 'lib/export'
+    end
+    File.open('lib/export/' + self.to_s.downcase + '_export_'+ Time.now.strftime("%d%m%Y-%H:%M") + '.csv', 'w') do |file|
       file.puts(generate_a_line("title") + "\n")
     
-      NewspaperBox.all.each do |nb|
+      self.all.each do |nb|
         file.puts(generate_a_line("data", nb) + "\n")
       end
       file_path = file.path

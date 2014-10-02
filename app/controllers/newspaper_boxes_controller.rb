@@ -1,10 +1,5 @@
 class NewspaperBoxesController < NewspaperBasesController
 
-  def export_data
-    file_path = NewspaperBox.export_data
-    send_file(file_path)
-  end
-  
   private
   # Never trust parameters from the scary internet, only allow the white list through.
   def newspaper_params
