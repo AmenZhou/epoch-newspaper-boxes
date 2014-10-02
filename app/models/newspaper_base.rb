@@ -6,27 +6,15 @@ class NewspaperBase < ActiveRecord::Base
   default_scope -> {where(trash: false)}
   paginates_per 25
 
-  after_save :process_history
+  after_save :process_history, unless: $rails_rake_task
+  before_save :update_lat_lng, except: [:destroy, :recovery]
 
-  QueensArea = {"Queens1" => ["Woodside", "Elmhurst", "Rego Park", "Forest Hills"],
-                "Queens2" => ["Flushing"],
-                "Queens3" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
+  QueensArea = {"Queens West" => ["Woodside", "Elmhurst", "Rego Park", "Forest Hills"],
+                "Queens Middle" => ["Flushing"],
+                "Queens East" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
 
   ColumnName = [:delete, :sort_num, :address, :city, :state, :zip, :borough_detail, :address_remark, :created_at, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :date_t, :remark, :building, :place_type]
   SumArray = [:iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun]
-
-  before_save :update_lat_lng, except: [:destroy, :recovery]
-
-  def update_lat_lng
-    #FIXME add google api key will work, otherwise will be limitation of query
-    geo  = MultiGeocoder.geocode(display_address)
-    self.latitude = geo.lat
-    self.longitude = geo.lng
-  end
-
-  def display_address
-    "#{address}, #{city}, #{state}, #{zip}"
-  end
 
   class << self
     def zipcode_list
@@ -146,6 +134,17 @@ class NewspaperBase < ActiveRecord::Base
     end
   end
 
+  #instance method
+  def update_lat_lng
+    #FIXME add google api key will work, otherwise will be limitation of query
+    geo  = MultiGeocoder.geocode(display_address)
+    self.latitude = geo.lat
+    self.longitude = geo.lng
+  end
+
+  def display_address
+    "#{address}, #{city}, #{state}, #{zip}"
+  end
 
   def weekday_changed?
     %w(mon tue wed thu fri sat sun).each do |weekday|

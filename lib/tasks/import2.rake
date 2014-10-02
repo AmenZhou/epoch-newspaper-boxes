@@ -1,6 +1,9 @@
 desc "import csv file"
 task import_csv2: :environment do
   start_time = Time.now
+  puts 'backuping data...'
+  NewspaperBox.export_data
+  puts 'deleting data...'
   NewspaperBox.where(type: 'NewspaperBox').destroy_all
   lines = File.readlines("lib/newspaper_export.csv")
   titles = lines.first.split("|")

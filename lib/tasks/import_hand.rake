@@ -1,6 +1,9 @@
 desc "import csv file"
 task import_hand_csv: :environment do
   start_time = Time.now
+  puts 'backup data before delete ...'
+  NewspaperHand.export_data
+  puts 'deleting data'
   NewspaperHand.where(type: 'NewspaperHand').destroy_all
   lines = File.readlines("lib/newspaper_hands_export.csv")
   titles = lines.first.downcase.split("|")
