@@ -29,7 +29,7 @@ module NewspaperBoxesHelper
   end
 
   def table_columns(newspaper_base)
-    @columns = {
+    {
        delete: -> { link_to 'x', newspaper_base, method: :delete, data: { confirm: 'Are you sure?' }, remote: true },
        sort_num: -> {best_in_place newspaper_base, :sort_num, type: :input},
        address: -> {best_in_place newspaper_base, :address, type: :input},
@@ -55,7 +55,35 @@ module NewspaperBoxesHelper
        remark: -> { best_in_place newspaper_base, :remark, type: :textarea },
        building: -> { best_in_place newspaper_base, :building, type: :input },
        place_type: -> { best_in_place newspaper_base, :place_type, type: :input },
-      }
+    }
+  end
+
+  def newspaper_form_items(f)
+    {
+      address: -> { f.text_field :address },
+      city: -> { f.text_field :city },
+      state: -> { f.text_field :state },
+      zip: -> { f.number_field :zip },
+      borough_detail: -> { f.text_field :borough_detail },
+      address_remark: -> { f.text_area :address_remark },
+      date_t: -> { f.datetime_select :date_t },
+      deliver_type: -> { f.text_field :deliver_type },
+      iron_box: -> { f.text_field :iron_box },
+      plastic_box: -> { f.text_field :plastic_box },
+      selling_box: -> { f.text_field :selling_box },
+      paper_shelf: -> { f.text_field :paper_shelf },
+      mon: -> { f.number_field :mon },
+      tue: -> { f.number_field :tue },
+      wed: -> { f.number_field :wed },
+      thu: -> { f.number_field :thu },
+      fri: -> { f.number_field :fri },
+      sat: -> { f.number_field :sat },
+      sun: -> { f.number_field :sun },
+      remark: -> { f.text_area :remark },
+      building: -> { f.text_field :building},
+      place_type: -> { f.text_field :place_type },
+      sort_num: -> { f.number_field :sort_num }
+    }
   end
 
   def newspaper_new_path
