@@ -15,6 +15,7 @@ task import_hand_csv: :environment do
       titles.delete_if{|t| t == title}
     end
     titles.each_with_index do |col_name, index|
+      next if col_name == 'address' and (data[index].blank? or data[index].nil?)
       newspaper_box.send("#{col_name}=", data[index])
     end
     %w(mon tue wed thu fri sat sun).each do |weekday|
