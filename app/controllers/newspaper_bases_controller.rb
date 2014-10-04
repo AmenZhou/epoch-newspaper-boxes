@@ -80,7 +80,7 @@ class NewspaperBasesController < ApplicationController
       location = {}
       location['latitude'] = np.latitude 
       location['longitude'] = np.longitude
-      location['paper_count'] = np.week_count
+      location['paper_count'] = np.instance_of?(NewspaperHand)? 0 : np.week_count
       location['address'] = np.display_address
       #location['icon'] = np.week_count < NewspaperBox.avg_week_count ? 'yellow' : 'red'
       location['icon'] = np.type == 'NewspaperBox' ? 'yellow' : 'red'

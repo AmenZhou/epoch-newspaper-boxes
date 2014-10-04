@@ -18,15 +18,15 @@ class NewspaperBase < ActiveRecord::Base
 
   class << self
     def zipcode_list
-      self.pluck(:zip).uniq.compact.sort.delete_if(&:blank?)
+      @zipcode_list ||= self.pluck(:zip).uniq.compact.sort.delete_if(&:blank?)
     end
 
     def city_list
-      self.pluck(:city).uniq.compact.sort.delete_if(&:blank?)
+      @city_list ||= self.pluck(:city).uniq.compact.sort.delete_if(&:blank?)
     end
 
     def borough_list
-      self.pluck(:borough_detail).uniq.compact.sort.delete_if(&:blank?)
+      @borough_list ||= self.pluck(:borough_detail).uniq.compact.sort.delete_if(&:blank?)
     end
 
     def get_newspaper_bases_n_sum(trash=false)
