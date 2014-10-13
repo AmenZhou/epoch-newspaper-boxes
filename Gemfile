@@ -68,7 +68,11 @@ gem 'jquery-datatables-rails', '~> 2.2.3'
 
 gem 'mysql2'
 
-gem 'thin'
+gem 'whenever', :require => false
+
+group :production do
+  gem 'passenger'
+end
 
 group :test do
   gem 'rspec-rails'
