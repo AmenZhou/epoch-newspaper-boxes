@@ -10,12 +10,11 @@ task import_csv2: :environment do
   titles.pop
   lines.drop(1).each do |row|
     data = row.gsub("\n", "").split("|")
+    address_index = titles.index('address')
+    next if data[address_index].blank? or data[address_index].nil?
     newspaper_box = NewspaperBox.new
-    %w(longitude langtitude created_at).each do |title|
-      titles.delete_if{|t| t == title}
-    end
     titles.each_with_index do |col_name, index|
-      next if col_name == 'address' and (data[index].blank? or data[index].nil?)
+      next if %w(longitude latitude created_at).include?(col_name)
       newspaper_box.send("#{col_name}=", data[index])
     end
     %w(mon tue wed thu fri sat sun).each do |weekday|
