@@ -4,9 +4,19 @@ module NewspaperBoxesHelper
     output.unshift(['borough', 'amount'])
   end
 
-  def chart_queens_data report
-    output = report.map{|rs| [rs.area, rs.sum]}
+  def chart_queens_data reports
+    output = reports.map{|rs| [rs.area, rs.sum]}
     output.unshift(['Queens Areas', 'amount'])
+  end
+
+  def chart_weekday_average reports
+    output = reports.map{|report| [report.borough_detail, report.average]}
+    output.unshift(['Borough', 'WeekDay Average'])
+  end
+
+  def chart_weekend_average reports
+    output = reports.map{|report| [report.borough_detail, report.average]}
+    output.unshift(['Borough', 'Weekend Average'])
   end
 
   def zipcode_chart_data zipcode_report

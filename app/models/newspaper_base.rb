@@ -51,6 +51,14 @@ class NewspaperBase < ActiveRecord::Base
       end
     end
     #REPORT GENERATE RELATED METHODS
+    def weekday_average_report
+      calc_paper_amount(:borough_detail, :weekday_average)
+    end
+
+    def weekend_average_report
+      calc_paper_amount(:borough_detail, :weekend_average)
+    end
+
     def report
       calc_paper_amount(:borough_detail)
     end
@@ -74,7 +82,7 @@ class NewspaperBase < ActiveRecord::Base
       reports
     end
 
-    def calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group)
+    def calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group, calc_type=:amount)
       reports = []
       newspaper_boxes.each do |row|
         next if group && (row.send(group).nil? || row.send(group).blank?)
@@ -83,19 +91,19 @@ class NewspaperBase < ActiveRecord::Base
         else
           report = Report.new
         end
-        report.set_seven_weekday_and_sum(row)
+        report.set_seven_weekday_and_sum(row, calc_type)
         reports << report
       end
       reports
     end
 
-    def calc_paper_amount(group=nil)
+    def calc_paper_amount(group=nil, calc_type=:amount)
       if group.nil?
         rs = self.select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
       else
         rs = self.group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
       end
-      calc_paper_amount_by_newspaper_boxes(rs, group)
+      calc_paper_amount_by_newspaper_boxes(rs, group, calc_type)
     end
 
     def get_amount_by(group, condition)

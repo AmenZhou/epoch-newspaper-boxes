@@ -16,37 +16,78 @@
   .col-md-5
     #piechart2_3d style="width: 900px; height: 500px;"
 
-script type="text/javascript" src="https://www.google.com/jsapi"
+.row
+  .col-md-5
+    h2 Boroughs Weekday Average
+    = table_for @weekday_average, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :borough_detail, html:{td: {class: "first-column"}}
+      - column :average
+  .col-md-5
+    #piechart3_3d style="width: 900px; height: 500px;"
 
-- chart_data(@report)
-- chart_queens_data(@report_queens)
+.row
+  .col-md-5
+    h2 Boroughs Weekend Average
+    = table_for @weekend_average, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :borough_detail, html:{td: {class: "first-column"}}
+      - column :average
+  .col-md-5
+    #piechart4_3d style="width: 900px; height: 500px;"
+
+script type="text/javascript" src="https://www.google.com/jsapi"
 
 content_for :bottom
 javascript:
   var chart_dd = #{raw chart_data(@report)}
   var chart_queens = #{raw chart_queens_data(@report_queens)}
+  var chart_weekday_average = #{raw chart_weekday_average(@weekday_average)}
+  var chart_weekend_average = #{raw chart_weekend_average(@weekend_average)}
+
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
 
   function drawChart() {
+    //first chart
     var data = google.visualization.arrayToDataTable(chart_dd);
 
     var options = {
-      title: ' Borough Chart',
+      title: ' Borough Summary Chart',
       is3D: true,
     };
 
     var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
     chart.draw(data, options);
-
+    //second chart
     var data1 = google.visualization.arrayToDataTable(chart_queens);
 
     var options1 = {
-      title: ' Queens Chart',
+      title: ' Queens Summary Chart',
       is3D: true,
     };
 
     var chart1 = new google.visualization.PieChart(document.getElementById('piechart2_3d'));
     chart1.draw(data1, options1);
+
+    //third chart
+    var data2 = google.visualization.arrayToDataTable(chart_weekday_average);
+
+    var options2 = {
+      title: ' Borough WeekDay Average Chart',
+      is3D: true,
+    };
+
+    var chart2 = new google.visualization.PieChart(document.getElementById('piechart3_3d'));
+    chart2.draw(data2, options2);
+
+    //fourth chart
+    var data3 = google.visualization.arrayToDataTable(chart_weekend_average);
+
+    var options3 = {
+      title: ' Borough Weekend Average Chart',
+      is3D: true,
+    };
+
+    var chart3 = new google.visualization.PieChart(document.getElementById('piechart4_3d'));
+    chart3.draw(data3, options3);
   }
 
