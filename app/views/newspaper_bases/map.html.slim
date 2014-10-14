@@ -1,8 +1,8 @@
 h1 Newspaper Map
 
-div.select-bar
-  = select_tag :region, options_for_select(@citys), prompt: 'All Boroughs'
-  = select_tag :table_type, options_for_select(['boxes', 'hands', ['all', 'bases']])
+div.select-bar.form-inline
+  = select_tag :region, options_for_select(@citys), prompt: 'All Boroughs', class: 'form-control'
+  = select_tag :table_type, options_for_select(['boxes', 'hands', ['all', 'bases']]), class: 'form-control'
   - if current_user.try(:is_admin?)
     span class="location_info" 
       | location

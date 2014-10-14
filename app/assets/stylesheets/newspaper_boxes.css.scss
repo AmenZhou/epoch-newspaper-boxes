@@ -18,7 +18,14 @@
 .container {
   width:90%;
   margin:0 auto;
-  table {
-    width:100%;
+  .box-list {
+    overflow: auto;
+    table {
+      width:100%;
+      td {
+        height: 40px;
+        overflow: hidden;
+      }
+    }
   }
 }

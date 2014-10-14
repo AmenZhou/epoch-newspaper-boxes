@@ -10,11 +10,23 @@ $jumbotron-bg:                                         white;
 
 
 .center {
-     text-align: center;
+   text-align: center;
 }
 
-.navbar-brand {
-     font-weight: bold;
+.navbar .container {
+  .navbar-brand {
+    font-weight: bold;
+    padding-top: 0;
+    img {
+      height: 45px;
+    }
+  }
+
+  .navbar-right {
+    li a {
+      font-size: 14px;
+    }
+  }
 }
 
 .amount-text {

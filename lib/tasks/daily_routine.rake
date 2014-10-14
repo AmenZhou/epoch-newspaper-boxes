@@ -17,3 +17,7 @@ task daily_routine: :environment do
     end
   end
 end
+
+task backup_database: :environment do
+  system "mysqldump -A -u username -p password newspaper_box > /home/action/workplace/db/mysql_dump_#{Time.now.strftime("%d%m%Y-%H:%M")}"
+end

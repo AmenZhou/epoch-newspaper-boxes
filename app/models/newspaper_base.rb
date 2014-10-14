@@ -4,7 +4,6 @@ class NewspaperBase < ActiveRecord::Base
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
   default_scope -> {where(trash: false)}
-  paginates_per 25
 
   after_save :process_history, unless: $rails_rake_task
   before_save :update_lat_lng, except: [:destroy, :recovery]

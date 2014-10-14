@@ -1,23 +1,25 @@
 <%= paginate @newspaper_bases%>
-<table class="table table-border table-hover table-striped dataTable">
-  <thead>
-    <tr>
-      <% model_name::ColumnName.each do |column| %>
-       <th> <%= column.to_s.gsub('_', ' ').titleize%></th>
-      <% end %>
-    </tr>
-  </thead>
-
-  <tbody>
-    <tr id="table_sum">
-      <%= render "summary_row" %>
-    </td>
-    <% @newspaper_bases.each do |newspaper_base| %>
-      <tr id="<%= newspaper_base.id%>">
+<div class='box-list'>
+  <table class="table table-border table-hover table-striped dataTable">
+    <thead>
+      <tr>
         <% model_name::ColumnName.each do |column| %>
-          <td><%= table_columns(newspaper_base)[column].call %></td>
+         <th> <%= column.to_s.gsub('_', ' ').titleize%></th>
         <% end %>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <tr id="table_sum">
+        <%= render "summary_row" %>
+      </td>
+      <% @newspaper_bases.each do |newspaper_base| %>
+        <tr id="<%= newspaper_base.id%>">
+          <% model_name::ColumnName.each do |column| %>
+            <td><%= table_columns(newspaper_base)[column].call %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

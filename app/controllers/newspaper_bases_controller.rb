@@ -2,7 +2,6 @@ class NewspaperBasesController < ApplicationController
   before_action :authenticate_user!
   before_action :set_newspaper_base, only: [:update]
   before_action :set_newspaper_base_for_trash_bin, only: [:recovery, :destroy]
-  #before_action :set_table_type, only: [:index, :new]
   before_action :is_admin?, except: [:map]
   helper_method :model_name
 
@@ -10,7 +9,7 @@ class NewspaperBasesController < ApplicationController
     @newspaper_bases = model_name.all.order("sort_num")
     filter_newspaper_base
     @newspaper_amount = @newspaper_bases.count
-    @newspaper_bases = @newspaper_bases.page(params[:page]).per(25)
+    @newspaper_bases = @newspaper_bases.page(params[:page]).per(10)
     newspaper_sum
   end
 
