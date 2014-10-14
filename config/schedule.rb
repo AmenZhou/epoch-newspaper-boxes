@@ -18,9 +18,13 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-set :environment, "development"
+set :environment, "production"
 set :output, {:error => "log/cron_error_log.log", :standard => "log/cron_log.log"}
 
 every 1.day, at: '11.59 pm' do
   rake "daily_routine"
+end
+
+every 1.day, at: '11.58 pm' do
+  rake 'backup_database'
 end
