@@ -6,8 +6,8 @@
 }
 
 .location_info {
-  margin-left: 20px;
   font-size: 16px;
+  margin-left: 20px;
   span {
     font-size: 16px;
     color: red;
@@ -26,6 +26,16 @@
         height: 40px;
         overflow: hidden;
       }
+    }
+  }
+}
+
+.map-info {
+  margin-bottom: 10px;
+  .icon-marks {
+    span {
+      font-size: 16px;
+      margin-right: 5px;
     }
   }
 }

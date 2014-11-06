@@ -20,7 +20,7 @@ class NewspaperBasesController < ApplicationController
   def create
     @newspaper_base = model_name.new(newspaper_params)
     if @newspaper_base.save
-      redirect_to 'index', notice: 'Update Newspaper Successfully!'
+      redirect_to action: 'index', notice: 'Update Newspaper Successfully!'
     else
       render 'new'
     end
@@ -81,8 +81,13 @@ class NewspaperBasesController < ApplicationController
       location['longitude'] = np.longitude
       location['paper_count'] = np.instance_of?(NewspaperHand)? 0 : np.week_count
       location['address'] = np.display_address
-      #location['icon'] = np.week_count < NewspaperBox.avg_week_count ? 'yellow' : 'red'
-      location['icon'] = np.type == 'NewspaperBox' ? 'yellow' : 'red'
+      if np.type == 'NewspaperHand'
+        location['icon'] = 'red'
+      elsif np.deliver_type == 'Newspaper box'
+        location['icon'] = 'green'
+      else
+        location['icon'] = 'blue'
+      end
       location
     end
     respond_to do |format|

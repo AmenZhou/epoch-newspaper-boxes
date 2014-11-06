@@ -3,11 +3,24 @@ h1 Newspaper Map
 div.select-bar.form-inline
   = select_tag :region, options_for_select(@citys), prompt: 'All Boroughs', class: 'form-control'
   = select_tag :table_type, options_for_select(['boxes', 'hands', ['all', 'bases']]), class: 'form-control'
+
+div.row.map-info
   - if current_user.try(:is_admin?)
-    span class="location_info" 
+    div class="location_info col-md-4" 
       | location
       span#location_count #{@locations.count}
       span#paper_count #{@locations.inject(0){|sum, i| sum+= i['paper_count']}}
+  div.col-md-6.icon-marks
+      span
+        = image_tag 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/24/' + 'Map-Marker-Bubble-Chartreuse-icon.png'
+        | Newspaper Box
+      span
+        = image_tag 'http://icons.iconarchive.com/icons/icons-land/vista-map-markers/24/' + 'Map-Marker-Bubble-Pink-icon.png'
+        | Hand Delivery to Merchants
+      span
+        = image_tag '/assets/deep-blue.png'
+        | Others
+
 div#map-show style='height: 600px'
 content_for :head
   script src="https://maps.googleapis.com/maps/api/js?v=3.expiii"
@@ -17,13 +30,15 @@ content_for :head
     var flag = "#{current_user.try(:is_admin?)}"
 
     var icons = {
-      yellow: {
+      green: {
         icon: iconBase + 'Map-Marker-Bubble-Chartreuse-icon.png'
-        /*icon: "/assets/deep-blue.png"*/ 
       },
       red: {
         icon: iconBase + 'Map-Marker-Bubble-Pink-icon.png'
       },
+      blue: {
+        icon: "/assets/deep-blue.png"
+      }
     };
 
     function initialize(locations) {
