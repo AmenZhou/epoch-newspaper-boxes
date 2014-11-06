@@ -5,7 +5,6 @@ class NewspaperBase < ActiveRecord::Base
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
   default_scope -> {where(trash: false)}
 
-  after_save :process_history, unless: $rails_rake_task
   before_save :update_lat_lng, except: [:destroy, :recovery]
 
   QueensArea = {"Queens West" => ["Woodside", "Elmhurst", "Rego Park", "Forest Hills"],
@@ -158,12 +157,6 @@ class NewspaperBase < ActiveRecord::Base
       return true if self.send("#{weekday}_changed?")
     end
     false
-  end
-
-  def process_history
-    if (NewspaperBox.last.id == self.id) or weekday_changed?
-      History.generate_a_record(self)
-    end
   end
 
   def week_count
