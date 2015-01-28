@@ -24,12 +24,6 @@ module NewspaperBoxesHelper
     output.unshift(['zipcode', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'])
   end
 
-  def deliver_type newspaper_boxes
-    #[[1, "Spain"], [2, "Italy"], [3, "Germany"], [4, "France"]]
-    #NewspaperBoxes.pluck(:deliver_type)
-    @delivery_types ||= newspaper_boxes.pluck(:deliver_type).compact.uniq.map{|np| [np, np]}
-  end
-  
   def td_indentation(number=1)
     number.times.map{|i| "<td>"}.join(" ")
   end
@@ -49,7 +43,7 @@ module NewspaperBoxesHelper
        borough_detail: -> { best_in_place newspaper_base, :borough_detail, type: :input },
        address_remark: -> { best_in_place newspaper_base, :address_remark, type: :input},
        created_at: -> { newspaper_base.created_at.strftime('%F') },
-       deliver_type: -> { best_in_place newspaper_base, :deliver_type, type: :select, collection: deliver_type(@newspaper_bases) },
+       deliver_type: -> { best_in_place newspaper_base, :deliver_type, type: :select, collection: newspaper_base.class.deliver_type },
        iron_box: -> { best_in_place newspaper_base, :iron_box, type: :input },
        plastic_box: -> { best_in_place newspaper_base, :plastic_box, type: :input },
        selling_box: -> { best_in_place newspaper_base, :selling_box, type: :input },

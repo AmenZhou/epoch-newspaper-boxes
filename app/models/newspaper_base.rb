@@ -15,6 +15,13 @@ class NewspaperBase < ActiveRecord::Base
   SumArray = [:iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun]
 
   class << self
+
+    def deliver_type
+      #[[1, "Spain"], [2, "Italy"], [3, "Germany"], [4, "France"]]
+      #NewspaperBoxes.pluck(:deliver_type)
+      @delivery_types ||= self.pluck(:deliver_type).compact.reject(&:empty?).uniq.map{|np| [np, np]}
+    end
+
     def zipcode_list
       @zipcode_list ||= self.pluck(:zip).uniq.compact.sort.delete_if(&:blank?)
     end
