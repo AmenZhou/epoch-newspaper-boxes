@@ -138,6 +138,11 @@ class NewspaperBasesController < ApplicationController
       @selected_trash = params['trash']
       @newspaper_bases = @newspaper_bases.unscoped.where(trash: true)
     end
+
+    if params['address'].present?
+      @selected_address = params['address']
+      @newspaper_bases = @newspaper_bases.where('address LIKE ?', "%#{@selected_address}%")
+    end
   end
   
   
