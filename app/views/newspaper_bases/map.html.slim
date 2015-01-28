@@ -5,10 +5,10 @@ div.select-bar.form-inline
   = select_tag :table_type, options_for_select(['boxes', 'hands', ['all', 'bases']]), class: 'form-control'
 
 div.row.map-info
-  - if current_user.try(:is_admin?)
-    div class="location_info col-md-4" 
-      | location
-      span#location_count #{@locations.count}
+  div class="location_info col-md-4" 
+    | location
+    span#location_count #{@locations.count}
+    - if current_user.try(:is_admin?)
       span#paper_count #{@locations.inject(0){|sum, i| sum+= i['paper_count']}}
   div.col-md-6.icon-marks
       span
