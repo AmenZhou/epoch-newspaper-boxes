@@ -50,6 +50,7 @@ GEM
     byebug (3.1.2)
       columnize (~> 0.8)
       debugger-linecache (~> 1.2)
+    chronic (0.10.2)
     coffee-rails (4.0.1)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -58,6 +59,8 @@ GEM
       execjs
     coffee-script-source (1.7.1)
     columnize (0.8.9)
+    daemon_controller (1.2.0)
+    database_cleaner (1.3.0)
     debugger-linecache (1.2.0)
     devise (3.2.4)
       bcrypt (~> 3.0)
@@ -65,8 +68,14 @@ GEM
       railties (>= 3.2.6, < 5)
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    diff-lcs (1.2.5)
     erubis (2.7.0)
     execjs (2.2.1)
+    factory_girl (4.4.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.4.1)
+      factory_girl (~> 4.4.0)
+      railties (>= 3.0.0)
     geokit (1.8.5)
       multi_json (>= 1.3.2)
     geokit-rails (2.0.1)
@@ -87,6 +96,9 @@ GEM
     jquery-ui-rails (5.0.0)
       railties (>= 3.2.16)
     json (1.8.1)
+    kaminari (0.16.1)
+      actionpack (>= 3.0.0)
+      activesupport (>= 3.0.0)
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
@@ -94,9 +106,14 @@ GEM
     mini_portile (0.6.0)
     minitest (5.4.0)
     multi_json (1.10.1)
+    mysql2 (0.3.16)
     nokogiri (1.6.3)
       mini_portile (= 0.6.0)
     orm_adapter (0.5.0)
+    passenger (4.0.53)
+      daemon_controller (>= 1.2.0)
+      rack
+      rake (>= 0.8.1)
     polyglot (0.3.5)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -123,6 +140,25 @@ GEM
       nokogiri
       rubyzip
       spreadsheet (> 0.6.4)
+    rspec-core (3.1.5)
+      rspec-support (~> 3.1.0)
+    rspec-expectations (3.1.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.1.0)
+    rspec-its (1.0.1)
+      rspec-core (>= 2.99.0.beta1)
+      rspec-expectations (>= 2.99.0.beta1)
+    rspec-mocks (3.1.2)
+      rspec-support (~> 3.1.0)
+    rspec-rails (3.1.0)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec-core (~> 3.1.0)
+      rspec-expectations (~> 3.1.0)
+      rspec-mocks (~> 3.1.0)
+      rspec-support (~> 3.1.0)
+    rspec-support (3.1.1)
     ruby-ole (1.2.11.7)
     rubyzip (1.1.6)
     sass (3.2.19)
@@ -173,6 +209,8 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    whenever (0.9.3)
+      chronic (>= 0.6.3)
 
 PLATFORMS
   ruby
@@ -182,15 +220,22 @@ DEPENDENCIES
   bootstrap-sass!
   byebug
   coffee-rails (~> 4.0.0)
+  database_cleaner
   devise (~> 3.2.3)
+  factory_girl_rails
   geokit-rails
   iconv (~> 1.0.4)
   jbuilder (~> 1.2)
   jquery-datatables-rails (~> 2.2.3)
   jquery-rails
   jquery-ui-rails
+  kaminari
+  mysql2
+  passenger
   rails (= 4.1.4)
   roo
+  rspec-its
+  rspec-rails
   sass-rails (~> 4.0.0)
   sdoc
   slim-rails
@@ -199,3 +244,4 @@ DEPENDENCIES
   thread_safe (= 0.2.0)
   turbolinks
   uglifier (>= 1.3.0)
+  whenever

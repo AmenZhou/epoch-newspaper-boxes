@@ -11,16 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140919161818) do
-
-  create_table "box_records", force: true do |t|
-    t.integer  "newspaper_box_id"
-    t.datetime "date_t"
-    t.integer  "quantity"
-    t.text     "remark"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
+ActiveRecord::Schema.define(version: 20141013205050) do
 
   create_table "histories", force: true do |t|
     t.integer  "newspaper"
@@ -33,6 +24,7 @@ ActiveRecord::Schema.define(version: 20140919161818) do
     t.integer  "city_sum"
     t.integer  "borough_sum"
     t.integer  "zip_sum"
+    t.string   "box_type"
   end
 
   create_table "imports", force: true do |t|
@@ -54,22 +46,51 @@ ActiveRecord::Schema.define(version: 20140919161818) do
     t.integer  "plastic_box"
     t.integer  "selling_box"
     t.integer  "paper_shelf"
-    t.integer  "mon",            default: 0
-    t.integer  "tue",            default: 0
-    t.integer  "wed",            default: 0
-    t.integer  "thu",            default: 0
-    t.integer  "fri",            default: 0
-    t.integer  "sat",            default: 0
-    t.integer  "sun",            default: 0
-    t.float    "latitude"
-    t.float    "longitude"
-    t.float    "sort_num"
-    t.boolean  "trash",          default: false
+    t.integer  "mon",                       default: 0
+    t.integer  "tue",                       default: 0
+    t.integer  "wed",                       default: 0
+    t.integer  "thu",                       default: 0
+    t.integer  "fri",                       default: 0
+    t.integer  "sat",                       default: 0
+    t.integer  "sun",                       default: 0
+    t.float    "latitude",       limit: 24
+    t.float    "longitude",      limit: 24
+    t.float    "sort_num",       limit: 24
+    t.boolean  "trash",                     default: false
     t.string   "building"
     t.string   "type"
     t.string   "place_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+  end
+
+  create_table "newspaper_boxes", force: true do |t|
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.string   "borough_detail"
+    t.text     "address_remark"
+    t.datetime "date_t"
+    t.string   "deliver_type"
+    t.text     "remark"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "iron_box"
+    t.integer  "plastic_box"
+    t.integer  "selling_box"
+    t.integer  "paper_shelf"
+    t.integer  "mon",                       default: 0
+    t.integer  "tue",                       default: 0
+    t.integer  "wed",                       default: 0
+    t.integer  "thu",                       default: 0
+    t.integer  "fri",                       default: 0
+    t.integer  "sat",                       default: 0
+    t.integer  "sun",                       default: 0
+    t.float    "latitude",       limit: 24
+    t.float    "longitude",      limit: 24
+    t.float    "sort_num",       limit: 24
+    t.boolean  "trash",                     default: false
   end
 
   create_table "users", force: true do |t|
@@ -88,7 +109,7 @@ ActiveRecord::Schema.define(version: 20140919161818) do
     t.string   "role"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
