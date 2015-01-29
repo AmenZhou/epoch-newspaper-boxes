@@ -7,7 +7,7 @@
   <label>borough:</label>
   <%= select_tag 'borough', options_for_select(model_name.borough_list, @selected_borough), prompt: 'All', class: 'form-control' %>
   <label>Address:</label>
-  <%= text_field_tag 'address', nil,  class: 'form-control' %>
+  <%= text_field_tag 'address', @selected_address, class: 'form-control' %>
   <label>Trash Bin:</label>
   <%= check_box_tag 'trash', true, @selected_trash, class:'form-control' %>
   <%= button_tag 'submit', class:'btn btn-default'%>

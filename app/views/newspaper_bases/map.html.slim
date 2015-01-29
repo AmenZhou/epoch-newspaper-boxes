@@ -3,7 +3,8 @@ h1 Newspaper Map
 div.select-bar.form-inline
   = select_tag :region, options_for_select(@citys), prompt: 'All Boroughs', class: 'form-control'
   = select_tag :table_type, options_for_select(['boxes', 'hands', ['all', 'bases']]), class: 'form-control'
-  = text_field_tag :address, nil, class: 'form-control', placeholder: 'Input Address'
+  - if current_user.try(:is_admin?)
+    = text_field_tag :address, nil, class: 'form-control', placeholder: 'Input Address'
 
 div.row.map-info
   div class="location_info col-md-4" 
