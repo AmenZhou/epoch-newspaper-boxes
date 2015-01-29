@@ -75,20 +75,10 @@ class NewspaperBasesController < ApplicationController
     @citys = model_name.pluck(:borough_detail).compact.uniq.delete_if{|x| x.blank?}
     @selected_city = params[:city]
     boxes = params[:city].present? ? model_name.by_borough(params[:city]) : model_name.all
+    boxes = model_name.by_address(params[:address]) if params[:address].present?
+
     @locations = boxes.map do |np|
-      location = {}
-      location['latitude'] = np.latitude 
-      location['longitude'] = np.longitude
-      location['paper_count'] = np.instance_of?(NewspaperHand)? 0 : np.week_count
-      location['address'] = np.display_address
-      if np.type == 'NewspaperHand'
-        location['icon'] = 'red'
-      elsif np.deliver_type == 'Newspaper box'
-        location['icon'] = 'green'
-      else
-        location['icon'] = 'blue'
-      end
-      location
+      np.generate_location_info
     end
     respond_to do |format|
         format.html {  }
@@ -141,7 +131,7 @@ class NewspaperBasesController < ApplicationController
 
     if params['address'].present?
       @selected_address = params['address']
-      @newspaper_bases = @newspaper_bases.where('address LIKE ?', "%#{@selected_address}%")
+      @newspaper_bases = @newspaper_bases.by_address(@selected_address)
     end
   end
   

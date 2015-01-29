@@ -3,6 +3,7 @@ h1 Newspaper Map
 div.select-bar.form-inline
   = select_tag :region, options_for_select(@citys), prompt: 'All Boroughs', class: 'form-control'
   = select_tag :table_type, options_for_select(['boxes', 'hands', ['all', 'bases']]), class: 'form-control'
+  = text_field_tag :address, nil, class: 'form-control', placeholder: 'Input Address'
 
 div.row.map-info
   div class="location_info col-md-4" 
@@ -79,13 +80,14 @@ content_for :head
     google.maps.event.addDomListener(window, 'load', initialize(locations)); 
 
     $(document).ready(function(){
-       $('#region, #table_type').change(function(){
+       $('#region, #table_type, #address').change(function(){
          var city = $('#region').val();
          var table_type = $('#table_type').val();
+         var address = $('#address').val();
          $.ajax({
            type: 'get',
            url: '/newspaper_' + table_type + '/map.json',
-           data: {city: city},
+           data: {city: city, address: address},
            success: function(data){
              google.maps.event.addDomListener(window, 'load', initialize(data)); 
              $('#location_count').text(data.length);

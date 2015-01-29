@@ -14,6 +14,8 @@ class NewspaperBase < ActiveRecord::Base
   ColumnName = [:delete, :sort_num, :address, :city, :state, :zip, :borough_detail, :address_remark, :created_at, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :date_t, :remark, :building, :place_type]
   SumArray = [:iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun]
 
+  scope :by_address, -> (address) { where('address LIKE ?', "%#{address}%")}
+
   class << self
 
     def deliver_type
@@ -172,5 +174,21 @@ class NewspaperBase < ActiveRecord::Base
 
   def is_newspaper_box?
     true if self.deliver_type == 'Newspaper box'
+  end
+
+  def generate_location_info
+    location = {}
+    location['latitude'] = latitude 
+    location['longitude'] = longitude
+    location['paper_count'] = instance_of?(NewspaperHand)? 0 : week_count
+    location['address'] = display_address
+    if type == 'NewspaperHand'
+      location['icon'] = 'red'
+    elsif deliver_type == 'Newspaper box'
+      location['icon'] = 'green'
+    else
+      location['icon'] = 'blue'
+    end
+    location
   end
 end
