@@ -1,5 +1,5 @@
 class Report
-  attr_accessor :area, :zip, :borough_detail, :city, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :sum, :average
+  attr_accessor :area, :zip, :borough_detail, :city, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :sum, :average, :percentage
   
   Weekday2NewspaperBox = [:mon, :tue, :wed, :thu, :fri, :sat, :sun]
   CalcType = [:amount, :weekday_average, :weekend_average]
@@ -33,7 +33,11 @@ class Report
       self.average = self.sum / 2
     end
   end
-  
+
+  def row_percentage newspaper_total_amount
+    self.percentage = (sum.to_f / newspaper_total_amount * 100).round(3)
+  end
+
   def self.generate_weekday_columns_sum(reports)
     report = Report.new()
     (Weekday2NewspaperBox + [:sum]).each do |weekday|

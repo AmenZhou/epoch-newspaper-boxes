@@ -1,5 +1,6 @@
 class NewspaperBase < ActiveRecord::Base
   include Geokit::Geocoders 
+
   validates :type, presence: true
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
@@ -16,7 +17,13 @@ class NewspaperBase < ActiveRecord::Base
 
   scope :by_address, -> (address) { where('address LIKE ?', "%#{address}%")}
 
+  scope :by_group, ->(group) { group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun") }
+
   class << self
+
+    def weekly_total_amount
+      select('sum(mon) + sum(tue) + sum(wed) + sum(thu) + sum(fri) as mon').first.mon
+    end
 
     def deliver_type
       #[[1, "Spain"], [2, "Italy"], [3, "Germany"], [4, "France"]]
@@ -84,7 +91,15 @@ class NewspaperBase < ActiveRecord::Base
     end
 
     def zipcode_report
-      reports = calc_paper_amount(:zip)
+      newspaper = by_group('zip')
+      amount = weekly_total_amount
+      reports = []
+      newspaper.each do |row|
+        report = Report.new(:zip, row.zip)
+        report.set_seven_weekday_and_sum(row, :amount)
+        report.row_percentage(amount)
+        reports << report
+      end
       ###Add last row as a sum
       reports << Report.generate_weekday_columns_sum(reports)
       reports
