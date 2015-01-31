@@ -1,6 +1,5 @@
 class Report
   attr_accessor :area, :zip, :borough_detail, :city, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :sum, :average, :percentage, :group_name, :group
-  cattr_accessor :reports
   
   Weekday2NewspaperBox = [:mon, :tue, :wed, :thu, :fri, :sat, :sun]
   CalcType = [:amount, :weekday_average, :weekend_average]
@@ -37,29 +36,5 @@ class Report
 
   def row_percentage newspaper_total_amount
     self.percentage = (sum.to_f / newspaper_total_amount * 100).round(3)
-  end
-
-  def self.generate_weekday_columns_sum
-    report = Report.new()
-    (Weekday2NewspaperBox + [:sum]).each do |weekday|
-      report.send("#{weekday}=", self.reports.inject(0){|sum, report| sum += report.try(:send, weekday) || 0})
-    end
-    report
-  end
-
-  def self.add_to_list report
-    self.reports << report
-  end
-
-  def self.initialize_list newspapers, group_name, amount_for_percentage
-    self.reports = []
-    newspapers.each do |row|
-      report = Report.new
-      report.group_name = group_name
-      report.group = row.send(group_name)
-      report.set_seven_weekday_and_sum(row, :amount)
-      report.row_percentage(amount_for_percentage)
-      self.reports << report
-    end
   end
 end

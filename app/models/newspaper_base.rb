@@ -93,10 +93,10 @@ class NewspaperBase < ActiveRecord::Base
     def zipcode_report
       newspapers = by_group('zip')
       amount = weekly_total_amount
-      Report.initialize_list(newspapers, 'zip', amount)
+      report_list = ReportList.new(newspapers, 'zip', amount)
       ###Add last row as a sum
-      Report.add_to_list(Report.generate_weekday_columns_sum)
-      Report.reports
+      report_list.generate_weekday_columns_sum
+      report_list.reports
     end
 
     def calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group, calc_type=:amount)
