@@ -91,18 +91,12 @@ class NewspaperBase < ActiveRecord::Base
     end
 
     def zipcode_report
-      newspaper = by_group('zip')
+      newspapers = by_group('zip')
       amount = weekly_total_amount
-      reports = []
-      newspaper.each do |row|
-        report = Report.new(:zip, row.zip)
-        report.set_seven_weekday_and_sum(row, :amount)
-        report.row_percentage(amount)
-        reports << report
-      end
+      Report.initialize_list(newspapers, 'zip', amount)
       ###Add last row as a sum
-      reports << Report.generate_weekday_columns_sum(reports)
-      reports
+      Report.add_to_list(Report.generate_weekday_columns_sum)
+      Report.reports
     end
 
     def calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group, calc_type=:amount)
