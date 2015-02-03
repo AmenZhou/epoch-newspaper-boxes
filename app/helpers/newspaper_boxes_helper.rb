@@ -5,7 +5,7 @@ module NewspaperBoxesHelper
   end
 
   def chart_queens_data reports
-    output = reports.map{|rs| [rs.area, rs.sum]}
+    output = reports.map{|rs| [rs.group, rs.sum]}
     output.unshift(['Queens Areas', 'amount'])
   end
 

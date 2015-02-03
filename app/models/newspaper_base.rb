@@ -19,6 +19,8 @@ class NewspaperBase < ActiveRecord::Base
 
   scope :by_group, ->(group) { group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun") }
 
+  scope :sum_of_day, -> { select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun") }
+
   class << self
 
     def weekly_total_amount
@@ -68,38 +70,37 @@ class NewspaperBase < ActiveRecord::Base
     #REPORT GENERATE RELATED METHODS
     def weekday_average_report
       newspapers = by_group('borough_detail')
-      report_list = ReportList.new(newspapers, 'borough_detail', :mon_2_thu, nil)
+      report_list = ReportList.new(newspapers: newspapers, group_name: 'borough_detail', days_range: :mon_2_thu)
       report_list.reports
     end
 
     def weekend_average_report
       newspapers = by_group('borough_detail')
-      report_list = ReportList.new(newspapers, 'borough_detail', :fri_2_sat, nil)
+      report_list = ReportList.new({newspapers: newspapers, group_name: 'borough_detail', days_range: :fri_2_sat})
       report_list.reports
     end
 
     def report
       newspapers = by_group('borough_detail')
-      report_list = ReportList.new(newspapers, 'borough_detail', :mon_2_sat, nil)
+      report_list = ReportList.new({newspapers: newspapers, group_name: 'borough_detail', days_range: :mon_2_sat})
       report_list.reports
     end
 
     def report_queens
-      newspaper_boxes = self.where(borough_detail: 'Queens')
-      reports = []
-      NewspaperBox::QueensArea.each do |k, v|
-        rs = newspaper_boxes.where(city: v).select("sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun")
-        report = Report.new(:area,  k + " (" + v.join(" ") + ")")
-        report.set_seven_weekday_and_sum(rs.first)
-        reports << report
+      report_list = ReportList.new
+      QueensArea.each do |key, value|
+        newspaper = by_borough('Queens').by_city(value).sum_of_day.first
+        report = Report.new(newspaper: newspaper, group_name: 'Queens Area', group: key, days_range: :mon_2_sat)
+        report.set_attributes
+        report_list.add_to_list(report)
       end
-      reports
+      report_list.reports
     end
 
     def zipcode_report
       newspapers = by_group('zip')
       amount = weekly_total_amount
-      report_list = ReportList.new(newspapers, 'zip', :mon_2_sat, amount)
+      report_list = ReportList.new({newspapers: newspapers, group_name: 'zip', days_range: :mon_2_sat, newspaper_total_amount: amount})
       ###Add last row as a sum
       report_list.generate_weekday_columns_sum
       report_list.reports

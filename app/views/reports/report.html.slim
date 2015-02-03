@@ -11,7 +11,7 @@
   .col-md-5
     h2 Queens Areas
     = table_for @report_queens, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :area, html:{td: {class: "first-column"}}
+      - column :group, html:{td: {class: "first-column"}}
       - column :sum
   .col-md-5
     #piechart2_3d style="width: 900px; height: 500px;"

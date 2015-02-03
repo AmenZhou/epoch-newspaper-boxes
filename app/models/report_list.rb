@@ -1,5 +1,5 @@
 class ReportList
-  attr_accessor :reports, :group_name, :days_range, :newspaper_total_amount
+  attr_accessor :reports, :group_name, :days_range, :newspaper_total_amount, :newspapers
   DaysRange = [:mon_2_thu, :fri_2_sat, :fri, :sat, :mon_2_sat]
 
   def generate_weekday_columns_sum
@@ -14,18 +14,23 @@ class ReportList
     self.reports << report
   end
 
-  def initialize newspapers, group_name, days_range, newspaper_total_amount = nil
+  #params{group_name, days_range, newspapers, newspaper_total_amount}
+  def initialize params = {}
     self.reports = []
-    self.group_name = group_name
-    self.days_range = days_range
-    self.newspaper_total_amount = newspaper_total_amount
+    self.group_name = params[:group_name]
+    self.days_range = params[:days_range] || :mon_2_sat
+    self.newspaper_total_amount = params[:newspaper_total_amount]
+    self.newspapers = params[:newspapers]
+    initialize_list
+  end
+
+  def initialize_list
+    return if newspapers.nil?
     newspapers.each do |row|
-      report = Report.new
-      report.group_name = group_name
-      report.group = row.send(group_name)
-      report.set_attributes(row, days_range)
+      report = Report.new(group_name: group_name, days_range: days_range, newspaper: row, newspaper_total_amount: newspaper_total_amount)
+      report.set_attributes
       next if report.sum == 0
-      report.row_percentage(newspaper_total_amount) if newspaper_total_amount
+      report.row_percentage if newspaper_total_amount
       self.reports << report
     end
   end
