@@ -34,6 +34,15 @@
   .col-md-5
     #piechart4_3d style="width: 900px; height: 500px;"
 
+.row
+  .col-md-5
+    h2 Boroughs Fri
+    = table_for @fri, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :group, html:{td: {class: "first-column"}}
+      - column :fri
+  .col-md-5
+    #piechart5_3d style="width: 900px; height: 500px;"
+
 script type="text/javascript" src="https://www.google.com/jsapi"
 
 content_for :bottom
@@ -42,6 +51,7 @@ javascript:
   var chart_queens = #{raw chart_queens_data(@report_queens)}
   var chart_weekday_average = #{raw chart_weekday_average(@weekday_average)}
   var chart_weekend_average = #{raw chart_weekend_average(@weekend_average)}
+  var chart_fri_average = #{raw chart_fri(@fri)}
 
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
@@ -89,5 +99,16 @@ javascript:
 
     var chart3 = new google.visualization.PieChart(document.getElementById('piechart4_3d'));
     chart3.draw(data3, options3);
+
+    //fifth chart
+    var data4 = google.visualization.arrayToDataTable(chart_fri_average);
+
+    var options4 = {
+      title: ' Borough Fri Average Chart',
+      is3D: true,
+    };
+
+    var chart4 = new google.visualization.PieChart(document.getElementById('piechart5_3d'));
+    chart4.draw(data4, options4);
   }
 

@@ -19,6 +19,11 @@ module NewspaperBoxesHelper
     output.unshift(['Borough', 'Weekend Average'])
   end
 
+  def chart_fri reports
+    output = reports.map{|report| [report.group, report.fri]}
+    output.unshift(['Borough', 'Fri'])
+  end
+
   def zipcode_chart_data zipcode_report
     output = zipcode_report.drop(1).map{|rs| [rs.group.to_s, rs.mon, rs.tue, rs.wed, rs.thu, rs.fri, rs.sat]}
     output.unshift(['zipcode', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'])

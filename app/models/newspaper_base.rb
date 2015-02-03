@@ -106,6 +106,12 @@ class NewspaperBase < ActiveRecord::Base
       report_list.reports
     end
 
+    def single_day_borough_report day = :fri
+      newspapers = by_group('borough_detail')
+      report_list = ReportList.new({newspapers: newspapers, group_name: 'borough_detail', days_range: day})
+      report_list.reports
+    end
+
     def calc_paper_amount_by_newspaper_boxes(newspaper_boxes, group, calc_type=:amount)
       reports = []
       newspaper_boxes.each do |row|

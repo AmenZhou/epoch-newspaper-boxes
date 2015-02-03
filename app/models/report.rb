@@ -46,9 +46,9 @@ class Report
       self.set_report(Weekday2NewspaperBox[4..5])
       self.average = sum / 2
     elsif days_range == :fri
-      self.set_report(:fri)
+      self.set_report([:fri])
     elsif days_range == :sat
-      self.set_report(:sat)
+      self.set_report([:sat])
     end
   end
 
