@@ -1,5 +1,5 @@
 class Report
-  attr_accessor :area, :zip, :borough_detail, :city, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :sum, :average, :percentage, :group_name, :group
+  attr_accessor :area, :borough_detail, :city, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :sum, :average, :percentage, :group_name, :group
   
   Weekday2NewspaperBox = [:mon, :tue, :wed, :thu, :fri, :sat, :sun]
   CalcType = [:amount, :weekday_average, :weekend_average]
@@ -31,6 +31,23 @@ class Report
     elsif calc_type == :weekend_average
       self.set_report(newspaper_box, Weekday2NewspaperBox[4..5])
       self.average = self.sum / 2
+    end
+  end
+
+  def set_attributes(newspaper_box, days_range = :mon_2_sat)
+    if days_range == :mon_2_sat
+      self.set_report(newspaper_box, Weekday2NewspaperBox[0..5])
+      self.average = sum / 6
+    elsif days_range == :mon_2_thu
+      self.set_report(newspaper_box, Weekday2NewspaperBox[0..3])
+      self.average = sum / 4
+    elsif days_range == :fri_2_sat
+      self.set_report(newspaper_box, Weekday2NewspaperBox[4..5])
+      self.average = sum / 2
+    elsif days_range == :fri
+      self.set_report(newspaper_box, :fri)
+    elsif days_range == :sat
+      self.set_report(newspaper_box, :sat)
     end
   end
 

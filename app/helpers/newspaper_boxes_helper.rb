@@ -1,6 +1,6 @@
 module NewspaperBoxesHelper
   def chart_data reports
-    output = reports.map{|rs| [rs.borough_detail, rs.sum]}
+    output = reports.map{|rs| [rs.group, rs.sum]}
     output.unshift(['borough', 'amount'])
   end
 
@@ -10,18 +10,18 @@ module NewspaperBoxesHelper
   end
 
   def chart_weekday_average reports
-    output = reports.map{|report| [report.borough_detail, report.average]}
+    output = reports.map{|report| [report.group, report.average]}
     output.unshift(['Borough', 'WeekDay Average'])
   end
 
   def chart_weekend_average reports
-    output = reports.map{|report| [report.borough_detail, report.average]}
+    output = reports.map{|report| [report.group, report.average]}
     output.unshift(['Borough', 'Weekend Average'])
   end
 
   def zipcode_chart_data zipcode_report
-    output = zipcode_report.drop(1).map{|rs| [rs.zip.to_s, rs.mon, rs.tue, rs.wed, rs.thu, rs.fri, rs.sat, rs.sun]}
-    output.unshift(['zipcode', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'])
+    output = zipcode_report.drop(1).map{|rs| [rs.group.to_s, rs.mon, rs.tue, rs.wed, rs.thu, rs.fri, rs.sat]}
+    output.unshift(['zipcode', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'])
   end
 
   def td_indentation(number=1)

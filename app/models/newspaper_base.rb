@@ -67,15 +67,21 @@ class NewspaperBase < ActiveRecord::Base
     end
     #REPORT GENERATE RELATED METHODS
     def weekday_average_report
-      calc_paper_amount(:borough_detail, :weekday_average)
+      newspapers = by_group('borough_detail')
+      report_list = ReportList.new(newspapers, 'borough_detail', :mon_2_thu, nil)
+      report_list.reports
     end
 
     def weekend_average_report
-      calc_paper_amount(:borough_detail, :weekend_average)
+      newspapers = by_group('borough_detail')
+      report_list = ReportList.new(newspapers, 'borough_detail', :fri_2_sat, nil)
+      report_list.reports
     end
 
     def report
-      calc_paper_amount(:borough_detail)
+      newspapers = by_group('borough_detail')
+      report_list = ReportList.new(newspapers, 'borough_detail', :mon_2_sat, nil)
+      report_list.reports
     end
 
     def report_queens
@@ -93,7 +99,7 @@ class NewspaperBase < ActiveRecord::Base
     def zipcode_report
       newspapers = by_group('zip')
       amount = weekly_total_amount
-      report_list = ReportList.new(newspapers, 'zip', amount)
+      report_list = ReportList.new(newspapers, 'zip', :mon_2_sat, amount)
       ###Add last row as a sum
       report_list.generate_weekday_columns_sum
       report_list.reports
