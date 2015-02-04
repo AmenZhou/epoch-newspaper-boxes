@@ -6,6 +6,7 @@ class ReportsController < ApplicationController
     @weekday_average = model.constantize.weekday_average_report
     @weekend_average = model.constantize.weekend_average_report
     @fri = model.constantize.single_day_borough_report(:fri)
+    @sat = model.constantize.single_day_borough_report(:sat)
   end
 
   def zipcode_report
