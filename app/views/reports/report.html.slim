@@ -54,61 +54,26 @@ javascript:
   var chart_fri_average = #{raw chart_fri(@fri)}
 
   google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
+  //google.setOnLoadCallback(drawChart);
 
-  function drawChart() {
+
+  function drawChart(chart_data, title, element_id){
     //first chart
-    var data = google.visualization.arrayToDataTable(chart_dd);
+    var data = google.visualization.arrayToDataTable(chart_data);
 
     var options = {
       title: ' Borough Summary Chart',
       is3D: true,
     };
 
-    var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+    var chart = new google.visualization.PieChart(document.getElementById(element_id));
     chart.draw(data, options);
-    //second chart
-    var data1 = google.visualization.arrayToDataTable(chart_queens);
-
-    var options1 = {
-      title: ' Queens Summary Chart',
-      is3D: true,
-    };
-
-    var chart1 = new google.visualization.PieChart(document.getElementById('piechart2_3d'));
-    chart1.draw(data1, options1);
-
-    //third chart
-    var data2 = google.visualization.arrayToDataTable(chart_weekday_average);
-
-    var options2 = {
-      title: ' Borough WeekDay Average Chart',
-      is3D: true,
-    };
-
-    var chart2 = new google.visualization.PieChart(document.getElementById('piechart3_3d'));
-    chart2.draw(data2, options2);
-
-    //fourth chart
-    var data3 = google.visualization.arrayToDataTable(chart_weekend_average);
-
-    var options3 = {
-      title: ' Borough Weekend Average Chart',
-      is3D: true,
-    };
-
-    var chart3 = new google.visualization.PieChart(document.getElementById('piechart4_3d'));
-    chart3.draw(data3, options3);
-
-    //fifth chart
-    var data4 = google.visualization.arrayToDataTable(chart_fri_average);
-
-    var options4 = {
-      title: ' Borough Fri Average Chart',
-      is3D: true,
-    };
-
-    var chart4 = new google.visualization.PieChart(document.getElementById('piechart5_3d'));
-    chart4.draw(data4, options4);
   }
 
+  $(document).ready(function(){
+    drawChart(chart_dd, 'Borough Summary Chart', 'piechart_3d');
+    drawChart(chart_queens, 'Queens Summary Chart', 'piechart2_3d');
+    drawChart(chart_weekday_average, 'Borough WeekDay Average Chart', 'piechart3_3d');
+    drawChart(chart_weekend_average, 'Borough Weekend Average Chart', 'piechart4_3d');
+    drawChart(chart_fri_average, 'Borough Fri Average Chart', 'piechart5_3d');
+  })
