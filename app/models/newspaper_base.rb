@@ -90,7 +90,7 @@ class NewspaperBase < ActiveRecord::Base
       report_list = ReportList.new
       QueensArea.each do |key, value|
         newspaper = by_borough('Queens').by_city(value).sum_of_day.first
-        report = Report.new(newspaper: newspaper, group_name: 'Queens Area', group: key, days_range: :mon_2_sat)
+        report = Report.new(newspaper: newspaper, group_name: 'Queens Area', group: key + ' - ' + value.join(', '), days_range: :mon_2_sat)
         report.set_attributes
         report_list.add_to_list(report)
       end
