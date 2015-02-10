@@ -9,6 +9,7 @@ class Report
     self.days_range = params[:days_range] || :mon_2_sat
     self.newspaper = params[:newspaper]
     self.group = params[:group] || newspaper.send(group_name) if newspaper
+    self.newspaper_total_amount = params[:newspaper_total_amount]
     self.sum = 0
   end
 
@@ -53,6 +54,8 @@ class Report
   end
 
   def row_percentage
-    self.percentage = (sum.to_f / newspaper_total_amount * 100).round(3)
+    if sum and newspaper_total_amount
+      self.percentage = (sum.to_f / newspaper_total_amount * 100).round(3)
+    end
   end
 end
