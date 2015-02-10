@@ -45,6 +45,7 @@ module NewspaperBoxesHelper
   def table_columns(newspaper_base)
     {
        delete: -> { link_to 'x', newspaper_base, method: :delete, data: { confirm: 'Are you sure?' }, remote: true },
+       edit: -> { link_to 'Edit', edit_polymorphic_path(newspaper_base) },
        sort_num: -> {best_in_place newspaper_base, :sort_num, type: :input},
        address: -> {best_in_place newspaper_base, :address, type: :input},
        city: -> {best_in_place newspaper_base, :city, type: :input},

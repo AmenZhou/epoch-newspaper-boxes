@@ -3,17 +3,7 @@ EpochNewspaperBoxes::Application.routes.draw do
   devise_for :users
 
   get 'newspaper_bases/map', to: 'newspaper_bases#map'
-  resources :newspaper_boxes, except: [:show, :edit] do
-    collection do
-      get 'map'
-      get 'export_data'
-    end
-    member do
-      get 'recovery'
-    end
-  end
-
-  resources :newspaper_hands, except: [:show, :edit] do
+  resources :newspaper_base, :newspaper_boxes, :newspaper_hands do
     collection do
       get 'map'
       get 'export_data'

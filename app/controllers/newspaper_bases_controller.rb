@@ -1,6 +1,6 @@
 class NewspaperBasesController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_newspaper_base, only: [:update]
+  before_action :set_newspaper_base, only: [:update, :edit]
   before_action :set_newspaper_base_for_trash_bin, only: [:recovery, :destroy]
   before_action :is_admin?, except: [:map]
   helper_method :model_name
@@ -25,15 +25,21 @@ class NewspaperBasesController < ApplicationController
       render 'new'
     end
   end
-
+ 
   def update
     respond_to do |format|
       if @newspaper_base.update(newspaper_params)
+        format.html { redirect_to action: :index }
         format.json { head :no_content }
       else
+        format.html { render :edit }
         format.json { render json: @newspaper_base.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  def edit
+
   end
 
   def recovery

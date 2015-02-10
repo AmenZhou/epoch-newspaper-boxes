@@ -12,7 +12,7 @@
   <% end %>
 
   <% model_name::ColumnName.each do |column|  %>
-    <% next if [:delete, :created_at].include?(column) %>
+    <% next if [:delete, :edit, :created_at].include?(column) %>
     <div class="field">
       <%= f.label column %><br>
       <%= newspaper_form_items(f)[column].call  %>
