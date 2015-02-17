@@ -144,7 +144,7 @@ class NewspaperBase < ActiveRecord::Base
     def generate_a_line(type="title", newspaper_box=nil)
       line = ""
       self::ColumnName.each do |attr|
-        next if [:delete].include?(attr)
+        next if [:delete, :edit].include?(attr)
         if type == "title"
           line += attr.to_s + '|'
         else
