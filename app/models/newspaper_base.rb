@@ -23,7 +23,7 @@ class NewspaperBase < ActiveRecord::Base
   class << self
 
     def weekly_total_amount
-      select('sum(mon) + sum(tue) + sum(wed) + sum(thu) + sum(fri) as mon').first.mon
+      select('sum(mon) + sum(tue) + sum(wed) + sum(thu) + sum(fri) + sum(sat) as mon').first.mon
     end
 
     def deliver_type

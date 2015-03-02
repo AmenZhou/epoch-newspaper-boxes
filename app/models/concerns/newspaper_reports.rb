@@ -6,6 +6,12 @@ module NewspaperReports
                   "Queens Middle" => ["Flushing"],
                   "Queens East" => ["Fresh Meadows", "Bayside", "Oakland Gardens", "Douglaston", "Little Neck"]}
 
+    def deliver_type_percentage_by_borough borough
+      newspapers = by_borough(borough)
+      report_list = ReportList.new(newspapers: newspapers, group_name: 'deliver_type', days_range: :mon_2_sat)
+      report_list.reports.sort_by(&:percentage).reverse.first(10)
+    end
+
     def deliver_type_percentage
       report_list = ReportList.new(klass: self, group_name: 'deliver_type', days_range: :mon_2_sat)
       report_list.reports.sort_by(&:percentage).reverse.first(10)
@@ -39,7 +45,7 @@ module NewspaperReports
     end
 
     def zipcode_report
-      report_list = ReportList.new({klass: self, group_name: 'zip', days_range: :mon_2_sat, newspaper_total_amount: amount})
+      report_list = ReportList.new({klass: self, group_name: 'zip', days_range: :mon_2_sat})
       ###Add last row as a sum
       report_list.generate_weekday_columns_sum
       report_list.reports

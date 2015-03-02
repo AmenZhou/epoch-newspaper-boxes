@@ -9,6 +9,10 @@ class ReportsController < ApplicationController
     @fri = @klass.single_day_borough_report(:fri)
     @sat = @klass.single_day_borough_report(:sat)
     @all_deliver_type_percentage = @klass.deliver_type_percentage
+    @queens_deliver_type_percentage = @klass.deliver_type_percentage_by_borough('Queens')
+    @manhattan_deliver_type_percentage = @klass.deliver_type_percentage_by_borough('Manhattan')
+    @brooklyn_deliver_type_percentage = @klass.deliver_type_percentage_by_borough('Brooklyn')
+    @newjersey_deliver_type_percentage = @klass.deliver_type_percentage_by_borough('New Jersey')
   end
 
   def zipcode_report

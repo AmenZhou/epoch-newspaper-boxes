@@ -62,6 +62,42 @@ script type="text/javascript" src="https://www.google.com/jsapi"
   .col-md-5
     #piechart7_3d style="width: 900px; height: 500px;"
 
+.row
+  .col-md-5
+    h2 Queens Deliver Type Percentage
+    = table_for @queens_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :group, html:{td: {class: "first-column"}}
+      - column :percentage
+  .col-md-5
+    #piechart8_3d style="width: 900px; height: 500px;"
+
+.row
+  .col-md-5
+    h2 Manhattan Deliver Type Percentage
+    = table_for @manhattan_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :group, html:{td: {class: "first-column"}}
+      - column :percentage
+  .col-md-5
+    #piechart9_3d style="width: 900px; height: 500px;"
+
+.row
+  .col-md-5
+    h2 Brooklyn Deliver Type Percentage
+    = table_for @brooklyn_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :group, html:{td: {class: "first-column"}}
+      - column :percentage
+  .col-md-5
+    #piechart10_3d style="width: 900px; height: 500px;"
+
+.row
+  .col-md-5
+    h2 New Jersey Deliver Type Percentage
+    = table_for @newjersey_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :group, html:{td: {class: "first-column"}}
+      - column :percentage
+  .col-md-5
+    #piechart11_3d style="width: 900px; height: 500px;"
+
 script type="text/javascript" src="https://www.google.com/jsapi"
 content_for :bottom
 javascript:
@@ -72,6 +108,10 @@ javascript:
   var chart_fri = #{raw chart_fri(@fri)}
   var chart_sat = #{raw chart_sat(@sat)}
   var chart_deliver_percentage = #{raw chart_deliver_percentage(@all_deliver_type_percentage)}
+  var chart_deliver_percentage_queens = #{raw chart_deliver_percentage(@queens_deliver_type_percentage)}
+  var chart_deliver_percentage_manhattan = #{raw chart_deliver_percentage(@manhattan_deliver_type_percentage)}
+  var chart_deliver_percentage_brooklyn = #{raw chart_deliver_percentage(@brooklyn_deliver_type_percentage)}
+  var chart_deliver_percentage_newjersey = #{raw chart_deliver_percentage(@newjersey_deliver_type_percentage)}
 
   google.load("visualization", "1", {packages:["corechart"]});
   //google.setOnLoadCallback(drawChart);
@@ -98,4 +138,8 @@ javascript:
     drawChart(chart_fri, 'Borough Friday Average Chart', 'piechart5_3d');
     drawChart(chart_sat, 'Borough Saturday Average Chart', 'piechart6_3d');
     drawChart(chart_deliver_percentage, 'All Area Deliver Type Percentage', 'piechart7_3d');
+    drawChart(chart_deliver_percentage_queens, 'Queens Deliver Type Percentage', 'piechart8_3d');
+    drawChart(chart_deliver_percentage_manhattan, 'Manhattan Deliver Type Percentage', 'piechart9_3d');
+    drawChart(chart_deliver_percentage_brooklyn, 'Brooklyn Deliver Type Percentage', 'piechart10_3d');
+    drawChart(chart_deliver_percentage_newjersey, 'New Jersey Deliver Type Percentage', 'piechart11_3d');
   })
