@@ -1,4 +1,9 @@
 module NewspaperBoxesHelper
+  def chart_deliver_percentage reports
+    output = reports.map{|rs| [rs.group, rs.percentage]}
+    output.unshift(['Delivery Type', 'Percentage'])
+  end
+
   def chart_data reports
     output = reports.map{|rs| [rs.group, rs.sum]}
     output.unshift(['borough', 'amount'])

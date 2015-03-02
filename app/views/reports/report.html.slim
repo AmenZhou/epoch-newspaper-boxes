@@ -53,6 +53,16 @@
     #piechart6_3d style="width: 900px; height: 500px;"
 script type="text/javascript" src="https://www.google.com/jsapi"
 
+.row
+  .col-md-5
+    h2 Deliver Type Percentage
+    = table_for @all_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :group, html:{td: {class: "first-column"}}
+      - column :percentage
+  .col-md-5
+    #piechart7_3d style="width: 900px; height: 500px;"
+
+script type="text/javascript" src="https://www.google.com/jsapi"
 content_for :bottom
 javascript:
   var chart_dd = #{raw chart_data(@report)}
@@ -61,6 +71,7 @@ javascript:
   var chart_weekend_average = #{raw chart_weekend_average(@weekend_average)}
   var chart_fri = #{raw chart_fri(@fri)}
   var chart_sat = #{raw chart_sat(@sat)}
+  var chart_deliver_percentage = #{raw chart_deliver_percentage(@all_deliver_type_percentage)}
 
   google.load("visualization", "1", {packages:["corechart"]});
   //google.setOnLoadCallback(drawChart);
@@ -71,7 +82,7 @@ javascript:
     var data = google.visualization.arrayToDataTable(chart_data);
 
     var options = {
-      title: ' Borough Summary Chart',
+      title: title,
       is3D: true,
     };
 
@@ -86,4 +97,5 @@ javascript:
     drawChart(chart_weekend_average, 'Borough Weekend Average Chart', 'piechart4_3d');
     drawChart(chart_fri, 'Borough Friday Average Chart', 'piechart5_3d');
     drawChart(chart_sat, 'Borough Saturday Average Chart', 'piechart6_3d');
+    drawChart(chart_deliver_percentage, 'All Area Deliver Type Percentage', 'piechart7_3d');
   })

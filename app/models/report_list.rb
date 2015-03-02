@@ -14,14 +14,16 @@ class ReportList
     self.reports << report
   end
 
-  #params{group_name, days_range, newspapers, newspaper_total_amount}
+  #params{group_name, days_range, newspapers, newspaper_total_amount, klass}
   def initialize params = {}
     self.reports = []
-    self.group_name = params[:group_name]
-    self.days_range = params[:days_range] || :mon_2_sat
-    self.newspaper_total_amount = params[:newspaper_total_amount]
-    self.newspapers = params[:newspapers]
-    initialize_list
+    if params.present?
+      self.group_name = params[:group_name]
+      self.days_range = params[:days_range] || :mon_2_sat
+      self.newspaper_total_amount = params[:klass].weekly_total_amount
+      self.newspapers = params[:klass].by_group(group_name)
+      initialize_list
+    end
   end
 
   def initialize_list
