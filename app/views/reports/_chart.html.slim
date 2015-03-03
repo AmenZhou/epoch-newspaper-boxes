@@ -1,0 +1,10 @@
+.row
+  .col-md-5
+    = content_tag :h2, title
+    = table_for report, html: {class:'table table-bordered table-hover table-striped'} do
+      - column :group, html:{td: {class: "first-column"}}
+      - column :sum
+  .col-md-5
+    = content_tag :div, nil, id: chart_id, style: "width: 900px; height: 500px;"
+
+

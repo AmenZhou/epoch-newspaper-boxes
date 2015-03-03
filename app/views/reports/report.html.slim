@@ -1,102 +1,24 @@
-.row
-  .col-md-5
-    h2 Boroughs
-    = table_for @report, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :sum
-  .col-md-5
-    #piechart_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Boroughs', report: @report, chart_id: 'piechart_3d'}
 
-.row
-  .col-md-5
-    h2 Queens Areas
-    = table_for @report_queens, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :sum
-  .col-md-5
-    #piechart2_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Queens Areas', report: @report_queens, chart_id: 'piechart2_3d'}
 
-.row
-  .col-md-5
-    h2 Boroughs Weekday Average
-    = table_for @weekday_average, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :average
-  .col-md-5
-    #piechart3_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Boroughs Weekday Average', report: @weekday_average, chart_id: 'piechart3_3d'}
 
-.row
-  .col-md-5
-    h2 Boroughs Weekend Average
-    = table_for @weekend_average, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :average
-  .col-md-5
-    #piechart4_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Boroughs Weekend Average', report: @weekend_average, chart_id: 'piechart4_3d'}
 
-.row
-  .col-md-5
-    h2 Boroughs Friday
-    = table_for @fri, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :fri
-  .col-md-5
-    #piechart5_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Boroughs Friday', report: @fri, chart_id: 'piechart5_3d'}
 
-.row
-  .col-md-5
-    h2 Boroughs Saturday
-    = table_for @sat, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :sat
-  .col-md-5
-    #piechart6_3d style="width: 900px; height: 500px;"
-script type="text/javascript" src="https://www.google.com/jsapi"
+= render partial: 'chart', locals: { title: 'Boroughs Saturday', report: @sat, chart_id: 'piechart6_3d'}
 
-.row
-  .col-md-5
-    h2 Deliver Type Percentage
-    = table_for @all_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :percentage
-  .col-md-5
-    #piechart7_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Deliver Type Percentage', report: @all_deliver_type_percentage, chart_id: 'piechart7_3d'}
 
-.row
-  .col-md-5
-    h2 Queens Deliver Type Percentage
-    = table_for @queens_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :percentage
-  .col-md-5
-    #piechart8_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Queens Deliver Type Percentage', report: @queens_deliver_type_percentage, chart_id: 'piechart8_3d'}
 
-.row
-  .col-md-5
-    h2 Manhattan Deliver Type Percentage
-    = table_for @manhattan_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :percentage
-  .col-md-5
-    #piechart9_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Manhattan Deliver Type Percentage', report: @manhattan_deliver_type_percentage, chart_id: 'piechart9_3d'}
 
-.row
-  .col-md-5
-    h2 Brooklyn Deliver Type Percentage
-    = table_for @brooklyn_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :percentage
-  .col-md-5
-    #piechart10_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'Brooklyn Deliver Type Percentage', report: @brooklyn_deliver_type_percentage, chart_id: 'piechart10_3d'}
 
-.row
-  .col-md-5
-    h2 New Jersey Deliver Type Percentage
-    = table_for @newjersey_deliver_type_percentage, html: {class:'table table-bordered table-hover table-striped'} do
-      - column :group, html:{td: {class: "first-column"}}
-      - column :percentage
-  .col-md-5
-    #piechart11_3d style="width: 900px; height: 500px;"
+= render partial: 'chart', locals: { title: 'New Jersey Deliver Type Percentage', report: @newjersey_deliver_type_percentage, chart_id: 'piechart11_3d'}
 
 script type="text/javascript" src="https://www.google.com/jsapi"
 content_for :bottom
