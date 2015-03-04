@@ -1,3 +1,5 @@
+= select_tag 'chart_type', options_for_select([['Boroughs Report', 'piechart_3d'], ['Queens Areas', 'piechart2_3d']])
+
 = render partial: 'chart', locals: { title: 'Boroughs', report: @report, chart_id: 'piechart_3d'}
 
 = render partial: 'chart', locals: { title: 'Queens Areas', report: @report_queens, chart_id: 'piechart2_3d'}
@@ -64,4 +66,13 @@ javascript:
     drawChart(chart_deliver_percentage_manhattan, 'Manhattan Deliver Type Percentage', 'piechart9_3d');
     drawChart(chart_deliver_percentage_brooklyn, 'Brooklyn Deliver Type Percentage', 'piechart10_3d');
     drawChart(chart_deliver_percentage_newjersey, 'New Jersey Deliver Type Percentage', 'piechart11_3d');
+
+    $('.report-chart').hide();
   })
+
+  $('#chart_type').change(function(){
+    var div_id = $(this).val();
+    $('.report-chart').hide();
+    $('#div-' + div_id).fadeIn();
+   
+  });
