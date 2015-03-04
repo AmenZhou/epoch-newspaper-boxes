@@ -1,26 +1,7 @@
-= select_tag 'chart_type', options_for_select([['Boroughs Report', 'piechart_3d'], ['Queens Areas', 'piechart2_3d']])
+= select_tag 'chart_type', options_for_select(chart_options)
 
-= render partial: 'chart', locals: { title: 'Boroughs', report: @report, chart_id: 'piechart_3d'}
-
-= render partial: 'chart', locals: { title: 'Queens Areas', report: @report_queens, chart_id: 'piechart2_3d'}
-
-= render partial: 'chart', locals: { title: 'Boroughs Weekday Average', report: @weekday_average, chart_id: 'piechart3_3d'}
-
-= render partial: 'chart', locals: { title: 'Boroughs Weekend Average', report: @weekend_average, chart_id: 'piechart4_3d'}
-
-= render partial: 'chart', locals: { title: 'Boroughs Friday', report: @fri, chart_id: 'piechart5_3d'}
-
-= render partial: 'chart', locals: { title: 'Boroughs Saturday', report: @sat, chart_id: 'piechart6_3d'}
-
-= render partial: 'chart', locals: { title: 'Deliver Type Percentage', report: @all_deliver_type_percentage, chart_id: 'piechart7_3d'}
-
-= render partial: 'chart', locals: { title: 'Queens Deliver Type Percentage', report: @queens_deliver_type_percentage, chart_id: 'piechart8_3d'}
-
-= render partial: 'chart', locals: { title: 'Manhattan Deliver Type Percentage', report: @manhattan_deliver_type_percentage, chart_id: 'piechart9_3d'}
-
-= render partial: 'chart', locals: { title: 'Brooklyn Deliver Type Percentage', report: @brooklyn_deliver_type_percentage, chart_id: 'piechart10_3d'}
-
-= render partial: 'chart', locals: { title: 'New Jersey Deliver Type Percentage', report: @newjersey_deliver_type_percentage, chart_id: 'piechart11_3d'}
+- charts_array.each do |chart|
+  = render partial: "chart", locals: chart
 
 script type="text/javascript" src="https://www.google.com/jsapi"
 content_for :bottom
@@ -55,6 +36,7 @@ javascript:
   }
 
   $(document).ready(function(){
+    $('.report-chart').hide();
     drawChart(chart_dd, 'Borough Summary Chart', 'piechart_3d');
     drawChart(chart_queens, 'Queens Summary Chart', 'piechart2_3d');
     drawChart(chart_weekday_average, 'Borough WeekDay Average Chart', 'piechart3_3d');
@@ -66,8 +48,6 @@ javascript:
     drawChart(chart_deliver_percentage_manhattan, 'Manhattan Deliver Type Percentage', 'piechart9_3d');
     drawChart(chart_deliver_percentage_brooklyn, 'Brooklyn Deliver Type Percentage', 'piechart10_3d');
     drawChart(chart_deliver_percentage_newjersey, 'New Jersey Deliver Type Percentage', 'piechart11_3d');
-
-    $('.report-chart').hide();
   })
 
   $('#chart_type').change(function(){
