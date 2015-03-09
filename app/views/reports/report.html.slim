@@ -1,4 +1,6 @@
-= select_tag 'chart_type', options_for_select(chart_options)
+.row
+  .col-md-4
+    = select_tag 'chart_type', options_for_select(chart_options), class: 'form-control'
 
 - charts_array.each do |chart|
   = render partial: "chart", locals: chart
@@ -36,7 +38,6 @@ javascript:
   }
 
   $(document).ready(function(){
-    $('.report-chart').hide();
     drawChart(chart_dd, 'Borough Summary Chart', 'piechart_3d');
     drawChart(chart_queens, 'Queens Summary Chart', 'piechart2_3d');
     drawChart(chart_weekday_average, 'Borough WeekDay Average Chart', 'piechart3_3d');
@@ -48,6 +49,7 @@ javascript:
     drawChart(chart_deliver_percentage_manhattan, 'Manhattan Deliver Type Percentage', 'piechart9_3d');
     drawChart(chart_deliver_percentage_brooklyn, 'Brooklyn Deliver Type Percentage', 'piechart10_3d');
     drawChart(chart_deliver_percentage_newjersey, 'New Jersey Deliver Type Percentage', 'piechart11_3d');
+    $('.report-chart').hide();
   })
 
   $('#chart_type').change(function(){
