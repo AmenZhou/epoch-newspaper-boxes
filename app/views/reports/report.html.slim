@@ -22,6 +22,7 @@ javascript:
 
   google.load("visualization", "1", {packages:["corechart"]});
   //google.setOnLoadCallback(drawChart);
+  $('.report-chart').hide();
 
 
   function drawChart(chart_data, title, element_id){
@@ -37,24 +38,32 @@ javascript:
     chart.draw(data, options);
   }
 
-  $(document).ready(function(){
-    drawChart(chart_dd, 'Borough Summary Chart', 'piechart_3d');
-    drawChart(chart_queens, 'Queens Summary Chart', 'piechart2_3d');
-    drawChart(chart_weekday_average, 'Borough WeekDay Average Chart', 'piechart3_3d');
-    drawChart(chart_weekend_average, 'Borough Weekend Average Chart', 'piechart4_3d');
-    drawChart(chart_fri, 'Borough Friday Average Chart', 'piechart5_3d');
-    drawChart(chart_sat, 'Borough Saturday Average Chart', 'piechart6_3d');
-    drawChart(chart_deliver_percentage, 'All Area Deliver Type Percentage', 'piechart7_3d');
-    drawChart(chart_deliver_percentage_queens, 'Queens Deliver Type Percentage', 'piechart8_3d');
-    drawChart(chart_deliver_percentage_manhattan, 'Manhattan Deliver Type Percentage', 'piechart9_3d');
-    drawChart(chart_deliver_percentage_brooklyn, 'Brooklyn Deliver Type Percentage', 'piechart10_3d');
-    drawChart(chart_deliver_percentage_newjersey, 'New Jersey Deliver Type Percentage', 'piechart11_3d');
-    $('.report-chart').hide();
-  })
-
   $('#chart_type').change(function(){
     var div_id = $(this).val();
     $('.report-chart').hide();
     $('#div-' + div_id).fadeIn();
-   
+    switch(div_id) {
+      case 'piechart_3d':
+        drawChart(chart_dd, 'Borough Summary Chart', 'piechart_3d');
+      case 'piechart2_3d':
+        drawChart(chart_queens, 'Queens Summary Chart', 'piechart2_3d');
+      case 'piechart3_3d':
+        drawChart(chart_weekday_average, 'Borough WeekDay Average Chart', 'piechart3_3d');
+      case 'piechart4_3d':
+        drawChart(chart_weekend_average, 'Borough Weekend Average Chart', 'piechart4_3d');
+      case 'piechart5_3d':
+        drawChart(chart_fri, 'Borough Friday Average Chart', 'piechart5_3d');
+      case 'piechart6_3d':
+        drawChart(chart_sat, 'Borough Saturday Average Chart', 'piechart6_3d');
+      case 'piechart7_3d':
+        drawChart(chart_deliver_percentage, 'All Area Deliver Type Percentage', 'piechart7_3d');
+      case 'piechart8_3d':
+        drawChart(chart_deliver_percentage_queens, 'Queens Deliver Type Percentage', 'piechart8_3d');
+      case 'piechart9_3d':
+        drawChart(chart_deliver_percentage_manhattan, 'Manhattan Deliver Type Percentage', 'piechart9_3d');
+      case 'piechart10_3d':
+        drawChart(chart_deliver_percentage_brooklyn, 'Brooklyn Deliver Type Percentage', 'piechart10_3d');
+      case 'piechart11_3d':
+        drawChart(chart_deliver_percentage_newjersey, 'New Jersey Deliver Type Percentage', 'piechart11_3d');
+    }
   });
