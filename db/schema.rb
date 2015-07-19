@@ -11,7 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141013205050) do
+ActiveRecord::Schema.define(version: 20150719144051) do
+
+  create_table "epoch_branches", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "histories", force: true do |t|
     t.integer  "newspaper"
@@ -46,23 +52,26 @@ ActiveRecord::Schema.define(version: 20141013205050) do
     t.integer  "plastic_box"
     t.integer  "selling_box"
     t.integer  "paper_shelf"
-    t.integer  "mon",                       default: 0
-    t.integer  "tue",                       default: 0
-    t.integer  "wed",                       default: 0
-    t.integer  "thu",                       default: 0
-    t.integer  "fri",                       default: 0
-    t.integer  "sat",                       default: 0
-    t.integer  "sun",                       default: 0
-    t.float    "latitude",       limit: 24
-    t.float    "longitude",      limit: 24
-    t.float    "sort_num",       limit: 24
-    t.boolean  "trash",                     default: false
+    t.integer  "mon",                        default: 0
+    t.integer  "tue",                        default: 0
+    t.integer  "wed",                        default: 0
+    t.integer  "thu",                        default: 0
+    t.integer  "fri",                        default: 0
+    t.integer  "sat",                        default: 0
+    t.integer  "sun",                        default: 0
+    t.float    "latitude",        limit: 24
+    t.float    "longitude",       limit: 24
+    t.float    "sort_num",        limit: 24
+    t.boolean  "trash",                      default: false
     t.string   "building"
     t.string   "type"
     t.string   "place_type"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "epoch_branch_id"
   end
+
+  add_index "newspaper_bases", ["epoch_branch_id"], name: "index_newspaper_bases_on_epoch_branch_id", using: :btree
 
   create_table "newspaper_boxes", force: true do |t|
     t.string   "address"
@@ -107,9 +116,11 @@ ActiveRecord::Schema.define(version: 20141013205050) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "role"
+    t.integer  "epoch_branch_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
+  add_index "users", ["epoch_branch_id"], name: "index_users_on_epoch_branch_id", using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
 end
