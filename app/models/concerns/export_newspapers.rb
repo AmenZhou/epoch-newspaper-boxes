@@ -15,7 +15,7 @@ module ExportNewspapers
       line.gsub("\n", "").encode("UTF-8")
     end
 
-    def export_data
+    def export_data(epoch_branch_id)
       file_path = ""
       unless File.directory?('lib/export')
         Dir.mkdir 'lib/export'
@@ -23,7 +23,7 @@ module ExportNewspapers
       File.open('lib/export/' + self.to_s.downcase + '_export_'+ Time.now.strftime("%d%m%Y-%H:%M") + '.csv', 'w') do |file|
         file.puts(generate_a_line("title") + "\n")
 
-        self.all.each do |nb|
+        self.where(epoch_branch_id: epoch_branch_id).each do |nb|
           file.puts(generate_a_line("data", nb) + "\n")
         end
         file_path = file.path
