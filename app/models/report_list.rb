@@ -1,6 +1,15 @@
 class ReportList
   attr_accessor :reports, :group_name, :days_range, :newspaper_total_amount, :newspapers
   DaysRange = [:mon_2_thu, :fri_2_sat, :fri, :sat, :mon_2_sat]
+  class << self
+    def epoch_branch_id=(epoch_branch_id)
+      Thread.current[:epoch_branch_id] = epoch_branch_id
+    end
+
+    def epoch_branch_id
+      Thread.current[:epoch_branch_id]
+    end
+  end
 
   def generate_weekday_columns_sum
     report = Report.new()
@@ -19,6 +28,7 @@ class ReportList
     self.reports = []
     if params.present?
       newspapers_t = params[:newspapers] || params[:klass]
+      newspapers_t = newspapers_t.by_epoch_branch_id(ReportList.epoch_branch_id)
       self.group_name = params[:group_name]
       self.days_range = params[:days_range] || :mon_2_sat
       self.newspaper_total_amount = newspapers_t.weekly_total_amount

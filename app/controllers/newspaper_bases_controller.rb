@@ -6,7 +6,7 @@ class NewspaperBasesController < ApplicationController
   helper_method :model_name
 
   def index
-    @newspaper_bases = model_name.all.order("sort_num")
+    @newspaper_bases = model_name_branch.order("sort_num")
     filter_newspaper_base
     @newspaper_amount = @newspaper_bases.count
     @newspaper_bases = @newspaper_bases.page(params[:page]).per(10)
@@ -18,7 +18,7 @@ class NewspaperBasesController < ApplicationController
   end
 
   def create
-    @newspaper_base = model_name.new(newspaper_params)
+    @newspaper_base = model_name.new(newspaper_params.merge(epoch_branch_id: current_user.epoch_branch_id))
     if @newspaper_base.save
       redirect_to action: 'index', notice: 'Update Newspaper Successfully!'
     else
@@ -78,10 +78,10 @@ class NewspaperBasesController < ApplicationController
 
 
   def map
-    @citys = model_name.pluck(:borough_detail).compact.uniq.delete_if{|x| x.blank?}
+    @citys = model_name_branch.pluck(:borough_detail).compact.uniq.delete_if{|x| x.blank?}
     @selected_city = params[:city]
-    boxes = params[:city].present? ? model_name.by_borough(params[:city]) : model_name.all
-    boxes = model_name.by_address(params[:address]) if params[:address].present?
+    boxes = params[:city].present? ? model_name_branch.by_borough(params[:city]) : model_name_branch
+    boxes = boxes.by_address(params[:address]) if params[:address].present?
 
     @locations = boxes.map do |np|
       np.generate_location_info
@@ -93,11 +93,15 @@ class NewspaperBasesController < ApplicationController
   end
 
   def export_data
-    file_path = model_name.export_data
+    file_path = model_name.export_data(current_user.epoch_branch_id)
     send_file(file_path)
   end
 
   private
+
+  def model_name_branch
+    model_name.by_epoch_branch_id(current_user.epoch_branch_id)
+  end
 
   def model_name
     controller_name.classify.gsub('Basis', 'Base').constantize

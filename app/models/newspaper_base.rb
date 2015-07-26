@@ -6,6 +6,7 @@ class NewspaperBase < ActiveRecord::Base
   validates :type, presence: true
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}
+  scope :by_epoch_branch_id, -> (branch_id) { where(epoch_branch_id: branch_id) }
   default_scope -> {where(trash: false)}
 
   before_save :update_lat_lng, except: [:destroy, :recovery]
