@@ -85,3 +85,5 @@ group :test do
 end
 
 gem 'kaminari'
+
+gem 'unicorn', group: :production
