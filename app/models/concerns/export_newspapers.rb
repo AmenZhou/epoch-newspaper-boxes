@@ -9,10 +9,10 @@ module ExportNewspapers
         if type == "title"
           line += attr.to_s + '|'
         else
-          line += newspaper_box.send(attr).to_s + '|'
+          line += newspaper_box.send(attr).to_s.gsub("\r\n", "") + '|'
         end
       end
-      line.gsub("\n", "").encode("UTF-8")
+      line
     end
 
     def export_data(epoch_branch_id)
