@@ -1,5 +1,5 @@
 EpochNewspaperBoxes::Application.routes.draw do
-	root "newspaper_boxes#map"
+  root "newspaper_boxes#map"
   devise_for :users
 
   get 'newspaper_bases/map', to: 'newspaper_bases#map'
@@ -13,7 +13,10 @@ EpochNewspaperBoxes::Application.routes.draw do
     end
   end
 
-  resources :histories
+  resources :histories do
+    get :trender, on: :collection
+  end
+
   resources :reports do
     collection do
       get 'report'
