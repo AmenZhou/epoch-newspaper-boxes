@@ -14,7 +14,7 @@ EpochNewspaperBoxes::Application.routes.draw do
   end
 
   resources :histories do
-    get :trender, on: :collection
+    get :trend, on: :collection
   end
 
   resources :reports do

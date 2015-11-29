@@ -3,7 +3,7 @@ class HistoriesController < ApplicationController
   def index
   end
 
-  def trender
+  def trend
     histories = History.where(box_type: 'NewspaperBox').map do |h|
       [
         h.created_at.strftime('%Y%m%d').to_i,

@@ -1,4 +1,4 @@
-h1 Newspaper Box Histories
+h1 報紙發行趨勢圖
 
 #chart
 
@@ -8,24 +8,24 @@ javascript:
   google.load('visualization', '1', {packages: ['corechart', 'line']});
 
   $(document).ready(function(){
-    $.getJSON('/histories/trender').done(function(records){
+    $.getJSON('/histories/trend').done(function(records){
       google.setOnLoadCallback(drawChart(records));
     });
   })
 
   function drawChart(records){
     var data = new google.visualization.DataTable();
-    data.addColumn('number', 'Date');
-    data.addColumn('number', 'News Paper');
+    data.addColumn('number', '日期');
+    data.addColumn('number', '報箱報紙');
 
     data.addRows(records);
 
     var options = {
     hAxis: {
-      title: 'Time'
+      title: '日期'
     },
     vAxis: {
-      title: 'News Paper Sum'
+      title: '報紙總量'
     }
     };
 
