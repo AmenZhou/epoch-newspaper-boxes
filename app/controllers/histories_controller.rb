@@ -4,9 +4,9 @@ class HistoriesController < ApplicationController
   end
 
   def trend
-    histories = History.where(box_type: 'NewspaperBox').map do |h|
+    histories = History.where(box_type: 'NewspaperBox').order('created_at').map do |h|
       [
-        h.created_at.strftime('%Y%m%d').to_i,
+        h.created_at.strftime('%Y-%m-%d'),
         h.newspaper
       ]
     end

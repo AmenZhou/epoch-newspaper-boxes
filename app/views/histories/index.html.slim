@@ -9,13 +9,22 @@ javascript:
 
   $(document).ready(function(){
     $.getJSON('/histories/trend').done(function(records){
+      records = convertData(records);
       google.setOnLoadCallback(drawChart(records));
     });
   })
 
+  function convertData(records){
+    result = [];
+    records.forEach(function(r){
+      result.push([new Date(r[0]), r[1]])
+    });
+    return result;
+  }
+
   function drawChart(records){
     var data = new google.visualization.DataTable();
-    data.addColumn('number', '日期');
+    data.addColumn('date', '日期');
     data.addColumn('number', '報箱報紙');
 
     data.addRows(records);
