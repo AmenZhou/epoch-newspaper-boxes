@@ -1,6 +1,10 @@
 h1 報紙發行趨勢圖
 
-#chart
+h3 報箱報紙週發行量
+#box_chart
+
+h3 手發報紙週發行量
+#hand_chart
 
 = javascript_include_tag "https://www.google.com/jsapi"
 
@@ -8,9 +12,14 @@ javascript:
   google.load('visualization', '1', {packages: ['corechart', 'line']});
 
   $(document).ready(function(){
-    $.getJSON('/histories/trend').done(function(records){
+    $.getJSON('/histories/trend', { box_type: 'NewspaperBox' }).done(function(records){
       records = convertData(records);
-      google.setOnLoadCallback(drawChart(records));
+      google.setOnLoadCallback(drawChart(records, 'box_chart'));
+    });
+
+    $.getJSON('/histories/trend', { box_type: 'NewspaperHand' }).done(function(records){
+      records = convertData(records);
+      google.setOnLoadCallback(drawChart(records, 'hand_chart'));
     });
   })
 
@@ -22,7 +31,7 @@ javascript:
     return result;
   }
 
-  function drawChart(records){
+  function drawChart(records, div_id){
     var data = new google.visualization.DataTable();
     data.addColumn('date', '日期');
     data.addColumn('number', '報箱報紙');
@@ -38,7 +47,7 @@ javascript:
     }
     };
 
-    var chart = new google.visualization.LineChart(document.getElementById('chart'));
+    var chart = new google.visualization.LineChart(document.getElementById(div_id));
 
     chart.draw(data, options);
   }
