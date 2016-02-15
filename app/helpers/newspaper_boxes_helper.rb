@@ -1,17 +1,25 @@
 module NewspaperBoxesHelper
   def charts_array
-    [ { title: 'Boroughs', report: @report, chart_id: 'piechart_3d'},
-      { title: 'Queens Areas', report: @report_queens, chart_id: 'piechart2_3d'},
-      { title: 'Boroughs Weekday Average', report: @weekday_average, chart_id: 'piechart3_3d'},
-      { title: 'Boroughs Weekend Average', report: @weekend_average, chart_id: 'piechart4_3d'},
-      { title: 'Boroughs Friday', report: @fri, chart_id: 'piechart5_3d'},
-      { title: 'Boroughs Saturday', report: @sat, chart_id: 'piechart6_3d'},
-      { title: 'Deliver Type Percentage', report: @all_deliver_type_percentage, chart_id: 'piechart7_3d'},
-      { title: 'Queens Deliver Type Percentage', report: @queens_deliver_type_percentage, chart_id: 'piechart8_3d'},
-      { title: 'Manhattan Deliver Type Percentage', report: @manhattan_deliver_type_percentage, chart_id: 'piechart9_3d'},
-      { title: 'Brooklyn Deliver Type Percentage', report: @brooklyn_deliver_type_percentage, chart_id: 'piechart10_3d'},
-      { title: 'New Jersey Deliver Type Percentage', report: @newjersey_deliver_type_percentage, chart_id: 'piechart11_3d'}
-    ]
+    case
+    when current_user.is_ny?
+      [ { title: 'Boroughs', report: @report, chart_id: 'piechart_3d'},
+        { title: 'Queens Areas', report: @report_queens, chart_id: 'piechart2_3d'},
+        { title: 'Boroughs Weekday Average', report: @weekday_average, chart_id: 'piechart3_3d'},
+        { title: 'Boroughs Weekend Average', report: @weekend_average, chart_id: 'piechart4_3d'},
+        { title: 'Boroughs Friday', report: @fri, chart_id: 'piechart5_3d'},
+        { title: 'Boroughs Saturday', report: @sat, chart_id: 'piechart6_3d'},
+        { title: 'Deliver Type Percentage', report: @all_deliver_type_percentage, chart_id: 'piechart7_3d'},
+        { title: 'Queens Deliver Type Percentage', report: @queens_deliver_type_percentage, chart_id: 'piechart8_3d'},
+        { title: 'Manhattan Deliver Type Percentage', report: @manhattan_deliver_type_percentage, chart_id: 'piechart9_3d'},
+        { title: 'Brooklyn Deliver Type Percentage', report: @brooklyn_deliver_type_percentage, chart_id: 'piechart10_3d'}
+      ]
+    when current_user.is_nj?
+      [
+        { title: 'New Jersey Deliver Type Percentage', report: @newjersey_deliver_type_percentage, chart_id: 'piechart11_3d'}
+      ]
+    else
+      []
+    end
   end
 
   def chart_options
