@@ -12,10 +12,10 @@ class User < ActiveRecord::Base
   end
 
   def is_nj?
-    epoch_branch.name == 'NJ'
+    epoch_branch.name == 'New Jersey' || epoch_branch.name == "NJ"
   end
 
   def is_ny?
-    epoch_branch.name == 'NY'
+    epoch_branch.name == 'New York' || epoch_branch.name == "NY"
   end
 end
