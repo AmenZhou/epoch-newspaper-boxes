@@ -3,6 +3,8 @@ class NewspaperBase < ActiveRecord::Base
   include ExportNewspapers
   include NewspaperReports
 
+  belongs_to :epoch_branch
+
   validates :type, presence: true
   scope :by_city, -> (city) { where(city: city) }
   scope :by_borough, -> (borough) {where(borough_detail: borough)}

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719144051) do
+ActiveRecord::Schema.define(version: 20160327144515) do
 
   create_table "epoch_branches", force: true do |t|
     t.string   "name"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150719144051) do
     t.integer  "borough_sum"
     t.integer  "zip_sum"
     t.string   "box_type"
+    t.integer  "epoch_branch_id"
   end
 
   create_table "imports", force: true do |t|
