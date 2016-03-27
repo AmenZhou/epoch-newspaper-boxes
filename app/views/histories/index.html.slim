@@ -3,8 +3,14 @@ h1 報紙發行趨勢圖
 h3 報箱報紙週發行量
 #box_chart
 
+h3 報箱總量趨勢圖
+#box_number_chart
+
 h3 手發報紙週發行量
 #hand_chart
+
+h3 手發點趨勢圖
+#hand_number_chart
 
 = javascript_include_tag "https://www.google.com/jsapi"
 
@@ -12,14 +18,24 @@ javascript:
   google.load('visualization', '1', {packages: ['corechart', 'line']});
 
   $(document).ready(function(){
-    $.getJSON('/histories/trend', { box_type: 'NewspaperBox' }).done(function(records){
+    $.getJSON('/histories/trend', { box_type: 'NewspaperBox', filter: 'weekly_delivery' }).done(function(records){
       records = convertData(records);
-      google.setOnLoadCallback(drawChart(records, 'box_chart'));
+      google.setOnLoadCallback(drawChart(records, 'box_chart', '報紙週發行量'));
     });
 
-    $.getJSON('/histories/trend', { box_type: 'NewspaperHand' }).done(function(records){
+    $.getJSON('/histories/trend', { box_type: 'NewspaperBox', filter: 'box_amount' }).done(function(records){
       records = convertData(records);
-      google.setOnLoadCallback(drawChart(records, 'hand_chart'));
+      google.setOnLoadCallback(drawChart(records, 'box_number_chart', '報箱總量'));
+    });
+
+    $.getJSON('/histories/trend', { box_type: 'NewspaperHand', filter: 'weekly_delivery' }).done(function(records){
+      records = convertData(records);
+      google.setOnLoadCallback(drawChart(records, 'hand_chart', '報紙週發行量'));
+    });
+
+    $.getJSON('/histories/trend', { box_type: 'NewspaperHand', filter: 'box_amount' }).done(function(records){
+      records = convertData(records);
+      google.setOnLoadCallback(drawChart(records, 'hand_number_chart', '報箱總量'));
     });
   })
 
@@ -31,20 +47,20 @@ javascript:
     return result;
   }
 
-  function drawChart(records, div_id){
+  function drawChart(records, div_id, number_title){
     var data = new google.visualization.DataTable();
     data.addColumn('date', '日期');
-    data.addColumn('number', '報箱報紙');
+    data.addColumn('number', number_title);
 
     data.addRows(records);
 
     var options = {
-    hAxis: {
-      title: '日期'
-    },
-    vAxis: {
-      title: '報紙總量'
-    }
+      hAxis: {
+        title: '日期'
+      },
+      vAxis: {
+        title: number_title
+      }
     };
 
     var chart = new google.visualization.LineChart(document.getElementById(div_id));
