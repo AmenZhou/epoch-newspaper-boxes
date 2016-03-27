@@ -5,7 +5,8 @@ class HistoriesController < ApplicationController
 
   def trend
     box_type = params[:box_type] || 'NewspaperBox'
-    histories = History.where(box_type: box_type).order('created_at').map do |h|
+    histories = History.where(box_type: box_type,
+                              epoch_branch_id: current_user.epoch_branch_id).order('created_at').map do |h|
       [
         h.created_at.strftime('%Y-%m-%d'),
         h.newspaper

@@ -6,6 +6,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def current_epoch_branch_id
+    current_user.epoch_branch_id
+  end
+
   def set_epoch_branch_id
     ReportList.epoch_branch_id = current_user.try(:epoch_branch_id) || EpochBranch.first.id
   end
