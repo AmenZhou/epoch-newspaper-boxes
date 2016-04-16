@@ -133,7 +133,11 @@ class NewspaperBase < ActiveRecord::Base
     if type == 'NewspaperHand'
       location['icon'] = 'red'
     elsif deliver_type == 'Newspaper box'
-      location['icon'] = 'green'
+      if new_box_flg
+        location['icon'] = 'green_flag'
+      else
+        location['icon'] = 'green'
+      end
     else
       location['icon'] = 'blue'
     end
