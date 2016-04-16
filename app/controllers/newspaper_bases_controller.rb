@@ -22,6 +22,7 @@ class NewspaperBasesController < ApplicationController
     if @newspaper_base.save
       redirect_to action: 'index', notice: 'Update Newspaper Successfully!'
     else
+      #TODO return error message here
       render 'new'
     end
   end

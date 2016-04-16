@@ -132,23 +132,24 @@ module NewspaperBoxesHelper
       remark: -> { f.text_area :remark, class: 'form-control'  },
       building: -> { f.text_field :building, class: 'form-control' },
       place_type: -> { f.text_field :place_type, class: 'form-control'  },
-      sort_num: -> { f.number_field :sort_num, :step => 'any', class: 'form-control'  }
+      sort_num: -> { f.number_field :sort_num, :step => 'any', class: 'form-control'  },
+      new_box_flg: -> { f.check_box :new_box_flg, class: 'form-control'}
     }
   end
 
   def newspaper_new_path
-    "#{controller.controller_name}/new"
+    "/#{controller.controller_name}/new"
   end
 
   def newspaper_index_path
-    "#{controller.controller_name}"
+    "/#{controller.controller_name}"
   end
 
   def newspaper_export_path
-    "#{controller.controller_name}/export_data"
+    "/#{controller.controller_name}/export_data"
   end
 
   def newspaper_recovery_path(newspaper_base)
-    "#{controller.controller_name}/" + newspaper_base.id.to_s + "/recovery"
+    "/#{controller.controller_name}/" + newspaper_base.id.to_s + "/recovery"
   end
 end

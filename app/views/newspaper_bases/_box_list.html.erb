@@ -14,6 +14,7 @@
         <%= render "summary_row" %>
       </td>
       <% @newspaper_bases.each do |newspaper_base| %>
+      <%#Todo change label name, make it more human readable %>
         <tr id="<%= newspaper_base.id%>">
           <% model_name::ColumnName.each do |column| %>
             <td><%= table_columns(newspaper_base)[column].call %></td>
