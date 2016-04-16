@@ -81,7 +81,8 @@ module NewspaperBoxesHelper
        delete: -> { link_to 'x', newspaper_base, method: :delete, data: { confirm: 'Are you sure?' }, remote: true },
        edit: -> { link_to 'Edit', edit_polymorphic_path(newspaper_base) },
        sort_num: -> {best_in_place newspaper_base, :sort_num, type: :input},
-       new_box_flg: -> { best_in_place newspaper_base, :new_box_flg, type: :checkbox, collection: ["No, thanks", "Yes, of course!"] },
+       #add a tooltip for new box flg - 'Please click to change the flg'
+       new_box_flg: -> { best_in_place newspaper_base, :new_box_flg, type: :checkbox, collection: ["不显示图标", "显示图标"] },
        address: -> {best_in_place newspaper_base, :address, type: :input},
        city: -> {best_in_place newspaper_base, :city, type: :input},
        state: -> { best_in_place newspaper_base, :state, type: :input },

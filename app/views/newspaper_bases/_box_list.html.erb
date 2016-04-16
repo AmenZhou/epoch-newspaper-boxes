@@ -1,10 +1,10 @@
 <%= paginate @newspaper_bases%>
 <div class='box-list'>
-  <table class="table table-border table-hover table-striped dataTable">
+  <table class="table table-border table-hover table-striped dataTable newspaper-table">
     <thead>
       <tr>
         <% model_name::ColumnName.each do |column| %>
-         <th> <%= column.to_s.gsub('_', ' ').titleize%></th>
+         <th> <%= NewspaperBase::DisplayColumnName[column] %></th>
         <% end %>
       </tr>
     </thead>

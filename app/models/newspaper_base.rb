@@ -16,7 +16,33 @@ class NewspaperBase < ActiveRecord::Base
 
   ColumnName = [:delete, :edit, :sort_num, :address, :city, :state, :zip, :borough_detail, :address_remark, :created_at, :deliver_type, :iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun, :date_t, :remark, :building, :place_type]
   SumArray = [:iron_box, :plastic_box, :selling_box, :paper_shelf, :mon, :tue, :wed, :thu, :fri, :sat, :sun]
-
+  DisplayColumnName = {
+    delete: '删除',
+    edit:   '编辑',
+    sort_num: '排序号码',
+    new_box_flg: '新报箱图标',
+    address: '地址',
+    city: '城市',
+    state: '州',
+    zip: '邮编',
+    borough_detail: '区',
+    address_remark: '地址备注',
+    created_at: '创建时间',
+    deliver_type: '发行方式',
+    iron_box: '铁报箱',
+    plastic_box: '塑料报箱',
+    selling_box: '收费报箱',
+    paper_shelf: '报架',
+    mon: '周一',
+    tue: '周二',
+    wed: '周三',
+    thu: '周四',
+    fri: '周五',
+    sat: '周六',
+    sun: '周日',
+    date_t: '日期',
+    remark: '备注'
+  }
   scope :by_address, -> (address) { where('address LIKE ?', "%#{address}%")}
 
   scope :by_group, ->(group) { group(group).select("#{group}, sum(mon) as mon, sum(tue) as tue,  sum(wed) as wed, sum(thu) as thu,  sum(fri) as fri,  sum(sat) as sat, sum(sun) as sun") }
